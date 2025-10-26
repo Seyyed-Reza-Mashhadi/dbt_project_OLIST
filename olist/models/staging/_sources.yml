@@ -1,0 +1,14 @@
+sources:
+- name: olist_dataset
+  database: olist-ecommerce-2025
+  schema: rawdata
+  tables:
+    - name: customers
+    - name: geolocation
+    - name: order_items
+    - name: order_payments
+    - name: order_reviews
+    - name: orders
+    - name: products
+    - name: sellers
+    
