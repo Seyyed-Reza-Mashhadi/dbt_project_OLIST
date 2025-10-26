@@ -1,3 +1,5 @@
+version: 2
+
 sources:
 - name: olist_dataset
   database: olist-ecommerce-2025

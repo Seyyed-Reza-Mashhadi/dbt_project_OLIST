@@ -1,7 +1,8 @@
 olist:
   outputs:
     dev:
-      dataset: olist-ecommerce-2025
+      # dataset: olist-ecommerce-2025
+      schema: rawdata
       job_execution_timeout_seconds: 600
       job_retries: 1
       keyfile: D:/My_Projects/dbt_project_OLIST/olist/olist-ecommerce-2025-90493c1e49bc.json
