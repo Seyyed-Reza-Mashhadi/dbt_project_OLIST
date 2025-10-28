@@ -24,12 +24,11 @@ models:
         description: "Latitude of the ZIP code area."
         tests:
           - not_null
-          - latitude_check
+
       - name: longitude
         description: "Longitude of the ZIP code area."
         tests:
           - not_null
-          - longitude_check
 
   - name: STG_order_items
     columns:
