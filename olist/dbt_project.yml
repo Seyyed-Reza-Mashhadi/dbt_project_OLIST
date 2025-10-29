@@ -38,6 +38,11 @@ models:
       schema: intermediate
       +materialized: view
  
-    marts:
+    mart:
       schema: mart
       +materialized: table
+
+seeds:
+  olist:
+    brazil_states:
+      file: seeds/brazil_states.csv
