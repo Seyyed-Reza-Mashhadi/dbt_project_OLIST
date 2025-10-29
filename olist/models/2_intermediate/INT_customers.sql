@@ -8,7 +8,7 @@ SELECT
     so.order_delivered_carrier_date,
     so.order_delivered_customer_date,
     so.order_estimated_delivery_date,  
-    ----- columns from INT_agg_order_payments
+    ----- columns from INT_order_payments_agg
     iaop.payment_sequential,
     iaop.payment_type, 
     iaop.payment_installments,
@@ -18,8 +18,8 @@ SELECT
     sc.zip_code_prefix,
     sc.city,
     sc.province
-FROM {{ ref('STG_orders') }} AS so
-JOIN {{ ref('INT_agg_order_payments') }} AS iaop
+FROM {{ ref('INT_orders_cleansed') }} AS so
+LEFT JOIN {{ ref('INT_order_payments_agg') }} AS iaop
     ON iaop.order_id = so.order_id
-JOIN {{ ref('STG_customers') }} AS sc
+LEFT JOIN {{ ref('STG_customers') }} AS sc
     ON sc.customer_id = so.customer_id
