@@ -1,5 +1,4 @@
--- OBJECTIVE: Apply core data quality cleansing rules to the order data.
--- This model ensures that only logically consistent orders are passed to the next layers by
+-- OBJECTIVE: This model ensures that only logically consistent orders are passed to the next layers by
 -- removing orders that are marked as 'delivered' but have no payment record.
 
 WITH orders AS (

@@ -1,5 +1,5 @@
 SELECT 
-    ---- columns from STG_orders
+    ---- columns from INT_orders_cleansed
     so.order_id,
     so.customer_id,
     so.order_status,
@@ -12,14 +12,8 @@ SELECT
     iaop.payment_sequential,
     iaop.payment_type, 
     iaop.payment_installments,
-    iaop.payment_value,
-    ----- columns from STG_customers
-    sc.customer_unique_id,
-    sc.zip_code_prefix,
-    sc.city,
-    sc.province
+    iaop.payment_value
+    
 FROM {{ ref('INT_orders_cleansed') }} AS so
 LEFT JOIN {{ ref('INT_order_payments_agg') }} AS iaop
     ON iaop.order_id = so.order_id
-LEFT JOIN {{ ref('STG_customers') }} AS sc
-    ON sc.customer_id = so.customer_id
