@@ -1,3 +1,4 @@
+-- DIM_sellers.sql
 SELECT
     s.seller_id,
     s.zip_code_prefix,
