@@ -58,3 +58,10 @@ Interpretation
 You got 1234 warnings → meaning there are many canceled/unavailable orders that still show payments.
 That’s not “your fault” — it’s business-logic inconsistency in the Olist dataset, which is known to have this.
 ✅ Verdict: Test is perfectly valid. The large count just tells you about data issues, not code issues.
+
+
+
+I calculated the RFM based on the last year data. For long term customers, all data can be considered and analyzed but analyzing the data of 1 year is common for ....
+i also used a simple RFM score, summing up the scores for segmenting customers into different categories. ...
+
+
