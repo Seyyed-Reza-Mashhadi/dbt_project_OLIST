@@ -1,16 +1,32 @@
 version: 2
 
 sources:
-- name: olist_dataset
-  database: olist-ecommerce-2025
-  schema: rawdata
-  tables:
-    - name: customers
-    - name: geolocation
-    - name: order_items
-    - name: order_payments
-    - name: order_reviews
-    - name: orders
-    - name: products
-    - name: sellers
-    
+  - name: olist_dataset
+    description: "Raw tables from the Olist Brazilian E-Commerce Public Dataset on Kaggle. Each table represents a different aspect of the e-commerce ecosystem — customers, sellers, products, orders, payments, reviews, and geolocation data."
+    database: olist-ecommerce-2025
+    schema: rawdata
+
+    tables:
+      - name: customers
+        description: "Contains unique customer identifiers, their city, and state. Each record represents one customer and can be linked to orders through the `customer_id` field."
+
+      - name: geolocation
+        description: "Maps Brazilian ZIP codes (geolocation_zip_code_prefix) to latitude and longitude coordinates, cities, and states. Useful for regional or distance-based analyses."
+
+      - name: order_items
+        description: "Details each item within an order, including product, seller, price, and freight cost. Acts as a line-item-level table linking orders, products, and sellers."
+
+      - name: order_payments
+        description: "Includes payment transactions for each order, with payment type (credit card, boleto, etc.), number of installments, and total amount paid."
+
+      - name: order_reviews
+        description: "Customer-generated product and delivery reviews for each order, including review scores (1–5), comments, and timestamps for review creation and answers."
+
+      - name: orders
+        description: "Master table of all customer orders. Contains timestamps for order creation, approval, delivery, and estimated delivery. Central to linking customers, payments, reviews, and items."
+
+      - name: products
+        description: "Product catalog including product dimensions, weight, and category name. Can be joined to order_items for sales and performance analysis."
+
+      - name: sellers
+        description: "Information about marketplace sellers, including their location (city and state). Each seller can have multiple products and orders."
