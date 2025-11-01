@@ -2,11 +2,12 @@ version: 2
 
 models:
   - name: STG_customers
+    description: "Customer data with standardized data formats and column names."
     config:
       schema: staging
     columns:
       - name: customer_id
-        description: "System-generated customer identifier used in transactional tables. Note that we have this id because different seller may have different ids for the same customer"
+        description: "System-generated customer identifier used in transactional tables. Note that we have this id because different seller may have different ids for the same customer."
         tests:
           - not_null
           - unique
@@ -16,6 +17,7 @@ models:
           - not_null
 
   - name: STG_geolocation
+    description: "Geolocation data with standardized data formats and column names."
     config:
       schema: staging
       materialized: view
@@ -24,28 +26,26 @@ models:
         description: "Latitude of the ZIP code area."
         tests:
           - not_null
-
       - name: longitude
         description: "Longitude of the ZIP code area."
         tests:
           - not_null
 
   - name: STG_order_items
+    description: "Order item data with standardized data formats and column names."
     columns:
       - name: order_id
-        description: "Order identifier key"
+        description: "Order identifier key."
         tests:
           - not_null
           - relationships:
               arguments:
                 to: ref('STG_orders')
                 field: order_id
-      
       - name: order_item_id
         description: "Unique identifier for each item within an order."
         tests:
           - not_null
-
       - name: product_id
         description: "Product identifier key."
         tests:
@@ -54,7 +54,6 @@ models:
               arguments:
                 to: ref('STG_products')
                 field: product_id
-      
       - name: seller_id
         description: "Seller identifier key."
         tests:
@@ -63,19 +62,19 @@ models:
               arguments:
                 to: ref('STG_sellers')
                 field: seller_id
-
       - name: price
-        description: "Price of the product"
+        description: "Price of the product."
         tests:
           - not_null
           - not_negative
       - name: freight_value
-        description: "Freight value for the product for that specific order"
+        description: "Freight value for the product for that specific order."
         tests:
           - not_null
           - not_negative
 
   - name: STG_order_payments
+    description: "Order payment data with standardized data formats and column names."
     columns:
       - name: order_id
         description: "Order identifier key."
@@ -103,6 +102,7 @@ models:
                 values: ['credit_card', 'boleto', 'voucher', 'debit_card', 'not_defined']
 
   - name: STG_order_reviews
+    description: "Order review data with standardized data formats and column names."
     columns:
       - name: review_id
         description: "Unique identifier for each review."
@@ -118,6 +118,7 @@ models:
                 field: order_id
 
   - name: STG_orders
+    description: "Order data with standardized data formats and column names."
     config:
       schema: staging
       materialized: view
@@ -143,6 +144,7 @@ models:
                 values: ['delivered', 'approved', 'canceled', 'shipped', 'invoiced', 'processing', 'unavailable', 'created']
 
   - name: STG_products
+    description: "Product data with standardized data formats and column names."
     columns:
       - name: product_id
         description: "Unique product identifier."
@@ -151,6 +153,7 @@ models:
           - unique
 
   - name: STG_sellers
+    description: "Seller data with standardized data formats and column names."
     columns:
       - name: seller_id
         description: "Unique seller identifier."
