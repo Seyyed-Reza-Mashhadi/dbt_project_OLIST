@@ -1,3 +1,4 @@
+-- DIM_order_reviews.sql
 SELECT
   review_id,
   order_id,

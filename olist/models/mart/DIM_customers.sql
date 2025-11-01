@@ -1,3 +1,4 @@
+-- DIM_customers.sql
 SELECT  
     ----- columns from STG_customers
     sc.customer_id,

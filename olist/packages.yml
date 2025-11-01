@@ -1,0 +1,4 @@
+# packages.yml
+packages:
+  - package: godatadriven/dbt_date
+    version: 0.16.1

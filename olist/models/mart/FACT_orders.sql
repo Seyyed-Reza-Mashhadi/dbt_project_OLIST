@@ -1,3 +1,4 @@
+-- FACT_orders.sql
 SELECT 
     ---- columns from INT_orders_cleansed
     so.order_id,
