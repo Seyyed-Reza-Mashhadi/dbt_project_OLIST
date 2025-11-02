@@ -1,4 +1,4 @@
-<h1 align="center">  dbt Project - Olist Dataset </h1>  
+<h1 align="center">  dbt Project - Olist Ecommerce Dataset </h1>  
 <p align="center">
   <img src="https://github.com/user-attachments/assets/f44ab50e-220b-42be-a0e0-91068f7d5cdf" width="2000">
 </p>
@@ -282,6 +282,7 @@ Overall, this dbt project bridges data engineering and analytics, demonstrating 
 <p align="center">
   <img src="https://github.com/user-attachments/assets/8a237af7-5bdd-4c16-84d2-cacdb25920d8" width="1000">
 </p>
+
 
 
 
