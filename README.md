@@ -16,7 +16,7 @@ The strength of **dbt** lies in providing a scalable, version-controlled develop
 - 🧱 **Data Modeling & Architecture**
   - Implement a clean, layered structure: **staging** → **intermediate** → **marts**
   - Build star-schema **fact** and **dimension** tables for analytics
-  - Create standalone analytical models such as **RFM segmentation**, **cohort retention**, and customer/seller performance
+  - Create standalone analytical models such as **customer RFM segmentation**, **cohort retention**, and customer/seller performance
 
 - ✅ **Data Quality & Testing**
   - Apply **generic**, **custom generic**, and **singular tests** to ensure data integrity and validate business logic
@@ -151,6 +151,7 @@ WHERE latitude < -90 OR latitude > 90 OR longitude < -180 OR longitude > 180
 - **Result:** ~258 mismatches were detected. Logically, the test should use `error` severity to fail the run, but due to quirks in the dataset (e.g., installment interest and other inconsistencies), it was set to `warn` to allow the pipeline to continue while still flagging potential issues.
 
 <p align="center"><i>`payment_test_1.sql`</i></p>
+
 ```sql 
 
 {{ config(severity='warn') }}  
@@ -166,8 +167,7 @@ INNER JOIN {{ ref('STG_orders') }} as s
     ON p.order_id = s.order_id
 WHERE 
     s.order_status IN ('delivered', 'shipped', 'invoiced')
-    -- Check for a difference greater than a small tolerance (e.g., 10 cent)
-    AND ABS(p.payment_value - (o.total_price + o.total_freight_value)) > 0.10
+    AND ABS(p.payment_value - (o.total_price + o.total_freight_value)) > 0.10 -- considering a small tolerance (e.g., 10 cent)
 ```
 
 
@@ -183,19 +183,6 @@ A **Recency, Frequency, Monetary (RFM)** model in the marts layer segments custo
 
 This model demonstrates how dbt outputs feed BI dashboards or retention analytics.
 
-## 🧮 Macros, Seeds, & Packages  
-
-### 🔹 Macros  
-Reusable logic for date-differences, rounding, and environment-aware schema naming.  
-👉 **Put macro snippet here**
-
-### 🔹 Seeds  
-Reference tables (e.g., product-category translations, RFM thresholds).  
-👉 **Put seed CSV example here**
-
-### 🔹 Packages  
-- `dbt-utils` – relationship & integrity tests  
-- `dbt-expectations` – advanced data-validation rules  
 
 ## ☁️ Deployment on dbt Cloud  
 
@@ -221,6 +208,7 @@ Executed on **dbt Cloud** with **BigQuery** backend.
 ## 🏁 Conclusion  
 This project demonstrates a **complete dbt workflow** from raw data to analytics-ready marts, combining technical depth with data-quality awareness.  
 It showcases strong understanding of **data modeling, testing, and analytical design**, proving readiness for real-world data-engineering and analytics roles.  
+
 
 
 
