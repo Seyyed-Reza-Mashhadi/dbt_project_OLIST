@@ -4,11 +4,11 @@
 </p>
 
 ## 🧩 About the Project  
-This project transforms and validates the Olist Brazilian E-commerce dataset using **dbt (Data Build Tool)** with **Google BigQuery** as the data warehouse. After loading raw CSV files into BigQuery, dbt manages the **complete ELT workflow** — covering **data modeling**, **testing**, **documentation**, and **analytics readiness**.
+This project transforms and validates the Olist Brazilian E-commerce dataset using **dbt (Data Build Tool)** with **Google BigQuery** as the data warehouse. After loading raw CSV files into BigQuery, dbt manages the **transformation** in the ELT workflow — covering **data modeling**, **testing**, **documentation**, and **analytics readiness**. 
 
 🔗 **Dataset:** The data is available on [Kaggle](https://www.kaggle.com/datasets/olistbr/brazilian-ecommerce)
 
-The project was initially developed locally using **dbt-core** in **VS Code**, connected to **BigQuery** through a **service account key**. After completing the development, the **GitHub repository** was linked to **dbt Cloud** to execute transformations and explore the **dbt Catalog**.
+The project was initially developed locally using **dbt-core** in **VS Code**, connected to **BigQuery** through a **service account key**. After completing the development, the **GitHub repository** was linked to **dbt Cloud** to execute transformations and explore the **dbt Catalog**. 
 
 ## 🎯 Objectives
 The strength of **dbt** lies in providing a scalable, version-controlled development lifecycle that ensures consistency in how data is modeled, tested, and deployed across environments and teams. This project explores the end-to-end process of building a **modular and maintainable** dbt project by following the objectives below:
@@ -16,7 +16,7 @@ The strength of **dbt** lies in providing a scalable, version-controlled develop
 - 🧱 **Data Modeling & Architecture**
   - Implement a clean, layered structure: **staging** → **intermediate** → **marts**
   - Build star-schema **fact** and **dimension** tables for analytics
-  - Create standalone analytical models such as **customer RFM segmentation**, **cohort retention**, and customer/seller performance
+  - Create standalone analytical models such as **customer RFM segmentation**, **cohort retention**, and customer/seller performance.
 
 - ✅ **Data Quality & Testing**
   - Apply **generic**, **custom generic**, and **singular tests** to ensure data integrity and validate business logic
@@ -59,7 +59,13 @@ sources:
 ```
 
 ## 🧩 Modeling, Testing & Transformation Workflow  
-In dbt, data transformation, testing, and documentation are tightly integrated — not sequential. As each model is created or updated by each transformation step, it is immediately tested, and becomes part of the **DAG (Directed Acyclic Graph)**. 
+In dbt, data transformation, testing, and documentation are tightly integrated rather than sequential. Each model, once created or updated, it is immediately tested and incorporated into the project's **Directed Acyclic Graph (DAG)**. 
+
+<p align="center"><i>DAG of DIM_sellers model</i></p>
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/eacffebc-d6cf-4a6a-9c57-ad0b1c8d8a0c" width="600">
+</p>
+
 
 ### 🧱 Model Layers
 #### Overview
@@ -67,7 +73,7 @@ In dbt, data transformation, testing, and documentation are tightly integrated �
 - **Intermediate Layer** – Performs joins, aggregations, and logic transformations between staging and marts.
 - **Marts Layer** – Produces analytics-ready tables for reporting and BI, including both **star schema** models and **standalone analytical models** such as RFM segmentation, seller performance, and delivery reliability.
 
-A **seed** CSV enriches the models with full province names (linked by province abbreviation). Additionally, a **macro** automates **schema** assignment in BigQuery based on each model’s folder location — ensuring organized and scalable dataset management. 
+A **seed** CSV enriches the models with full province names (linked by province abbreviation). Additionally, the `schema.sql` **macro** ensures schema naming consistency and automates dataset organization inside BigQuery. 
 
 <p align="center"><i>`schema.sql`</i></p>
 
@@ -173,7 +179,7 @@ WHERE latitude < -90 OR latitude > 90 OR longitude < -180 OR longitude > 180
 - **Purpose:** Ensures financial completeness & accuracy  
 - **Tolerance:** ±0.05 (to avoid rounding noise)  
 - **Severity:** ⚠️ `warn`
-- **Result:** ~258 mismatches were detected. Logically, the test should use `error` severity to fail the run, but due to quirks in the dataset (e.g., installment interest and other inconsistencies), it was set to `warn` to allow the pipeline to continue while still flagging potential issues.
+- **Result:** ~258 mismatches were detected. Logically, this test should have an `error` severity to fail the run, but due to known data quirks (e.g., installment interest), it was set to `warn` to allow the pipeline to continue while still flagging potential issues.
 
 <p align="center"><i>`payment_test_1.sql`</i></p>
 
@@ -240,7 +246,7 @@ seeds:
 - **Automatic Documentation:** dbt Cloud generates an interactive documentation site (dbt docs generate) including model descriptions, lineage graphs, and test results.
 
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/47f5bcdf-5f0a-4541-88af-e42f9af8757a" width="1000">
+  <img src="https://github.com/user-attachments/assets/47f5bcdf-5f0a-4541-88af-e42f9af8757a" width="800">
 </p>
 
 - **Data Health & Monitoring:** Built-in data quality dashboards show the latest test outcomes with intuitive green/yellow/red status icons.
@@ -249,18 +255,24 @@ seeds:
   <img src="https://github.com/user-attachments/assets/e3732a69-2110-4ec8-bd5b-abb1c3f138ce" width="300">
 </p>
 
--  **Directed Acyclic Graph (DAG)** visualizes the complete data flow and provides both data-level and column-level traceability, enabling effective troubleshooting, debugging, and ensuring data quality throughout the transformation pipeline.
+-  The **Directed Acyclic Graph (DAG)** provides both data- and column-level traceability, supporting efficient debugging and ensuring data quality across the pipeline.
+
 <p align="center">
   <img src="https://github.com/user-attachments/assets/368aeac8-0f79-41b5-a47a-fd051eca20e1" width="800">
 </p>
 
-## 📊 Key Learnings & Insights  
+## 🧩 Final Remarks
 
-1. **Mastering dbt Concepts** – correct use of `source()` & `ref()` ensures dependency-aware builds.  
-2. **Value of Testing** – custom & singular tests exposed genuine data issues in Olist.  
-3. **Business Relevance** – RFM and performance models connect technical work to real analytics.  
-4. **ELT Mindset** – dbt streamlines post-load transformation aligned with modern DE practices.  
-5. **Documentation & Lineage** – auto-generated docs make pipelines auditable and transparent.
+This project highlights dbt’s strength as a **transformation framework**, enabling modular, tested, and transparent data pipelines. Even as a static project, it demonstrates the complete transformation workflow — from staging and intermediate logic to analytical marts — emphasizing the “T” in ELT.
+
+While **freshness** and **incremental models** were not needed here, they remain essential for real-time or production pipelines. dbt Cloud’s **Catalog** and **Lineage** features provided deep visibility into data dependencies and column-level transformations.
+
+Custom testing exposed **over 200 mismatches** between order payments and product price totals, revealing real-world inconsistencies in the Olist dataset — likely due to installment payments with interest, taxes, or other adjustments.
+
+Analytical models in the mart layer added value for analytics and reporting. For instance, **Cohort Retention** and **RFM Segmentation** (visualized in Power BI, shown below) show strong acquisition but weak retention: **fewer than 1% of customers** repurchase after their first month. Only **~12.5% of customers** qualify as loyal or champion segments, while most revenue comes from potential loyalists.
+
+Overall, this dbt project bridges data engineering and analytics, demonstrating how clean, tested transformations can power reliable business insights and BI-ready datasets.
+
 
 
 <p align="center">
@@ -271,13 +283,7 @@ seeds:
   <img src="https://github.com/user-attachments/assets/8a237af7-5bdd-4c16-84d2-cacdb25920d8" width="1000">
 </p>
 
-## 🔗 Related Projects  
-- **[SQL Sales Performance Analysis (PostgreSQL)](your_sql_project_link_here)**  
-- **[Power BI Sales Dashboard](your_powerbi_project_link_here)**  
 
-## 🏁 Conclusion  
-This project demonstrates a **complete dbt workflow** from raw data to analytics-ready marts, combining technical depth with data-quality awareness.  
-It showcases strong understanding of **data modeling, testing, and analytical design**, proving readiness for real-world data-engineering and analytics roles.  
 
 
 
