@@ -35,7 +35,7 @@ The strength of **dbt** lies in providing a scalable, version-controlled develop
 The picture below shows the dbt project folder structure. 
 
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/1befca44-0fda-4b36-b7da-07c2a86e639a" width="800">
+  <img src="https://github.com/user-attachments/assets/1befca44-0fda-4b36-b7da-07c2a86e639a" width="700">
 </p>
 
 
@@ -240,13 +240,13 @@ seeds:
 - **Scheduled Jobs:** Automate builds (e.g., dbt build, dbt test) on a defined cadence or trigger via CI/CD.
 
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/f37f9df2-f815-4843-a604-20e9305dabeb" width="800">
+  <img src="https://github.com/user-attachments/assets/f37f9df2-f815-4843-a604-20e9305dabeb" width="700">
 </p>
 
 - **Automatic Documentation:** dbt Cloud generates an interactive documentation site (dbt docs generate) including model descriptions, lineage graphs, and test results.
 
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/47f5bcdf-5f0a-4541-88af-e42f9af8757a" width="800">
+  <img src="https://github.com/user-attachments/assets/47f5bcdf-5f0a-4541-88af-e42f9af8757a" width="700">
 </p>
 
 - **Data Health & Monitoring:** Built-in data quality dashboards show the latest test outcomes with intuitive green/yellow/red status icons.
@@ -258,7 +258,7 @@ seeds:
 -  The **Directed Acyclic Graph (DAG)** provides both data- and column-level traceability, supporting efficient debugging and ensuring data quality across the pipeline.
 
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/368aeac8-0f79-41b5-a47a-fd051eca20e1" width="800">
+  <img src="https://github.com/user-attachments/assets/368aeac8-0f79-41b5-a47a-fd051eca20e1" width="700">
 </p>
 
 ## 🧩 Final Remarks
@@ -282,6 +282,7 @@ Overall, this dbt project bridges data engineering and analytics, demonstrating 
 <p align="center">
   <img src="https://github.com/user-attachments/assets/8a237af7-5bdd-4c16-84d2-cacdb25920d8" width="1000">
 </p>
+
 
 
 
