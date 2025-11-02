@@ -1,4 +1,4 @@
-# Olist Data Transformation with dbt & BigQuery  
+# dbt Project - Olist Dataset 
 <img width="2000" height="1025" alt="image" src="https://github.com/user-attachments/assets/f44ab50e-220b-42be-a0e0-91068f7d5cdf" />
 
 ## 🧩 About the Project  
@@ -17,6 +17,10 @@ The main goal is to show a clear understanding of how to:
 - Demonstrate **materializations** (views, tables, incremental models) and **global configs**  
 - Build analytical models such as **RFM segmentation** and **order performance**  
 - Deploy and run transformations on **dbt Cloud + BigQuery**
+
+---
+we need to mention that BIGquery is computing power, connection is done with services account and key and that in VS code dbt-core and ....
+---
 
 ## 🏗️ Project Architecture  
 
@@ -69,7 +73,7 @@ To organize models in the BigQuery dataset, a **macro** created for automatic de
 
 Testing was a core part of this project, using both **generic**, and **singular** tests.
 
-### 🧰 Generic Tests  
+### Generic Tests  
 In this project, generic tests ensure fundamental data integrity. Defining **unique** and **not_null** tests for primary keys is essential, while **relationships** tests validate foreign key references. For columns with a limited set of valid categorical values (e.g., `order_status`), **accepted_values** tests are applied to enforce consistency.
 
 ```yml
@@ -102,7 +106,7 @@ In this project, generic tests ensure fundamental data integrity. Defining **uni
                 values: ['credit_card', 'boleto', 'voucher', 'debit_card', 'not_defined']
 ```
 
-### 🧩 Custom Generic Test  
+### Custom Generic Test  
 The `not_negative` test ensures that numeric columns (e.g., `price`, `payment_value`) never contain negative values. Designed as a **custom generic test**, it is modular and can be applied to multiple models and columns across the project for consistent data validation.
 
 ```sql
@@ -114,7 +118,7 @@ The `not_negative` test ensures that numeric columns (e.g., `price`, `payment_va
 ```
 
 
-### 🧩 Singular Tests – Business Logic & Cross-Table Validation  
+### Singular Tests – Business Logic & Cross-Table Validation  
 
 We implemented domain-specific singular tests to ensure business logic and data consistency. These tests highlight how **dbt enables rule-based data validation** beyond basic null checks. 
 
@@ -210,3 +214,4 @@ Executed on **dbt Cloud** with **BigQuery** backend.
 ## 🏁 Conclusion  
 This project demonstrates a **complete dbt workflow** from raw data to analytics-ready marts, combining technical depth with data-quality awareness.  
 It showcases strong understanding of **data modeling, testing, and analytical design**, proving readiness for real-world data-engineering and analytics roles.  
+
