@@ -1,26 +1,34 @@
-# dbt Project - Olist Dataset 
-<img width="2000" height="1025" alt="image" src="https://github.com/user-attachments/assets/f44ab50e-220b-42be-a0e0-91068f7d5cdf" />
+<h1 align="center">  dbt Project - Olist Dataset </h1>  
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/f44ab50e-220b-42be-a0e0-91068f7d5cdf" width="2000">
+</p>
 
 ## 🧩 About the Project  
-This project transforms and validates the [Olist Brazilian E-commerce dataset](https://www.kaggle.com/datasets/olistbr/brazilian-ecommerce) using **dbt (Data Build Tool)** and **Google BigQuery**.  
-It demonstrates a complete **ELT (Extract, Load, Transform)** workflow, focusing on **data modeling, testing, documentation, and analytics readiness**.  
+This project transforms and validates the Olist Brazilian E-commerce dataset using **dbt (Data Build Tool)** with **Google BigQuery** as the data warehouse. After loading raw CSV files into BigQuery, dbt manages the **complete ELT workflow** — covering **data modeling**, **testing**, **documentation**, and **analytics readiness**.
 
-The main goal is to show a clear understanding of how to:  
-- Build a modular and maintainable **dbt** project  
-- Use **sources**, **refs**, **macros**, and **tests** correctly  
-- Apply data-quality principles and detect inconsistencies through **custom tests**  
-- Transform raw e-commerce data into analytics-ready fact and dimension models  
+🔗 **Dataset:** The data is available on [Kaggle](https://www.kaggle.com/datasets/olistbr/brazilian-ecommerce)
 
-## 🎯 Objectives  
-- Develop a clean **dbt** structure with clear schema naming (staging → intermediate → marts)  
-- Implement **generic**, **custom generic**, and **singular** tests for data quality  
-- Demonstrate **materializations** (views, tables, incremental models) and **global configs**  
-- Build analytical models such as **RFM segmentation** and **order performance**  
-- Deploy and run transformations on **dbt Cloud + BigQuery**
+The project was initially developed locally using **dbt-core** in **VS Code**, connected to **BigQuery** through a **service account key**. After completing the development, the **GitHub repository** was linked to **dbt Cloud** to execute transformations and explore the **dbt Catalog**.
 
----
-we need to mention that BIGquery is computing power, connection is done with services account and key and that in VS code dbt-core and ....
----
+## 🎯 Objectives
+The strength of **dbt** lies in providing a scalable, version-controlled development lifecycle that ensures consistency in how data is modeled, tested, and deployed across environments and teams. This project explores the end-to-end process of building a **modular and maintainable** dbt project by following the objectives below:
+
+- 🧱 **Data Modeling & Architecture**
+  - Implement a clean, layered structure: **staging** → **intermediate** → **marts**
+  - Build star-schema **fact** and **dimension** tables for analytics
+  - Create standalone analytical models such as **RFM segmentation**, **cohort retention**, and customer/seller performance
+
+- ✅ **Data Quality & Testing**
+  - Apply **generic**, **custom generic**, and **singular tests** to ensure data integrity and validate business logic
+
+- ⚙️ **Scalability & Maintainability**
+  - Use **sources**, **refs**, and **macros** to ensure modularity and dependency-aware builds
+  - Demonstrate different configurations such as **materializations** or test **severity**
+
+- ☁️ **Deployment & Documentation**
+  - Automate transformations and testing on **dbt Cloud** + **BigQuery**
+  - Generate interactive documentation and **DAG (Directed Acyclic Graph)** lineage visualizations for transparency and reproducibility using **dbt Catalog**
+
 
 ## 🏗️ Project Architecture  
 
@@ -214,4 +222,5 @@ Executed on **dbt Cloud** with **BigQuery** backend.
 ## 🏁 Conclusion  
 This project demonstrates a **complete dbt workflow** from raw data to analytics-ready marts, combining technical depth with data-quality awareness.  
 It showcases strong understanding of **data modeling, testing, and analytical design**, proving readiness for real-world data-engineering and analytics roles.  
+
 
