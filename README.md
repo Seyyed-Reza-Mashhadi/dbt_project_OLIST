@@ -58,13 +58,15 @@ sources:
       ...
 ```
 
-## 🧩 Data Transformation Flow: Creating Models  
-In this project, dbt **models** are built in three standard layers: 
-- **Staging Layer** – Clean column names, standardize datatypes, rename IDs, etc. 
-- **Intermediate Layer** – joins, aggregations, intermediate tables/views, etc.
-- **Marts Layer** – Final joins, aggregations, etc. for BI and reporting.  (RFM, seller performance, delivery reliability).
+## 🧩 Modeling, Testing & Transformation Workflow  
+In dbt, data transformation, testing, and documentation are tightly integrated — not sequential. As each model is created or updated by each transformation step, it is immediately tested, and becomes part of the **DAG (Directed Acyclic Graph)**. 
 
-Note that a **seed** CSV is used to add full province names to desired tables alongside their abbreviations. Moreover, a **macro** created for automatic definition of model **schema** based on folder's name in the models directory in order to organize models in the BigQuery dataset. 
+### 🧱 Model Layers
+- **Staging Layer** – Renaming column names, standardize datatypes, etc. 
+- **Intermediate Layer** – Performs joins, aggregations, and logic transformations between staging and marts.
+- **Marts Layer** – Produces analytics-ready tables for reporting and BI, including both **star schema** models and **standalone analytical models** such as RFM segmentation, seller performance, and delivery reliability.
+
+A **seed** CSV enriches the models with full province names (linked by province abbreviation). Additionally, a **macro** automates **schema** assignment in BigQuery based on each model’s folder location — ensuring organized and scalable dataset management. 
 
 <p align="center"><i>`schema.sql`</i></p>
 
@@ -78,10 +80,118 @@ Note that a **seed** CSV is used to add full province names to desired tables al
     {%- endif -%}
 {%- endmacro %}
 ```
+### A Look Into the Mart Layer
+The marts layer contains both dimensional and analytical models:
+- **Fact and Dimension Tables** – Form the basis of a star schema, including a `date` dimension table 
+- **standalone BI specific models:** Designed to answer concrete business questions and support dashboards (e.g., RFM segmentation, cohort retention, seller reliability).
 
-## ✅ dbt Tests for Data Quality & Integrity  
+  
+#### Example 1: RFM Segmentation Model
+This model segments customers using the classic **Recency, Frequency, Monetary (RFM)** framework:
+- **Metrics:**
+  - Recency (R): Days since last purchase
+  - Frequency (F): Number of purchases
+  - Monetary (M): Total spent
+- **Scope:** Last 12 months of transactions in the dataset are considered
+- Combined RFM score determines customer segments (*Champions*, *Loyal Customers*,*Potential Loyalists*, *At Risk*, *Lost*)
+
+```sql
+
+{%- set analysis_end_date = '2018-11-01' -%}
+{%- set analysis_start_date = '2017-11-01' -%}
+
+with orders_12m as (
+  select 
+    customer_unique_id,
+    order_id,
+    order_purchase_timestamp,
+    payment_value
+  from {{ ref('INT_customers_finalized_orders') }}  
+  where DATE(order_purchase_timestamp) >= DATE '{{ analysis_start_date }}'
+    and DATE(order_purchase_timestamp) <= DATE '{{ analysis_end_date }}'
+),
+
+customer_summary as (
+  select
+    customer_unique_id,
+    count(distinct order_id) as total_orders,
+    sum(payment_value) as total_spent,
+    min(order_purchase_timestamp) as first_order_date,
+    max(order_purchase_timestamp) as last_order_date,
+    DATE_DIFF(DATE '{{ analysis_end_date }}', DATE(max(order_purchase_timestamp)), DAY) as recency_days
+  from orders_12m
+  group by customer_unique_id
+),
+
+rfm_rank as (
+  select
+    customer_unique_id,
+    total_orders,
+    total_spent,
+    recency_days,
+    ntile(5) over (order by recency_days desc) as r_quintile_raw,
+    ntile(5) over (order by total_spent) as m_quintile_raw
+  from customer_summary
+),
+
+rfm_scores as (
+  select
+    customer_unique_id,
+    total_orders,
+    total_spent,
+    recency_days,
+    6 - r_quintile_raw as r_score,
+    -- rule-based frequency scoring (for heavily skewed data in olist dataset) - otherwise, use ntile(5) over (order by total_orders)
+    case 
+      when total_orders = 1 then 1
+      when total_orders = 2 then 3
+      when total_orders between 3 and 5 then 4
+      when total_orders > 5 then 5
+    end as f_score,
+    m_quintile_raw as m_score,
+    (6 - r_quintile_raw)
+    + case 
+        when total_orders = 1 then 1
+        when total_orders = 2 then 3
+        when total_orders between 3 and 5 then 4
+        when total_orders > 5 then 5
+      end
+    + m_quintile_raw as rfm_score
+  from rfm_rank
+)
+
+select
+  r.customer_unique_id,
+  r.total_orders,
+  r.total_spent,
+  r.recency_days,
+  r.r_score,
+  r.f_score,
+  r.m_score,
+  r.rfm_score,
+  concat(r.r_score, r.f_score, r.m_score) as rfm_label,
+  case 
+    when r.rfm_score >= 13 then 'Champions'
+    when r.rfm_score between 10 and 12 then 'Loyal Customers'
+    when r.rfm_score between 7 and 9 then 'Potential Loyalists'
+    when r.rfm_score between 4 and 6 then 'At Risk'
+    else 'Lost'
+  end as rfm_segment
+from rfm_scores as r
+```
+
+🔗 **File:** [RFM Segmentation Model](***)
+
+#### Example 2: Cohort Analysis Model
+This model groups customers into **cohorts** based on their **first purchase date** and tracks **customer retention rate** and spending across time periods. It evaluates both individual cohort performance and weighted averages to reveal overall customer lifecycle trends.
+
+🔗 **File:** [Cohort Analysis Model](***)
+
+
+## ✅ Integrated Data Testing
+Testing occurs alongside model development — ensuring every transformation maintains data quality before it’s used downstream.
 ### 1️⃣ Generic Tests  
-In this project, generic tests ensure fundamental data integrity. Defining **unique** and **not_null** tests for primary keys is essential, while **relationships** tests validate foreign key references. For columns with a limited set of valid categorical values (e.g., `order_status`), **accepted_values** tests are applied to enforce consistency.
+Generic tests ensure fundamental data integrity. Defining **unique** and **not_null** tests for primary keys is essential, while **relationships** tests validate foreign key references. For columns with a limited set of valid categorical values (e.g., `order_status`), **accepted_values** tests are applied to enforce consistency.
 
 <p align="center"><i>Excerpt from `_staging.yml`</i></p>
 
@@ -172,17 +282,6 @@ WHERE
 
 
 
-## 🧮 Analytical Modeling – RFM Segmentation  
-
-A **Recency, Frequency, Monetary (RFM)** model in the marts layer segments customers by behavior.  
-- Scope: **latest 12 months** of data (industry-standard window)  
-- Each metric scored **1–5**; summed to a total RFM score  
-- Segments such as *Loyal*, *At Risk*, *New* derived downstream  
-
-👉 **Put RFM SQL snippet here (recency/frequency/monetary calculation)**
-
-This model demonstrates how dbt outputs feed BI dashboards or retention analytics.
-
 
 ## ☁️ Deployment on dbt Cloud  
 
@@ -191,7 +290,47 @@ Executed on **dbt Cloud** with **BigQuery** backend.
 - Auto-generated documentation & lineage  
 - **Materializations** managed globally (tables/views/incremental)  
 
+```yaml
+
+name: 'olist'
+version: '1.0.0'
+profile: 'olist'
+model-paths: ["models"]
+analysis-paths: ["analyses"]
+test-paths: ["tests"]
+seed-paths: ["seeds"]
+macro-paths: ["macros"]
+snapshot-paths: ["snapshots"]
+clean-targets:         # directories to be removed by `dbt clean`
+  - "target"
+models:
+  olist:
+    staging:
+      schema: staging
+      +materialized: view
+    intermediate:
+      schema: intermediate
+      +materialized: view
+    mart:
+      schema: mart
+      +materialized: table
+seeds:
+  olist:
+    brazil_states:
+      file: seeds/brazil_states.csv
+```
+
 👉 **Put `dbt_project.yml` global config snippet here**
+
+## A Glimpse Into Analytics: RFM & Cohort Analysis 
+
+<img width="1240" height="755" alt="image" src="https://github.com/user-attachments/assets/64ad3d8d-7520-404c-b77a-178a7f71e8f8" />
+
+
+<img width="1506" height="548" alt="image" src="https://github.com/user-attachments/assets/8a237af7-5bdd-4c16-84d2-cacdb25920d8" />
+
+
+
 
 ## 📊 Key Learnings & Insights  
 
@@ -208,6 +347,7 @@ Executed on **dbt Cloud** with **BigQuery** backend.
 ## 🏁 Conclusion  
 This project demonstrates a **complete dbt workflow** from raw data to analytics-ready marts, combining technical depth with data-quality awareness.  
 It showcases strong understanding of **data modeling, testing, and analytical design**, proving readiness for real-world data-engineering and analytics roles.  
+
 
 
 
