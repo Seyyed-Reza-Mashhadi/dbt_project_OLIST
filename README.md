@@ -35,7 +35,7 @@ The strength of **dbt** lies in providing a scalable, version-controlled develop
 The picture below shows the dbt project folder structure. 
 
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/1befca44-0fda-4b36-b7da-07c2a86e639a" width="1000">
+  <img src="https://github.com/user-attachments/assets/1befca44-0fda-4b36-b7da-07c2a86e639a" width="800">
 </p>
 
 
@@ -62,6 +62,7 @@ sources:
 In dbt, data transformation, testing, and documentation are tightly integrated — not sequential. As each model is created or updated by each transformation step, it is immediately tested, and becomes part of the **DAG (Directed Acyclic Graph)**. 
 
 ### 🧱 Model Layers
+#### Overview
 - **Staging Layer** – Renaming column names, standardize datatypes, etc. 
 - **Intermediate Layer** – Performs joins, aggregations, and logic transformations between staging and marts.
 - **Marts Layer** – Produces analytics-ready tables for reporting and BI, including both **star schema** models and **standalone analytical models** such as RFM segmentation, seller performance, and delivery reliability.
@@ -80,13 +81,13 @@ A **seed** CSV enriches the models with full province names (linked by province 
     {%- endif -%}
 {%- endmacro %}
 ```
-### A Look Into the Mart Layer
+#### A Look Into the Mart Layer
 The marts layer contains both dimensional and analytical models:
 - **Fact and Dimension Tables** – Form the basis of a star schema, including a `date` dimension table 
 - **standalone BI specific models:** Designed to answer concrete business questions and support dashboards (e.g., RFM segmentation, cohort retention, seller reliability).
 
   
-#### Example 1: RFM Segmentation Model
+**Example 1: RFM Segmentation Model**
 This model segments customers using the classic **Recency, Frequency, Monetary (RFM)** framework:
 - **Metrics:**
   - Recency (R): Days since last purchase
@@ -94,10 +95,12 @@ This model segments customers using the classic **Recency, Frequency, Monetary (
   - Monetary (M): Total spent
 - **Scope:** Last 12 months of transactions in the dataset are considered
 - Combined RFM score determines customer segments (*Champions*, *Loyal Customers*,*Potential Loyalists*, *At Risk*, *Lost*)
+
 🔗 **File:** [RFM Segmentation Model](https://github.com/Seyyed-Reza-Mashhadi/dbt_project_OLIST/blob/master/olist/models/mart/BI_customer_rfm.sql)
 
-#### Example 2: Cohort Analysis Model
+**Example 2: Cohort Analysis Model**
 This model groups customers into **cohorts** based on their **first purchase date** and tracks **customer retention rate** and spending across time periods. It evaluates both individual cohort performance and weighted averages to reveal overall customer lifecycle trends.
+
 🔗 **File:** [Cohort Analysis Model](https://github.com/Seyyed-Reza-Mashhadi/dbt_project_OLIST/blob/master/olist/models/mart/BI_customer_cohorts.sql)
 
 ## ✅ Integrated Data Testing
@@ -194,14 +197,11 @@ WHERE
 
 ## ☁️ Deployment on dbt Cloud  
 
-After completing the dbt project, it is executed on **dbt Cloud**.  
-- Scheduled weekl builds for staging + marts  
-- Auto-generated documentation & lineage  
-- **Materializations** managed globally (tables/views/incremental)
+After completing and testing all dbt models locally using **dbt-core** in VS code, the project was deployed to **dbt Cloud**, connected directly to the GitHub repository for version control and continuous integration. The dbt Cloud environment is configured to use **Google BigQuery** as the data warehouse for computation and storage.
 
 <p align="center"><i>Excerpt from `dbt_project.yml`</i></p>
 
-```yaml
+```yml
 
 name: 'olist'
 version: '1.0.0'
@@ -230,12 +230,29 @@ seeds:
     brazil_states:
       file: seeds/brazil_states.csv
 ```
+**Key Features in dbt Cloud:**
+- **Scheduled Jobs:** Automate builds (e.g., dbt build, dbt test) on a defined cadence or trigger via CI/CD.
 
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/f37f9df2-f815-4843-a604-20e9305dabeb" width="800">
+</p>
 
+- **Automatic Documentation:** dbt Cloud generates an interactive documentation site (dbt docs generate) including model descriptions, lineage graphs, and test results.
 
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/47f5bcdf-5f0a-4541-88af-e42f9af8757a" width="1000">
+</p>
 
+- **Data Health & Monitoring:** Built-in data quality dashboards show the latest test outcomes with intuitive green/yellow/red status icons.
 
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/e3732a69-2110-4ec8-bd5b-abb1c3f138ce" width="300">
+</p>
 
+-  **Directed Acyclic Graph (DAG)** visualizes the complete data flow and provides both data-level and column-level traceability, enabling effective troubleshooting, debugging, and ensuring data quality throughout the transformation pipeline.
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/368aeac8-0f79-41b5-a47a-fd051eca20e1" width="800">
+</p>
 
 ## 📊 Key Learnings & Insights  
 
@@ -245,10 +262,14 @@ seeds:
 4. **ELT Mindset** – dbt streamlines post-load transformation aligned with modern DE practices.  
 5. **Documentation & Lineage** – auto-generated docs make pipelines auditable and transparent.
 
-<img width="1240" height="755" alt="image" src="https://github.com/user-attachments/assets/64ad3d8d-7520-404c-b77a-178a7f71e8f8" />
 
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/64ad3d8d-7520-404c-b77a-178a7f71e8f8" width="1000">
+</p>
 
-<img width="1506" height="548" alt="image" src="https://github.com/user-attachments/assets/8a237af7-5bdd-4c16-84d2-cacdb25920d8" />
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/8a237af7-5bdd-4c16-84d2-cacdb25920d8" width="1000">
+</p>
 
 ## 🔗 Related Projects  
 - **[SQL Sales Performance Analysis (PostgreSQL)](your_sql_project_link_here)**  
@@ -257,6 +278,7 @@ seeds:
 ## 🏁 Conclusion  
 This project demonstrates a **complete dbt workflow** from raw data to analytics-ready marts, combining technical depth with data-quality awareness.  
 It showcases strong understanding of **data modeling, testing, and analytical design**, proving readiness for real-world data-engineering and analytics roles.  
+
 
 
 
