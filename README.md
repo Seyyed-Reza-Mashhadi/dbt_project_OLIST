@@ -62,7 +62,8 @@ sources:
 In this project, dbt **models** are built in three standard layers: 
 - **Staging Layer** – Clean column names, standardize datatypes, rename IDs, etc. 
 - **Intermediate Layer** – joins, aggregations, intermediate tables/views, etc.
-- **Marts Layer** – Final joins, aggregations, etc. for BI and reporting.  (RFM, seller performance, delivery reliability). 
+- **Marts Layer** – Final joins, aggregations, etc. for BI and reporting.  (RFM, seller performance, delivery reliability).
+
 Note that a **seed** CSV is used to add full province names to desired tables alongside their abbreviations. Moreover, a **macro** created for automatic definition of model **schema** based on folder's name in the models directory in order to organize models in the BigQuery dataset. 
 
 <p align="center"><i>`schema.sql`</i></p>
@@ -77,11 +78,9 @@ Note that a **seed** CSV is used to add full province names to desired tables al
     {%- endif -%}
 {%- endmacro %}
 ```
-## ✅ Data Quality Testing  
 
-Testing was a core part of this project, using both **generic**, and **singular** tests.
-
-### Generic Tests  
+## ✅ dbt Tests for Data Quality & Integrity  
+### 1️⃣ Generic Tests  
 In this project, generic tests ensure fundamental data integrity. Defining **unique** and **not_null** tests for primary keys is essential, while **relationships** tests validate foreign key references. For columns with a limited set of valid categorical values (e.g., `order_status`), **accepted_values** tests are applied to enforce consistency.
 
 <p align="center"><i>Excerpt from `_staging.yml`</i></p>
@@ -113,8 +112,8 @@ models:
                 values: ['credit_card', 'boleto', 'voucher', 'debit_card', 'not_defined']
 ```
 
-### Custom Generic Test  
-The `not_negative` test ensures that numeric columns (e.g., `price`, `payment_value`) never contain negative values. Designed as a **custom generic test**, it is modular and can be applied to multiple models and columns across the project for consistent data validation.
+### 2️⃣ Custom Generic Test  
+The `not_negative` test ensures that numeric columns (e.g., `price`, `payment_value`) never contain negative values. As a **custom generic test**, it is modular and reusable across multiple models and columns.
 
 <p align="center"><i>`not_negative.sql`</i></p>
 
@@ -126,18 +125,16 @@ The `not_negative` test ensures that numeric columns (e.g., `price`, `payment_va
 {% endtest %} 
 ```
 
-
-### Singular Tests – Business Logic & Cross-Table Validation  
+### 3️⃣ Singular Tests – Business Logic & Cross-Table Validation  
 
 We implemented domain-specific singular tests to ensure business logic and data consistency. These tests highlight how **dbt enables rule-based data validation** beyond basic null checks. 
 
-#### Example 1: Coordinates validation**
-`coordinates_validation`
+#### Example 1: Coordinates validation
 - **Logic:** longitude and latitude ranges should be logical  
 - **Purpose:** Ensures data reliability for future BI illustrations in maps 
-- **Severity:** error (test failure stop runs)  
+- **Severity:** ❌ `error` 
 - **Result:** ~0 errors — good data quality  
-
+ 
 <p align="center"><i>`coordinates_validation.sql`</i></p>
 
 ```sql
@@ -147,13 +144,11 @@ WHERE latitude < -90 OR latitude > 90 OR longitude < -180 OR longitude > 180
 ```
 
 #### Example 2: Payment consistency
-Delivered/shipped/invoiced orders: payments = total item price + freight (link)
-`payment_test_1`
 - **Logic:** For delivered/shipped/invoiced orders, aggregated payments = item price + freight  
 - **Purpose:** Ensures financial completeness & accuracy  
 - **Tolerance:** ±0.05 (to avoid rounding noise)  
-- **Severity:** warn (test failure gives a warning but does not stop runs)  
-- **Result:** ~258 mismatches — likely due to installment interest or dataset quirks. Overall, it is decided to keep it as a *warning* test. 
+- **Severity:** ⚠️ `warn`
+- **Result:** ~258 mismatches were detected. Logically, the test should use `error` severity to fail the run, but due to quirks in the dataset (e.g., installment interest and other inconsistencies), it was set to `warn` to allow the pipeline to continue while still flagging potential issues.
 
 <p align="center"><i>`payment_test_1.sql`</i></p>
 ```sql 
@@ -226,6 +221,7 @@ Executed on **dbt Cloud** with **BigQuery** backend.
 ## 🏁 Conclusion  
 This project demonstrates a **complete dbt workflow** from raw data to analytics-ready marts, combining technical depth with data-quality awareness.  
 It showcases strong understanding of **data modeling, testing, and analytical design**, proving readiness for real-world data-engineering and analytics roles.  
+
 
 
 
