@@ -198,7 +198,7 @@ INNER JOIN {{ ref('STG_orders') }} as s
     ON p.order_id = s.order_id
 WHERE 
     s.order_status IN ('delivered', 'shipped', 'invoiced')
-    AND ABS(p.payment_value - (o.total_price + o.total_freight_value)) > 0.10 -- considering a small tolerance (e.g., 10 cent)
+    AND ABS(p.payment_value - (o.total_price + o.total_freight_value)) > 0.10 -- considering a small tolerance of 10 cents
 ```
 
 ## ☁️ Deployment on dbt Cloud  
@@ -282,6 +282,7 @@ Overall, this dbt project bridges data engineering and analytics, demonstrating 
 <p align="center">
   <img src="https://github.com/user-attachments/assets/8a237af7-5bdd-4c16-84d2-cacdb25920d8" width="1000">
 </p>
+
 
 
 
