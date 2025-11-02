@@ -32,14 +32,17 @@ The strength of **dbt** lies in providing a scalable, version-controlled develop
 
 ## 🏗️ Project Architecture  
 
-### 🧱 Folder Structure
-The picture below shows the dbt project files and its structure. 
+The picture below shows the dbt project folder structure. 
 
-<img width="1560" height="1125" alt="image" src="https://github.com/user-attachments/assets/1befca44-0fda-4b36-b7da-07c2a86e639a" />
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/1befca44-0fda-4b36-b7da-07c2a86e639a" width="1000">
+</p>
 
 
 ## ⚙️ Data Source Configuration  
-The source datasets were defined in `_sources.yml`, referencing BigQuery tables for all raw Olist data.  
+The source datasets are defined in `_sources.yml`, referencing all raw tables located in the `rawdata` schema of the `olist-ecommerce-2025` dataset in **BigQuery**.
+
+<p align="center"><i>Excerpt from `_sources.yml`</i></p>
 
 ``` yml
 version: 2
@@ -56,14 +59,13 @@ sources:
 ```
 
 ## 🧩 Data Transformation Flow: Creating Models  
-The transformation follows the dbt philosophy of **modular, dependency-aware modeling**.  
-`ref()` and `source()` ensure models build in the correct order.
-In this project, dbt **models** are built in three standard layers (**staging**, **intermediate**, and **mart**): 
-   - **Staging Layer** – Clean column names, standardize datatypes, rename IDs, etc. 
-   - **Intermediate Layer** – joins, aggregations, intermediate tables/veiws, etc.
-   - **Marts Layer** – Final joins, aggregations, etc. for BI and reporting.  (RFM, seller performance, delivery reliability). 
+In this project, dbt **models** are built in three standard layers: 
+- **Staging Layer** – Clean column names, standardize datatypes, rename IDs, etc. 
+- **Intermediate Layer** – joins, aggregations, intermediate tables/views, etc.
+- **Marts Layer** – Final joins, aggregations, etc. for BI and reporting.  (RFM, seller performance, delivery reliability). 
+Note that a **seed** CSV is used to add full province names to desired tables alongside their abbreviations. Moreover, a **macro** created for automatic definition of model **schema** based on folder's name in the models directory in order to organize models in the BigQuery dataset. 
 
-To organize models in the BigQuery dataset, a **macro** created for automatic definition of model **schema** based on folder's name in the models directory. 
+<p align="center"><i>`schema.sql`</i></p>
 
 ```
 {% macro generate_schema_name(custom_schema_name, node) -%}
@@ -75,8 +77,6 @@ To organize models in the BigQuery dataset, a **macro** created for automatic de
     {%- endif -%}
 {%- endmacro %}
 ```
- Note that a **seed** is used to add full province name to desired tables in addition to its abbreviation.   
-
 ## ✅ Data Quality Testing  
 
 Testing was a core part of this project, using both **generic**, and **singular** tests.
@@ -84,8 +84,12 @@ Testing was a core part of this project, using both **generic**, and **singular*
 ### Generic Tests  
 In this project, generic tests ensure fundamental data integrity. Defining **unique** and **not_null** tests for primary keys is essential, while **relationships** tests validate foreign key references. For columns with a limited set of valid categorical values (e.g., `order_status`), **accepted_values** tests are applied to enforce consistency.
 
+<p align="center"><i>Excerpt from `_staging.yml`</i></p>
+
 ```yml
-  - name: STG_order_payments
+version: 2
+models:
+- name: STG_order_payments
     description: "Order payment data with standardized data formats and column names."
     columns:
       - name: order_id
@@ -101,11 +105,6 @@ In this project, generic tests ensure fundamental data integrity. Defining **uni
         tests:
           - not_null
           - not_negative
-      - name: payment_installments
-        description: "Number of installments for the payment."
-        tests:
-          - not_null
-          - not_negative
       - name: payment_type
         description: "Payment method used for the order."
         tests:
@@ -116,6 +115,8 @@ In this project, generic tests ensure fundamental data integrity. Defining **uni
 
 ### Custom Generic Test  
 The `not_negative` test ensures that numeric columns (e.g., `price`, `payment_value`) never contain negative values. Designed as a **custom generic test**, it is modular and can be applied to multiple models and columns across the project for consistent data validation.
+
+<p align="center"><i>`not_negative.sql`</i></p>
 
 ```sql
 {% test not_negative(model, column_name) %}
@@ -137,6 +138,8 @@ We implemented domain-specific singular tests to ensure business logic and data 
 - **Severity:** error (test failure stop runs)  
 - **Result:** ~0 errors — good data quality  
 
+<p align="center"><i>`coordinates_validation.sql`</i></p>
+
 ```sql
 SELECT latitude, longitude
 FROM {{ ref('STG_geolocation') }}
@@ -152,6 +155,7 @@ Delivered/shipped/invoiced orders: payments = total item price + freight (link)
 - **Severity:** warn (test failure gives a warning but does not stop runs)  
 - **Result:** ~258 mismatches — likely due to installment interest or dataset quirks. Overall, it is decided to keep it as a *warning* test. 
 
+<p align="center"><i>`payment_test_1.sql`</i></p>
 ```sql 
 
 {{ config(severity='warn') }}  
@@ -222,5 +226,6 @@ Executed on **dbt Cloud** with **BigQuery** backend.
 ## 🏁 Conclusion  
 This project demonstrates a **complete dbt workflow** from raw data to analytics-ready marts, combining technical depth with data-quality awareness.  
 It showcases strong understanding of **data modeling, testing, and analytical design**, proving readiness for real-world data-engineering and analytics roles.  
+
 
 
