@@ -109,6 +109,11 @@ This model groups customers into **cohorts** based on their **first purchase dat
 
 🔗 **File:** [Cohort Analysis Model](https://github.com/Seyyed-Reza-Mashhadi/dbt_project_OLIST/blob/master/olist/models/mart/BI_customer_cohorts.sql)
 
+<p align="center"><i>Building Cohort Analysis Model with dbt in VS code</i></p>
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/609b0059-56c7-40ac-9a29-3cadb5cff9ed" width="800">
+</p>
+
 ## ✅ Integrated Data Testing
 Testing occurs alongside model development — ensuring every transformation maintains data quality before it’s used downstream.
 ### 1️⃣ Generic Tests  
@@ -282,6 +287,7 @@ Overall, this dbt project bridges data engineering and analytics, demonstrating 
 <p align="center">
   <img src="https://github.com/user-attachments/assets/8a237af7-5bdd-4c16-84d2-cacdb25920d8" width="1000">
 </p>
+
 
 
 
