@@ -269,7 +269,7 @@ While **freshness** and **incremental models** were not needed here, they remain
 
 Custom testing exposed **over 200 mismatches** between order payments and product price totals, revealing real-world inconsistencies in the Olist dataset — likely due to installment payments with interest, taxes, or other adjustments.
 
-Analytical models in the mart layer added value for analytics and reporting. For instance, **Cohort Retention** and **RFM Segmentation** (visualized in Power BI, shown below) show strong acquisition but weak retention: **fewer than 1% of customers** repurchase after their first month. Only **~12.5% of customers** qualify as loyal or champion segments, while most revenue comes from potential loyalists. This means that OLIST is functioning as a one-time, high-value purchase model, with revenue highly dependent on new customer acquisition and suffering from a near-total failure to generate repeat business. 
+Analytical models in the mart layer added value for analytics and reporting. For instance, **Cohort Retention** and **RFM Segmentation** (visualized in Power BI, shown below) show strong acquisition but weak retention: **fewer than 1% of customers** repurchase after their first month. Only **~12.5% of customers** qualify as loyal or champion segments, while most revenue comes from potential loyalists. This means that OLIST is functioning as a **one-time, high-value purchase model, with revenue highly dependent on new customer acquisition** and suffering from a near-total failure to generate repeat business. 
 
 Overall, this dbt project bridges data engineering and analytics, demonstrating how clean, tested transformations can power reliable business insights and BI-ready datasets.
 
@@ -282,6 +282,7 @@ Overall, this dbt project bridges data engineering and analytics, demonstrating 
 <p align="center">
   <img src="https://github.com/user-attachments/assets/8a237af7-5bdd-4c16-84d2-cacdb25920d8" width="1000">
 </p>
+
 
 
 
