@@ -2,7 +2,7 @@
 -- Test: Aggregated payment must equal (total price + total freight) 
 -- for orders that are delivered, shipped, or invoiced.
 
-{{ config(severity='warn') }}
+{{ config(severity='warn', store_failures = true) }}
 
 SELECT 
     p.order_id,

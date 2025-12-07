@@ -1,6 +1,6 @@
 -- ensuring delivered orders have delivery dates
 
-{{ config(severity='warn') }}
+{{ config(severity='warn', store_failures = true) }}
 
 SELECT
     order_id,

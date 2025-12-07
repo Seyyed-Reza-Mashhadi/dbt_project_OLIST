@@ -4,7 +4,7 @@
 -- FOCUS: Intersection of failed orders and existing payments.
 -- FAILURE MODE: High volume suggests poor inventory/fulfillment or slow refund processing.
 
-{{ config(severity='warn') }}
+{{ config(severity='warn', store_failures = true) }}
 
 SELECT 
     o.order_id,

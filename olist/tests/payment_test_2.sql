@@ -3,7 +3,7 @@
 -- FOCUS: Orders in STG_orders that are 'delivered', 'shipped', or 'invoiced'.
 -- FAILURE MODE: Revenue is missing or untraceable for fulfilled goods.
 
-{{ config(severity='warn') }}
+{{ config(severity='warn', store_failures = true) }}
 
 SELECT 
     o.order_id,
