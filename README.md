@@ -178,6 +178,7 @@ We implemented domain-specific singular tests to ensure business logic and data 
 SELECT latitude, longitude
 FROM {{ ref('STG_geolocation') }}
 WHERE latitude < -90 OR latitude > 90 OR longitude < -180 OR longitude > 180
+LIMIT 1000  -- Cap the materialization to avoid excessive data storing in case of widespread failures
 ```
 
 #### Example 2: Payment consistency
@@ -204,6 +205,7 @@ INNER JOIN {{ ref('STG_orders') }} as s
 WHERE 
     s.order_status IN ('delivered', 'shipped', 'invoiced')
     AND ABS(p.payment_value - (o.total_price + o.total_freight_value)) > 0.10 -- considering a small tolerance of 10 cents
+LIMIT 1000  -- Cap the materialization to avoid excessive data storing in case of widespread failures
 ```
 
 ## ☁️ Deployment on dbt Cloud  
@@ -287,6 +289,7 @@ Overall, this dbt project bridges data engineering and analytics, demonstrating 
 <p align="center">
   <img src="https://github.com/user-attachments/assets/8a237af7-5bdd-4c16-84d2-cacdb25920d8" width="1000">
 </p>
+
 
 
 
