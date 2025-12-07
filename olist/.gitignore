@@ -2,6 +2,3 @@
 target/
 dbt_packages/
 logs/
-raw_csv/
-dbt pics.pptx
-olist_v1.pbix

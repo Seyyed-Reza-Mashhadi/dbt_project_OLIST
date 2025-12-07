@@ -6,5 +6,9 @@ dist/
 wheels/
 *.egg-info
 
+raw_csv/
+dbt pics.pptx
+olist_v1.pbix
+
 # Virtual environments
 .venv
