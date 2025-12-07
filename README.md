@@ -174,6 +174,7 @@ We implemented domain-specific singular tests to ensure business logic and data 
 <p align="center"><i>`coordinates_validation.sql`</i></p>
 
 ```sql
+{{ config(store_failures = true) }} 
 SELECT latitude, longitude
 FROM {{ ref('STG_geolocation') }}
 WHERE latitude < -90 OR latitude > 90 OR longitude < -180 OR longitude > 180
@@ -189,8 +190,7 @@ WHERE latitude < -90 OR latitude > 90 OR longitude < -180 OR longitude > 180
 <p align="center"><i>`payment_test_1.sql`</i></p>
 
 ```sql 
-
-{{ config(severity='warn') }}  
+{{ config(severity='warn', store_failures = true) }}  
 
 SELECT 
     p.order_id,
@@ -287,6 +287,7 @@ Overall, this dbt project bridges data engineering and analytics, demonstrating 
 <p align="center">
   <img src="https://github.com/user-attachments/assets/8a237af7-5bdd-4c16-84d2-cacdb25920d8" width="1000">
 </p>
+
 
 
 
