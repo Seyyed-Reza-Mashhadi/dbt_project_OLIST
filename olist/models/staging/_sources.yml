@@ -3,7 +3,7 @@ version: 2
 sources:
   - name: olist_dataset
     description: "Raw tables from the Olist Brazilian E-Commerce Public Dataset on Kaggle. Each table represents a different aspect of the e-commerce ecosystem — customers, sellers, products, orders, payments, reviews, and geolocation data."
-    database: olist-ecommerce-2025
+    database: olist-ecommerce-1234321
     schema: rawdata
 
     tables:
