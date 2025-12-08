@@ -16,3 +16,5 @@ WHERE
     o.order_status IN ('delivered', 'shipped', 'invoiced') 
     -- 2. Failure Condition: The item record (i) is NULL, indicating it's missing
     AND i.order_id IS NULL
+
+LIMIT 1000  -- Cap the materialization to avoid excessive data storing in case of widespread failures

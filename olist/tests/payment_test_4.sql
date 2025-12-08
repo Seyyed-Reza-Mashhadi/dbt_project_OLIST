@@ -17,3 +17,5 @@ INNER JOIN {{ ref('INT_order_payments_agg') }} as p
 WHERE 
     -- The criteria: Order failed but payment exists
     o.order_status IN ('canceled', 'unavailable')
+
+LIMIT 1000  -- Cap the materialization to avoid excessive data storing in case of widespread failures

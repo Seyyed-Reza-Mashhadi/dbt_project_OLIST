@@ -5,6 +5,7 @@ models:
     description: "Customer data with standardized data formats and column names."
     config:
       schema: staging
+      store_failures: true
     columns:
       - name: customer_id
         description: "System-generated customer identifier used in transactional tables. Note that we have this id because different seller may have different ids for the same customer."
@@ -21,6 +22,7 @@ models:
     config:
       schema: staging
       materialized: view
+      store_failures: true
     columns:
       - name: latitude
         description: "Latitude of the ZIP code area."
@@ -33,6 +35,8 @@ models:
 
   - name: STG_order_items
     description: "Order item data with standardized data formats and column names."
+    config:
+      store_failures: true
     columns:
       - name: order_id
         description: "Order identifier key."
@@ -75,6 +79,8 @@ models:
 
   - name: STG_order_payments
     description: "Order payment data with standardized data formats and column names."
+    config:
+      store_failures: true
     columns:
       - name: order_id
         description: "Order identifier key."
@@ -103,6 +109,8 @@ models:
 
   - name: STG_order_reviews
     description: "Order review data with standardized data formats and column names."
+    config:
+      store_failures: true
     columns:
       - name: review_id
         description: "Unique identifier for each review."
@@ -121,6 +129,7 @@ models:
     description: "Order data with standardized data formats and column names."
     config:
       schema: staging
+      store_failures: true
       materialized: view
     columns:
       - name: order_id
@@ -145,6 +154,8 @@ models:
 
   - name: STG_products
     description: "Product data with standardized data formats and column names."
+    config:
+      store_failures: true
     columns:
       - name: product_id
         description: "Unique product identifier."
@@ -154,6 +165,8 @@ models:
 
   - name: STG_sellers
     description: "Seller data with standardized data formats and column names."
+    config:
+      store_failures: true
     columns:
       - name: seller_id
         description: "Unique seller identifier."

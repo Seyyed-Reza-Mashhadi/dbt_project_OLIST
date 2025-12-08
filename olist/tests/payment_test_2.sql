@@ -16,3 +16,5 @@ WHERE
     o.order_status IN ('delivered', 'shipped', 'invoiced') 
     -- 2. Failure Condition: The payment record (p) is NULL, indicating it's missing
     AND p.order_id IS NULL
+
+LIMIT 1000  -- Cap the materialization to avoid excessive data storing in case of widespread failures

@@ -17,3 +17,5 @@ WHERE
     s.order_status IN ('delivered', 'shipped', 'invoiced')
     -- Check for a difference greater than a small tolerance (e.g., 10 cent)
     AND ABS(p.payment_value - (o.total_price + o.total_freight_value)) > 0.10
+
+LIMIT 1000  -- Cap the materialization to avoid excessive data storing in case of widespread failures

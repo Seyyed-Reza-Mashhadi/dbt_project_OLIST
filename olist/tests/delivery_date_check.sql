@@ -11,3 +11,5 @@ FROM {{ ref('STG_orders') }}
 WHERE order_status = 'delivered'
 -- Identify the problem: the final delivery date is NULL
   AND order_delivered_customer_date IS NULL
+
+LIMIT 1000  -- Cap the materialization to avoid excessive data storing in case of widespread failures
