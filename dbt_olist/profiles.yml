@@ -1,4 +1,4 @@
-olist:
+dbt_olist:
   outputs:
     dev:
       # dataset: olist-ecommerce-2025
