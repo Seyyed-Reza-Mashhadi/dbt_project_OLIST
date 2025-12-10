@@ -69,3 +69,9 @@ SELECT * FROM `olist-ecommerce-1234321.mart.FACT_order_items`
 """
 
 ### ADDITIONAL ANALYTICS QUERIES
+
+# total revenue vs. time (monthly), percent change ?
+# average monthly revenue, AOV, ABS 
+
+
+

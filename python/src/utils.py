@@ -35,8 +35,8 @@ def fetch_data_from_bq(sql_query):
     try:
         query_job = client.query(sql_query)
         df = query_job.to_dataframe()
-        gb_processed = query_job.total_bytes_processed / (1024**3)
-        print(f"Query successful. Scanned {gb_processed:.3f} GB.")
+        mb_processed = query_job.total_bytes_processed / (1024**2)
+        print(f"Query successful. Scanned {mb_processed:.3f} MB.")
         return df
     except Exception as e:
         print(f"--- BIGQUERY QUERY FAILED ---")
