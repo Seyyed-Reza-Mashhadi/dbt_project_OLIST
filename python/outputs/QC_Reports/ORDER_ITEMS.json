@@ -1,0 +1,70 @@
+{
+    "df_name": "ORDER_ITEMS",
+    "total_rows": 112650,
+    "total_columns": 7,
+    "total_duplicated_rows": 0,
+    "column_qc": {
+        "order_id": {
+            "dtype": "object",
+            "null_count": 0,
+            "null_percent": 0.0,
+            "unique_count": 98666,
+            "top_3_values": {
+                "8272b63d03f5f79c56e9e4120aec44ef": 21,
+                "ab14fdcfbe524636d65ee38360e22ce8": 20,
+                "1b15974a0141d54e36626dca3fdc731a": 20
+            }
+        },
+        "order_item_id": {
+            "dtype": "Int64",
+            "null_count": 0,
+            "null_percent": 0.0,
+            "min": 1.0,
+            "median": 1.0,
+            "max": 21.0
+        },
+        "product_id": {
+            "dtype": "object",
+            "null_count": 0,
+            "null_percent": 0.0,
+            "unique_count": 32951,
+            "top_3_values": {
+                "aca2eb7d00ea1a7b8ebd4e68314663af": 527,
+                "99a4788cb24856965c36a24e339b6058": 488,
+                "422879e10f46682990de24d770e7f83d": 484
+            }
+        },
+        "seller_id": {
+            "dtype": "object",
+            "null_count": 0,
+            "null_percent": 0.0,
+            "unique_count": 3095,
+            "top_3_values": {
+                "6560211a19b47992c3666cc44a7e94c0": 2033,
+                "4a3ca9315b744ce9f8e9374361493884": 1987,
+                "1f50f920176fa81dab994f9023523100": 1931
+            }
+        },
+        "shipping_limit_date": {
+            "dtype": "datetime64[us, UTC]",
+            "null_count": 0,
+            "null_percent": 0.0
+        },
+        "price": {
+            "dtype": "float64",
+            "null_count": 0,
+            "null_percent": 0.0,
+            "min": 0.85,
+            "median": 74.99,
+            "max": 6735.0
+        },
+        "freight_value": {
+            "dtype": "float64",
+            "null_count": 0,
+            "null_percent": 0.0,
+            "min": 0.0,
+            "median": 16.26,
+            "max": 409.68
+        }
+    }
+}

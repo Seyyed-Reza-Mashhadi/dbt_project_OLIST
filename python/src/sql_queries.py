@@ -75,3 +75,35 @@ SELECT * FROM `olist-ecommerce-1234321.mart.FACT_order_items`
 
 
 
+# Completed Orders - Daily Sales and Orders
+GET_completed_daily_orders = """
+SELECT 
+    date(order_purchase_timestamp) AS order_purchase_date,
+    count(DISTINCT order_id) AS total_daily_orders,
+    sum(payment_value) AS total_daily_revenue
+FROM `olist-ecommerce-1234321.mart.FACT_orders`
+WHERE order_status IN ('delivered', 'approved', 'shipped')
+GROUP BY order_purchase_date
+"""
+
+# Canceled Orders - Daily Sales and Orders
+GET_canceled_daily_orders = """
+SELECT 
+    date(order_purchase_timestamp) AS order_purchase_date,
+    count(DISTINCT order_id) AS total_daily_orders,
+    sum(payment_value) AS total_daily_revenue
+FROM `olist-ecommerce-1234321.mart.FACT_orders`
+WHERE order_status = 'canceled'
+GROUP BY order_purchase_date
+"""
+
+# delivery performance - days between purchase and delivery
+GET_delivery_performance_with_time = """
+SELECT
+    order_id,
+    date(order_purchase_timestamp) as order_purchase_date,
+    date(order_delivered_customer_date) as order_delivered_date,
+    DATE_DIFF( date(order_delivered_customer_date), date(order_purchase_timestamp),DAY) AS days_to_delivery
+FROM `olist-ecommerce-1234321.mart.FACT_orders`
+WHERE order_status = 'delivered' AND order_delivered_customer_date IS NOT NULL
+"""

@@ -1,0 +1,66 @@
+{
+    "df_name": "ORDERS",
+    "total_rows": 99441,
+    "total_columns": 8,
+    "total_duplicated_rows": 0,
+    "column_qc": {
+        "order_id": {
+            "dtype": "object",
+            "null_count": 0,
+            "null_percent": 0.0,
+            "unique_count": 99441,
+            "top_3_values": {
+                "a2e4c44360b4a57bdff22f3a4630c173": 1,
+                "132f1e724165a07f6362532bfb97486e": 1,
+                "809a282bbd5dbcabb6f2f724fca862ec": 1
+            }
+        },
+        "customer_id": {
+            "dtype": "object",
+            "null_count": 0,
+            "null_percent": 0.0,
+            "unique_count": 99441,
+            "top_3_values": {
+                "8886130db0ea6e9e70ba0b03d7c0d286": 1,
+                "b2191912d8ad6eac2e4dc3b6e1459515": 1,
+                "622e13439d6b5a0b486c435618b2679e": 1
+            }
+        },
+        "order_status": {
+            "dtype": "object",
+            "null_count": 0,
+            "null_percent": 0.0,
+            "unique_count": 8,
+            "top_3_values": {
+                "delivered": 96478,
+                "shipped": 1107,
+                "canceled": 625
+            }
+        },
+        "order_purchase_timestamp": {
+            "dtype": "datetime64[us, UTC]",
+            "null_count": 0,
+            "null_percent": 0.0
+        },
+        "order_approved_at": {
+            "dtype": "datetime64[us, UTC]",
+            "null_count": 160,
+            "null_percent": 0.161
+        },
+        "order_delivered_carrier_date": {
+            "dtype": "datetime64[us, UTC]",
+            "null_count": 1783,
+            "null_percent": 1.793
+        },
+        "order_delivered_customer_date": {
+            "dtype": "datetime64[us, UTC]",
+            "null_count": 2965,
+            "null_percent": 2.982
+        },
+        "order_estimated_delivery_date": {
+            "dtype": "datetime64[us, UTC]",
+            "null_count": 0,
+            "null_percent": 0.0
+        }
+    }
+}

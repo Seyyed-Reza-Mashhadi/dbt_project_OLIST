@@ -1,0 +1,54 @@
+{
+    "df_name": "GEOLOCATION",
+    "total_rows": 1000163,
+    "total_columns": 5,
+    "total_duplicated_rows": 261831,
+    "column_qc": {
+        "geolocation_zip_code_prefix": {
+            "dtype": "Int64",
+            "null_count": 0,
+            "null_percent": 0.0,
+            "min": 1001.0,
+            "median": 26530.0,
+            "max": 99990.0
+        },
+        "geolocation_lat": {
+            "dtype": "float64",
+            "null_count": 0,
+            "null_percent": 0.0,
+            "min": -36.6053744107061,
+            "median": -22.91937749486411,
+            "max": 45.06593318269697
+        },
+        "geolocation_lng": {
+            "dtype": "float64",
+            "null_count": 0,
+            "null_percent": 0.0,
+            "min": -101.46676644931476,
+            "median": -46.637878669601484,
+            "max": 121.10539381057764
+        },
+        "geolocation_city": {
+            "dtype": "object",
+            "null_count": 0,
+            "null_percent": 0.0,
+            "unique_count": 8011,
+            "top_3_values": {
+                "sao paulo": 135800,
+                "rio de janeiro": 62151,
+                "belo horizonte": 27805
+            }
+        },
+        "geolocation_state": {
+            "dtype": "object",
+            "null_count": 0,
+            "null_percent": 0.0,
+            "unique_count": 27,
+            "top_3_values": {
+                "SP": 404268,
+                "MG": 126336,
+                "RJ": 121169
+            }
+        }
+    }
+}

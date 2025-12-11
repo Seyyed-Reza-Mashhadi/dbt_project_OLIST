@@ -1,0 +1,65 @@
+{
+    "pipeline_run_details": {
+        "metric_desc": "Total Sales",
+        "method": "IQR",
+        "analysis_mode": "Time-Series",
+        "checks_run": [
+            "Daily (Time-Series)",
+            "Weekly (Time-Series)"
+        ]
+    },
+    "anomaly_checks": [
+        {
+            "analysis_mode": "Time-Series",
+            "frequency": "Daily",
+            "metric_desc": "Total Sales",
+            "method": "IQR",
+            "limit_description": "IQR Limits: -13,507.83 to 62,326.49",
+            "total_points": 613,
+            "anomaly_count": 4,
+            "anomalies": [
+                {
+                    "index_id": "2017-11-24",
+                    "value": 176599.36,
+                    "type": "Peak (High)",
+                    "method_details": "Breached Upper IQR Limit"
+                },
+                {
+                    "index_id": "2017-11-25",
+                    "value": 71179.18,
+                    "type": "Peak (High)",
+                    "method_details": "Breached Upper IQR Limit"
+                },
+                {
+                    "index_id": "2018-05-16",
+                    "value": 64279.82,
+                    "type": "Peak (High)",
+                    "method_details": "Breached Upper IQR Limit"
+                },
+                {
+                    "index_id": "2018-08-06",
+                    "value": 62923.11,
+                    "type": "Peak (High)",
+                    "method_details": "Breached Upper IQR Limit"
+                }
+            ]
+        },
+        {
+            "analysis_mode": "Time-Series",
+            "frequency": "Weekly",
+            "metric_desc": "Total Sales",
+            "method": "IQR",
+            "limit_description": "IQR Limits: -101,112.20 to 452,841.99",
+            "total_points": 92,
+            "anomaly_count": 1,
+            "anomalies": [
+                {
+                    "index_id": "2017-W47",
+                    "value": 468424.66,
+                    "type": "Peak (High)",
+                    "method_details": "Breached Upper IQR Limit"
+                }
+            ]
+        }
+    ]
+}

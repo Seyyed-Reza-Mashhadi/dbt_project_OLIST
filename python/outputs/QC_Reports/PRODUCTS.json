@@ -1,0 +1,86 @@
+{
+    "df_name": "PRODUCTS",
+    "total_rows": 32951,
+    "total_columns": 9,
+    "total_duplicated_rows": 0,
+    "column_qc": {
+        "product_id": {
+            "dtype": "object",
+            "null_count": 0,
+            "null_percent": 0.0,
+            "unique_count": 32951,
+            "top_3_values": {
+                "a0ab96e461d74537772b84950f26a257": 1,
+                "20ae7c024ede613f47e0d2f23f461493": 1,
+                "4d7585daba2f8b3ed7f87447908b4237": 1
+            }
+        },
+        "product_category_name": {
+            "dtype": "object",
+            "null_count": 610,
+            "null_percent": 1.851,
+            "unique_count": 74,
+            "top_3_values": {
+                "cama_mesa_banho": 3029,
+                "esporte_lazer": 2867,
+                "moveis_decoracao": 2657
+            }
+        },
+        "product_name_lenght": {
+            "dtype": "Int64",
+            "null_count": 610,
+            "null_percent": 1.851,
+            "min": 5.0,
+            "median": 51.0,
+            "max": 76.0
+        },
+        "product_description_lenght": {
+            "dtype": "Int64",
+            "null_count": 610,
+            "null_percent": 1.851,
+            "min": 4.0,
+            "median": 595.0,
+            "max": 3992.0
+        },
+        "product_photos_qty": {
+            "dtype": "Int64",
+            "null_count": 610,
+            "null_percent": 1.851,
+            "min": 1.0,
+            "median": 1.0,
+            "max": 20.0
+        },
+        "product_weight_g": {
+            "dtype": "Int64",
+            "null_count": 2,
+            "null_percent": 0.006,
+            "min": 0.0,
+            "median": 700.0,
+            "max": 40425.0
+        },
+        "product_length_cm": {
+            "dtype": "Int64",
+            "null_count": 2,
+            "null_percent": 0.006,
+            "min": 7.0,
+            "median": 25.0,
+            "max": 105.0
+        },
+        "product_height_cm": {
+            "dtype": "Int64",
+            "null_count": 2,
+            "null_percent": 0.006,
+            "min": 2.0,
+            "median": 13.0,
+            "max": 105.0
+        },
+        "product_width_cm": {
+            "dtype": "Int64",
+            "null_count": 2,
+            "null_percent": 0.006,
+            "min": 6.0,
+            "median": 20.0,
+            "max": 118.0
+        }
+    }
+}

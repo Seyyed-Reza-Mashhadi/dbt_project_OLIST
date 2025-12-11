@@ -1,0 +1,287 @@
+{
+    "pipeline_run_details": {
+        "metric_desc": "Total Order Cancellations",
+        "method": "IQR",
+        "analysis_mode": "Time-Series",
+        "checks_run": [
+            "Daily (Time-Series)",
+            "Weekly (Time-Series)"
+        ]
+    },
+    "anomaly_checks": [
+        {
+            "analysis_mode": "Time-Series",
+            "frequency": "Daily",
+            "metric_desc": "Total Order Cancellations",
+            "method": "IQR",
+            "limit_description": "IQR Limits: -0.50 to 3.50",
+            "total_points": 344,
+            "anomaly_count": 33,
+            "anomalies": [
+                {
+                    "index_id": "2018-08-07",
+                    "value": 9.0,
+                    "type": "Peak (High)",
+                    "method_details": "Breached Upper IQR Limit"
+                },
+                {
+                    "index_id": "2018-08-09",
+                    "value": 6.0,
+                    "type": "Peak (High)",
+                    "method_details": "Breached Upper IQR Limit"
+                },
+                {
+                    "index_id": "2018-01-30",
+                    "value": 6.0,
+                    "type": "Peak (High)",
+                    "method_details": "Breached Upper IQR Limit"
+                },
+                {
+                    "index_id": "2016-10-04",
+                    "value": 5.0,
+                    "type": "Peak (High)",
+                    "method_details": "Breached Upper IQR Limit"
+                },
+                {
+                    "index_id": "2018-02-05",
+                    "value": 5.0,
+                    "type": "Peak (High)",
+                    "method_details": "Breached Upper IQR Limit"
+                },
+                {
+                    "index_id": "2018-08-15",
+                    "value": 5.0,
+                    "type": "Peak (High)",
+                    "method_details": "Breached Upper IQR Limit"
+                },
+                {
+                    "index_id": "2018-08-13",
+                    "value": 5.0,
+                    "type": "Peak (High)",
+                    "method_details": "Breached Upper IQR Limit"
+                },
+                {
+                    "index_id": "2018-02-15",
+                    "value": 5.0,
+                    "type": "Peak (High)",
+                    "method_details": "Breached Upper IQR Limit"
+                },
+                {
+                    "index_id": "2018-08-28",
+                    "value": 5.0,
+                    "type": "Peak (High)",
+                    "method_details": "Breached Upper IQR Limit"
+                },
+                {
+                    "index_id": "2018-02-01",
+                    "value": 4.0,
+                    "type": "Peak (High)",
+                    "method_details": "Breached Upper IQR Limit"
+                },
+                {
+                    "index_id": "2018-01-29",
+                    "value": 4.0,
+                    "type": "Peak (High)",
+                    "method_details": "Breached Upper IQR Limit"
+                },
+                {
+                    "index_id": "2018-02-08",
+                    "value": 4.0,
+                    "type": "Peak (High)",
+                    "method_details": "Breached Upper IQR Limit"
+                },
+                {
+                    "index_id": "2016-10-09",
+                    "value": 4.0,
+                    "type": "Peak (High)",
+                    "method_details": "Breached Upper IQR Limit"
+                },
+                {
+                    "index_id": "2017-11-06",
+                    "value": 4.0,
+                    "type": "Peak (High)",
+                    "method_details": "Breached Upper IQR Limit"
+                },
+                {
+                    "index_id": "2017-11-14",
+                    "value": 4.0,
+                    "type": "Peak (High)",
+                    "method_details": "Breached Upper IQR Limit"
+                },
+                {
+                    "index_id": "2017-03-21",
+                    "value": 4.0,
+                    "type": "Peak (High)",
+                    "method_details": "Breached Upper IQR Limit"
+                },
+                {
+                    "index_id": "2017-03-20",
+                    "value": 4.0,
+                    "type": "Peak (High)",
+                    "method_details": "Breached Upper IQR Limit"
+                },
+                {
+                    "index_id": "2018-02-21",
+                    "value": 4.0,
+                    "type": "Peak (High)",
+                    "method_details": "Breached Upper IQR Limit"
+                },
+                {
+                    "index_id": "2018-02-19",
+                    "value": 4.0,
+                    "type": "Peak (High)",
+                    "method_details": "Breached Upper IQR Limit"
+                },
+                {
+                    "index_id": "2018-02-17",
+                    "value": 4.0,
+                    "type": "Peak (High)",
+                    "method_details": "Breached Upper IQR Limit"
+                },
+                {
+                    "index_id": "2018-02-14",
+                    "value": 4.0,
+                    "type": "Peak (High)",
+                    "method_details": "Breached Upper IQR Limit"
+                },
+                {
+                    "index_id": "2018-02-02",
+                    "value": 4.0,
+                    "type": "Peak (High)",
+                    "method_details": "Breached Upper IQR Limit"
+                },
+                {
+                    "index_id": "2018-02-22",
+                    "value": 4.0,
+                    "type": "Peak (High)",
+                    "method_details": "Breached Upper IQR Limit"
+                },
+                {
+                    "index_id": "2018-03-05",
+                    "value": 4.0,
+                    "type": "Peak (High)",
+                    "method_details": "Breached Upper IQR Limit"
+                },
+                {
+                    "index_id": "2018-03-01",
+                    "value": 4.0,
+                    "type": "Peak (High)",
+                    "method_details": "Breached Upper IQR Limit"
+                },
+                {
+                    "index_id": "2018-08-06",
+                    "value": 4.0,
+                    "type": "Peak (High)",
+                    "method_details": "Breached Upper IQR Limit"
+                },
+                {
+                    "index_id": "2018-07-31",
+                    "value": 4.0,
+                    "type": "Peak (High)",
+                    "method_details": "Breached Upper IQR Limit"
+                },
+                {
+                    "index_id": "2018-07-30",
+                    "value": 4.0,
+                    "type": "Peak (High)",
+                    "method_details": "Breached Upper IQR Limit"
+                },
+                {
+                    "index_id": "2018-07-29",
+                    "value": 4.0,
+                    "type": "Peak (High)",
+                    "method_details": "Breached Upper IQR Limit"
+                },
+                {
+                    "index_id": "2018-08-14",
+                    "value": 4.0,
+                    "type": "Peak (High)",
+                    "method_details": "Breached Upper IQR Limit"
+                },
+                {
+                    "index_id": "2018-08-16",
+                    "value": 4.0,
+                    "type": "Peak (High)",
+                    "method_details": "Breached Upper IQR Limit"
+                },
+                {
+                    "index_id": "2018-08-20",
+                    "value": 4.0,
+                    "type": "Peak (High)",
+                    "method_details": "Breached Upper IQR Limit"
+                },
+                {
+                    "index_id": "2018-08-30",
+                    "value": 4.0,
+                    "type": "Peak (High)",
+                    "method_details": "Breached Upper IQR Limit"
+                }
+            ]
+        },
+        {
+            "analysis_mode": "Time-Series",
+            "frequency": "Weekly",
+            "metric_desc": "Total Order Cancellations",
+            "method": "IQR",
+            "limit_description": "IQR Limits: -4.50 to 15.50",
+            "total_points": 96,
+            "anomaly_count": 9,
+            "anomalies": [
+                {
+                    "index_id": "2018-W05",
+                    "value": 25.0,
+                    "type": "Peak (High)",
+                    "method_details": "Breached Upper IQR Limit"
+                },
+                {
+                    "index_id": "2018-W32",
+                    "value": 24.0,
+                    "type": "Peak (High)",
+                    "method_details": "Breached Upper IQR Limit"
+                },
+                {
+                    "index_id": "2018-W33",
+                    "value": 23.0,
+                    "type": "Peak (High)",
+                    "method_details": "Breached Upper IQR Limit"
+                },
+                {
+                    "index_id": "2016-W40",
+                    "value": 20.0,
+                    "type": "Peak (High)",
+                    "method_details": "Breached Upper IQR Limit"
+                },
+                {
+                    "index_id": "2018-W06",
+                    "value": 19.0,
+                    "type": "Peak (High)",
+                    "method_details": "Breached Upper IQR Limit"
+                },
+                {
+                    "index_id": "2018-W31",
+                    "value": 19.0,
+                    "type": "Peak (High)",
+                    "method_details": "Breached Upper IQR Limit"
+                },
+                {
+                    "index_id": "2018-W07",
+                    "value": 19.0,
+                    "type": "Peak (High)",
+                    "method_details": "Breached Upper IQR Limit"
+                },
+                {
+                    "index_id": "2018-W04",
+                    "value": 17.0,
+                    "type": "Peak (High)",
+                    "method_details": "Breached Upper IQR Limit"
+                },
+                {
+                    "index_id": "2018-W08",
+                    "value": 17.0,
+                    "type": "Peak (High)",
+                    "method_details": "Breached Upper IQR Limit"
+                }
+            ]
+        }
+    ]
+}
