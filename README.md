@@ -281,14 +281,10 @@ Analytical models in the mart layer added value for analytics and reporting. For
 Overall, this dbt project bridges data engineering and analytics, demonstrating how clean, tested transformations can power reliable business insights and BI-ready datasets.
 
 
-
-<p align="center">
-  <img src="https://github.com/user-attachments/assets/64ad3d8d-7520-404c-b77a-178a7f71e8f8" width="1000">
-</p>
-
 <p align="center">
   <img src="https://github.com/user-attachments/assets/8a237af7-5bdd-4c16-84d2-cacdb25920d8" width="1000">
 </p>
+
 
 
 
