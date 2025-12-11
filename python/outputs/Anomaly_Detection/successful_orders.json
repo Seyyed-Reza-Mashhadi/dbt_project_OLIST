@@ -1,0 +1,59 @@
+{
+    "pipeline_run_details": {
+        "metric_desc": "Total Successful Orders",
+        "method": "IQR",
+        "analysis_mode": "Time-Series",
+        "checks_run": [
+            "Daily (Time-Series)",
+            "Weekly (Time-Series)"
+        ]
+    },
+    "anomaly_checks": [
+        {
+            "analysis_mode": "Time-Series",
+            "frequency": "Daily",
+            "metric_desc": "Total Successful Orders",
+            "method": "IQR",
+            "limit_description": "IQR Limits: -77.50 to 390.50",
+            "total_points": 613,
+            "anomaly_count": 3,
+            "anomalies": [
+                {
+                    "index_id": "2017-11-24",
+                    "value": 1159.0,
+                    "type": "Peak (High)",
+                    "method_details": "Breached Upper IQR Limit"
+                },
+                {
+                    "index_id": "2017-11-25",
+                    "value": 493.0,
+                    "type": "Peak (High)",
+                    "method_details": "Breached Upper IQR Limit"
+                },
+                {
+                    "index_id": "2017-11-27",
+                    "value": 398.0,
+                    "type": "Peak (High)",
+                    "method_details": "Breached Upper IQR Limit"
+                }
+            ]
+        },
+        {
+            "analysis_mode": "Time-Series",
+            "frequency": "Weekly",
+            "metric_desc": "Total Successful Orders",
+            "method": "IQR",
+            "limit_description": "IQR Limits: -707.50 to 2,926.50",
+            "total_points": 92,
+            "anomaly_count": 1,
+            "anomalies": [
+                {
+                    "index_id": "2017-W47",
+                    "value": 2949.0,
+                    "type": "Peak (High)",
+                    "method_details": "Breached Upper IQR Limit"
+                }
+            ]
+        }
+    ]
+}

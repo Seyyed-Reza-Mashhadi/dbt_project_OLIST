@@ -1,0 +1,49 @@
+{
+    "df_name": "SELLERS",
+    "total_rows": 3095,
+    "total_columns": 4,
+    "total_duplicated_rows": 0,
+    "column_qc": {
+        "seller_id": {
+            "dtype": "object",
+            "null_count": 0,
+            "null_percent": 0.0,
+            "unique_count": 3095,
+            "top_3_values": {
+                "c13ef0cfbe42f190780f621ce81f2234": 1,
+                "5444b12c82f21c923f2639ebc722c1ea": 1,
+                "1cbd32d00d01bb8087a5eb088612fd9c": 1
+            }
+        },
+        "seller_zip_code_prefix": {
+            "dtype": "Int64",
+            "null_count": 0,
+            "null_percent": 0.0,
+            "min": 1001.0,
+            "median": 14940.0,
+            "max": 99730.0
+        },
+        "seller_city": {
+            "dtype": "object",
+            "null_count": 0,
+            "null_percent": 0.0,
+            "unique_count": 611,
+            "top_3_values": {
+                "sao paulo": 694,
+                "curitiba": 127,
+                "rio de janeiro": 96
+            }
+        },
+        "seller_state": {
+            "dtype": "object",
+            "null_count": 0,
+            "null_percent": 0.0,
+            "unique_count": 23,
+            "top_3_values": {
+                "SP": 1849,
+                "PR": 349,
+                "MG": 244
+            }
+        }
+    }
+}

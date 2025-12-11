@@ -1,0 +1,60 @@
+{
+    "df_name": "CUSTOMERS",
+    "total_rows": 99441,
+    "total_columns": 5,
+    "total_duplicated_rows": 0,
+    "column_qc": {
+        "customer_id": {
+            "dtype": "object",
+            "null_count": 0,
+            "null_percent": 0.0,
+            "unique_count": 99441,
+            "top_3_values": {
+                "2201362e68992f654942dc0067c1b716": 1,
+                "31dbc13addc753e210692eacaea065e4": 1,
+                "dad907e170748a35ef4e92238b7308f3": 1
+            }
+        },
+        "customer_unique_id": {
+            "dtype": "object",
+            "null_count": 0,
+            "null_percent": 0.0,
+            "unique_count": 96096,
+            "top_3_values": {
+                "8d50f5eadf50201ccdcedfb9e2ac8455": 17,
+                "3e43e6105506432c953e165fb2acf44c": 9,
+                "1b6c7548a2a1f9037c1fd3ddfed95f33": 7
+            }
+        },
+        "customer_zip_code_prefix": {
+            "dtype": "Int64",
+            "null_count": 0,
+            "null_percent": 0.0,
+            "min": 1003.0,
+            "median": 24416.0,
+            "max": 99990.0
+        },
+        "customer_city": {
+            "dtype": "object",
+            "null_count": 0,
+            "null_percent": 0.0,
+            "unique_count": 4119,
+            "top_3_values": {
+                "sao paulo": 15540,
+                "rio de janeiro": 6882,
+                "belo horizonte": 2773
+            }
+        },
+        "customer_state": {
+            "dtype": "object",
+            "null_count": 0,
+            "null_percent": 0.0,
+            "unique_count": 27,
+            "top_3_values": {
+                "SP": 41746,
+                "RJ": 12852,
+                "MG": 11635
+            }
+        }
+    }
+}

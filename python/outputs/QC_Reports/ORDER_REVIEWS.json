@@ -1,0 +1,48 @@
+{
+    "df_name": "ORDER_REVIEWS",
+    "total_rows": 99220,
+    "total_columns": 5,
+    "total_duplicated_rows": 0,
+    "column_qc": {
+        "review_id": {
+            "dtype": "object",
+            "null_count": 0,
+            "null_percent": 0.0,
+            "unique_count": 98406,
+            "top_3_values": {
+                "32415bbf6e341d5d517080a796f79b5c": 3,
+                "dbdf1ea31790c8ecfcc6750525661a9b": 3,
+                "f4bb9d6dd4fb6dcc2298f0e7b17b8e1e": 3
+            }
+        },
+        "order_id": {
+            "dtype": "object",
+            "null_count": 0,
+            "null_percent": 0.0,
+            "unique_count": 98669,
+            "top_3_values": {
+                "03c939fd7fd3b38f8485a0f95798f1f6": 3,
+                "8e17072ec97ce29f0e1f111e598b0c85": 3,
+                "c88b1d1b157a9999ce368f218a407141": 3
+            }
+        },
+        "review_score": {
+            "dtype": "Int64",
+            "null_count": 0,
+            "null_percent": 0.0,
+            "min": 1.0,
+            "median": 5.0,
+            "max": 5.0
+        },
+        "review_creation_date": {
+            "dtype": "datetime64[us, UTC]",
+            "null_count": 0,
+            "null_percent": 0.0
+        },
+        "commented": {
+            "dtype": "boolean",
+            "null_count": 0,
+            "null_percent": 0.0
+        }
+    }
+}

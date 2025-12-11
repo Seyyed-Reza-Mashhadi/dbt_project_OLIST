@@ -1,0 +1,54 @@
+{
+    "df_name": "ORDER_PAYMENTS",
+    "total_rows": 103886,
+    "total_columns": 5,
+    "total_duplicated_rows": 0,
+    "column_qc": {
+        "order_id": {
+            "dtype": "object",
+            "null_count": 0,
+            "null_percent": 0.0,
+            "unique_count": 99440,
+            "top_3_values": {
+                "fa65dad1b0e818e3ccc5cb0e39231352": 29,
+                "ccf804e764ed5650cd8759557269dc13": 26,
+                "285c2e15bebd4ac83635ccc563dc71f4": 22
+            }
+        },
+        "payment_sequential": {
+            "dtype": "Int64",
+            "null_count": 0,
+            "null_percent": 0.0,
+            "min": 1.0,
+            "median": 1.0,
+            "max": 29.0
+        },
+        "payment_type": {
+            "dtype": "object",
+            "null_count": 0,
+            "null_percent": 0.0,
+            "unique_count": 5,
+            "top_3_values": {
+                "credit_card": 76795,
+                "boleto": 19784,
+                "voucher": 5775
+            }
+        },
+        "payment_installments": {
+            "dtype": "Int64",
+            "null_count": 0,
+            "null_percent": 0.0,
+            "min": 0.0,
+            "median": 1.0,
+            "max": 24.0
+        },
+        "payment_value": {
+            "dtype": "float64",
+            "null_count": 0,
+            "null_percent": 0.0,
+            "min": 0.0,
+            "median": 100.0,
+            "max": 13664.08
+        }
+    }
+}
