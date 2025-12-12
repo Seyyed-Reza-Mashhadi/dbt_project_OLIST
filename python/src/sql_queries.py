@@ -76,13 +76,14 @@ SELECT * FROM `olist-ecommerce-1234321.mart.FACT_order_items`
 
 
 # Completed Orders - Daily Sales and Orders
+## note that the accepted values in the Where caluse depends on the business definition of 'completed'
 GET_completed_daily_orders = """
 SELECT 
     date(order_purchase_timestamp) AS order_purchase_date,
     count(DISTINCT order_id) AS total_daily_orders,
     sum(payment_value) AS total_daily_revenue
 FROM `olist-ecommerce-1234321.mart.FACT_orders`
-WHERE order_status IN ('delivered', 'approved', 'shipped')
+WHERE order_status IN ('delivered','shipped') 
 GROUP BY order_purchase_date
 """
 

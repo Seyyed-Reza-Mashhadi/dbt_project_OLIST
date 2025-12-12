@@ -29,7 +29,7 @@ clean-targets:         # directories to be removed by `dbt clean`
 # directory as views. These settings can be overridden in the individual model
 # files using the `{{ config(...) }}` macro.
 models:
-  olist:
+  dbt_olist:
     staging:
       schema: staging
       +materialized: view
@@ -43,6 +43,6 @@ models:
       +materialized: table
 
 seeds:
-  olist:
+  dbt_olist:
     brazil_states:
       file: seeds/brazil_states.csv

@@ -61,9 +61,10 @@ rfm_scores as (
     (6 - r_quintile_raw)
     + case 
         when total_orders = 1 then 1
-        when total_orders = 2 then 3
-        when total_orders between 3 and 5 then 4
-        when total_orders > 5 then 5
+        when total_orders = 2 then 2
+        when total_orders = 3 then 3
+        when total_orders = 4 then 4
+        when total_orders >= 5 then 5
       end
     + m_quintile_raw as rfm_score
   from rfm_rank

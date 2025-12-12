@@ -1,0 +1,149 @@
+{
+  "description": "RFM (Recency, Frequency, Monetary) customer segmentation analysis",
+  "summary": {
+    "total_customers": 64831,
+    "total_revenue": 10604144.78,
+    "avg_customer_value": 163.57,
+    "avg_orders_per_customer": 1.02,
+    "avg_recency_days": 215.64
+  },
+  "rfm_segment_distribution": {
+    "description": "Customer count and value distribution across RFM segments",
+    "data": [
+      {
+        "segment": "Potential Loyalists",
+        "customer_count": 31199,
+        "percentage_of_customers": 48.12,
+        "total_revenue": 6061767.74,
+        "percentage_of_revenue": 57.16,
+        "total_orders": 31954
+      },
+      {
+        "segment": "Loyal Customers",
+        "customer_count": 7856,
+        "percentage_of_customers": 12.12,
+        "total_revenue": 2601032.57,
+        "percentage_of_revenue": 24.53,
+        "total_orders": 8591
+      },
+      {
+        "segment": "At Risk",
+        "customer_count": 23180,
+        "percentage_of_customers": 35.75,
+        "total_revenue": 1835012.2,
+        "percentage_of_revenue": 17.3,
+        "total_orders": 23280
+      },
+      {
+        "segment": "Lost",
+        "customer_count": 2588,
+        "percentage_of_customers": 3.99,
+        "total_revenue": 102052.22,
+        "percentage_of_revenue": 0.96,
+        "total_orders": 2588
+      },
+      {
+        "segment": "Champions",
+        "customer_count": 8,
+        "percentage_of_customers": 0.01,
+        "total_revenue": 4280.05,
+        "percentage_of_revenue": 0.04,
+        "total_orders": 38
+      }
+    ]
+  },
+  "segment_metrics": {
+    "description": "Detailed metrics for each customer segment",
+    "data": [
+      {
+        "segment": "At Risk",
+        "avg_orders": 1.0,
+        "median_orders": 1,
+        "avg_spent": 79.16,
+        "median_spent": 69.69,
+        "avg_recency_days": 163.56,
+        "median_recency_days": 162,
+        "avg_rfm_scores": {
+          "recency": 2.12,
+          "frequency": 1.01,
+          "monetary": 2.11
+        }
+      },
+      {
+        "segment": "Champions",
+        "avg_orders": 4.75,
+        "median_orders": 4,
+        "avg_spent": 535.01,
+        "median_spent": 436.43,
+        "avg_recency_days": 289.38,
+        "median_recency_days": 299,
+        "avg_rfm_scores": {
+          "recency": 4.38,
+          "frequency": 4.25,
+          "monetary": 5.0
+        }
+      },
+      {
+        "segment": "Lost",
+        "avg_orders": 1.0,
+        "median_orders": 1,
+        "avg_spent": 39.43,
+        "median_spent": 40.2,
+        "avg_recency_days": 94.33,
+        "median_recency_days": 93,
+        "avg_rfm_scores": {
+          "recency": 1.0,
+          "frequency": 1.0,
+          "monetary": 1.0
+        }
+      },
+      {
+        "segment": "Loyal Customers",
+        "avg_orders": 1.09,
+        "median_orders": 1,
+        "avg_spent": 331.09,
+        "median_spent": 242.18,
+        "avg_recency_days": 311.95,
+        "median_recency_days": 324,
+        "avg_rfm_scores": {
+          "recency": 4.62,
+          "frequency": 1.17,
+          "monetary": 4.65
+        }
+      },
+      {
+        "segment": "Potential Loyalists",
+        "avg_orders": 1.02,
+        "median_orders": 1,
+        "avg_spent": 194.29,
+        "median_spent": 133.49,
+        "avg_recency_days": 240.13,
+        "median_recency_days": 245,
+        "avg_rfm_scores": {
+          "recency": 3.41,
+          "frequency": 1.05,
+          "monetary": 3.41
+        }
+      }
+    ]
+  },
+  "rfm_score_distribution": {
+    "description": "Statistical distribution of R, F, and M scores",
+    "recency": {
+      "avg_score": 3.0,
+      "median_score": 3,
+      "avg_days": 215.64
+    },
+    "frequency": {
+      "avg_score": 1.05,
+      "median_score": 1,
+      "avg_orders": 1.02
+    },
+    "monetary": {
+      "avg_score": 3.0,
+      "median_score": 3,
+      "avg_spent": 163.57
+    }
+  },
+  "Additional Note About Data": "The majority of customers (i.e. more than 95 percent of customers) only had only 1 order so the histogram of F (Frequency) is highly skewed"
+}

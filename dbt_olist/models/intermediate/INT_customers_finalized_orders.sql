@@ -13,7 +13,7 @@ WITH cust AS (
         ON oc.customer_id = c.customer_id
     LEFT JOIN {{ ref('INT_order_payments_agg') }} AS opagg 
         ON opagg.order_id = oc.order_id
-    WHERE oc.order_status IN ('delivered', 'shipped', 'invoiced')
+    WHERE oc.order_status IN ('delivered', 'shipped', 'invoiced') -- it depends on the business definition of 'finalized'
       AND oc.order_id IS NOT NULL
 )
 
