@@ -1,0 +1,286 @@
+{
+  "description": "Seller performance analysis including revenue, reviews, and delivery metrics",
+  "summary": {
+    "total_sellers": 2970,
+    "sellers_with_reviews": 2965,
+    "sellers_without_reviews": 5,
+    "total_orders": 97818,
+    "total_items_sold": 110446,
+    "total_revenue": 15446080.16,
+    "avg_delivery_days": 12.1,
+    "avg_review_score": 3.67
+  },
+  "top_performers": {
+    "by_revenue": {
+      "description": "Top 10 sellers by total revenue",
+      "data": [
+        {
+          "seller_id": "4869f7a5dfa277a7dca6462dcf3b52b2",
+          "total_revenue": 247007.06,
+          "revenue_percentage": 1.6,
+          "total_orders": 1124,
+          "avg_review_score": 3.0,
+          "avg_delivery_days": 15.0
+        },
+        {
+          "seller_id": "7c67e1448b00f6e969d365cea6b010ab",
+          "total_revenue": 238968.9,
+          "revenue_percentage": 1.55,
+          "total_orders": 973,
+          "avg_review_score": 3.0,
+          "avg_delivery_days": 22.3
+        },
+        {
+          "seller_id": "4a3ca9315b744ce9f8e9374361493884",
+          "total_revenue": 232895.17,
+          "revenue_percentage": 1.51,
+          "total_orders": 1772,
+          "avg_review_score": 3.0,
+          "avg_delivery_days": 14.4
+        },
+        {
+          "seller_id": "53243585a1d6dc2643021fd1853d8905",
+          "total_revenue": 230797.02,
+          "revenue_percentage": 1.49,
+          "total_orders": 348,
+          "avg_review_score": 3.0,
+          "avg_delivery_days": 13.3
+        },
+        {
+          "seller_id": "fa1c13f2614d7b5c4749cbc52fecda94",
+          "total_revenue": 200833.5,
+          "revenue_percentage": 1.3,
+          "total_orders": 578,
+          "avg_review_score": 3.0,
+          "avg_delivery_days": 13.3
+        },
+        {
+          "seller_id": "da8622b14eb17ae2831f4ac5b9dab84a",
+          "total_revenue": 185423.68,
+          "revenue_percentage": 1.2,
+          "total_orders": 1311,
+          "avg_review_score": 3.0,
+          "avg_delivery_days": 11.2
+        },
+        {
+          "seller_id": "1025f0e2d44d7041d6cf58b6550e0bfa",
+          "total_revenue": 173091.06,
+          "revenue_percentage": 1.12,
+          "total_orders": 910,
+          "avg_review_score": 3.0,
+          "avg_delivery_days": 12.3
+        },
+        {
+          "seller_id": "7e93a43ef30c4f03f38b393420bc753a",
+          "total_revenue": 171973.55,
+          "revenue_percentage": 1.11,
+          "total_orders": 319,
+          "avg_review_score": 3.0,
+          "avg_delivery_days": 11.3
+        },
+        {
+          "seller_id": "7a67c85e85bb2ce8582c35f2203ad736",
+          "total_revenue": 160522.1,
+          "revenue_percentage": 1.04,
+          "total_orders": 1145,
+          "avg_review_score": 3.0,
+          "avg_delivery_days": 11.2
+        },
+        {
+          "seller_id": "955fee9216a65b617aa5c0531780ce60",
+          "total_revenue": 156606.48,
+          "revenue_percentage": 1.01,
+          "total_orders": 1261,
+          "avg_review_score": 3.0,
+          "avg_delivery_days": 10.7
+        }
+      ]
+    },
+    "by_review_score": {
+      "description": "Top 10 sellers by review score (min 10 orders)",
+      "data": [
+        {
+          "seller_id": "2addf05f476d0637864454e93ba673d5",
+          "avg_review_score": 5.0,
+          "total_orders": 12,
+          "total_revenue": 4877.64,
+          "avg_delivery_days": 10.4
+        },
+        {
+          "seller_id": "48efc9d94a9834137efd9ea76b065a38",
+          "avg_review_score": 5.0,
+          "total_orders": 33,
+          "total_revenue": 666.0,
+          "avg_delivery_days": 10.7
+        },
+        {
+          "seller_id": "f1fd5ab1181f827ffad998c1a5de7d74",
+          "avg_review_score": 4.5,
+          "total_orders": 15,
+          "total_revenue": 7877.96,
+          "avg_delivery_days": 9.3
+        },
+        {
+          "seller_id": "ade45994b717ccee333492330fbf037b",
+          "avg_review_score": 4.5,
+          "total_orders": 10,
+          "total_revenue": 7479.63,
+          "avg_delivery_days": 8.3
+        },
+        {
+          "seller_id": "42fa4ee7240e9b8eb4576358ec142ba7",
+          "avg_review_score": 4.5,
+          "total_orders": 22,
+          "total_revenue": 4364.47,
+          "avg_delivery_days": 6.7
+        },
+        {
+          "seller_id": "b1fecf4da1fa2689bccffa0121953643",
+          "avg_review_score": 4.5,
+          "total_orders": 19,
+          "total_revenue": 4066.72,
+          "avg_delivery_days": 10.2
+        },
+        {
+          "seller_id": "a2b5b6105ea5942300631d2e76f4ffe0",
+          "avg_review_score": 4.5,
+          "total_orders": 16,
+          "total_revenue": 4009.34,
+          "avg_delivery_days": 8.6
+        },
+        {
+          "seller_id": "52562a9f449c3dc3d53f5f5b9ed74903",
+          "avg_review_score": 4.5,
+          "total_orders": 14,
+          "total_revenue": 3710.64,
+          "avg_delivery_days": 13.4
+        },
+        {
+          "seller_id": "21e83881401b92b49fb09a16d3852291",
+          "avg_review_score": 4.5,
+          "total_orders": 12,
+          "total_revenue": 3606.09,
+          "avg_delivery_days": 10.9
+        },
+        {
+          "seller_id": "60562ab00b8054280520d390c8c0045c",
+          "avg_review_score": 4.5,
+          "total_orders": 17,
+          "total_revenue": 3247.09,
+          "avg_delivery_days": 10.0
+        }
+      ]
+    }
+  },
+  "bottom_performers": {
+    "description": "Bottom 10 sellers by review score (min 10 orders)",
+    "data": [
+      {
+        "seller_id": "1b1ae47a313a825a7ccceb8e2e30fa9d",
+        "avg_review_score": 2.67,
+        "total_orders": 10,
+        "total_revenue": 2413.37,
+        "avg_delivery_days": 10.7
+      },
+      {
+        "seller_id": "40db9e9aa57f7bb151bcda6b0f9bdbb7",
+        "avg_review_score": 2.75,
+        "total_orders": 12,
+        "total_revenue": 23823.99,
+        "avg_delivery_days": 14.7
+      },
+      {
+        "seller_id": "af4a0e4cfe1d9c26b6712b1be25a72e5",
+        "avg_review_score": 2.75,
+        "total_orders": 21,
+        "total_revenue": 9351.6,
+        "avg_delivery_days": 13.3
+      },
+      {
+        "seller_id": "5bc55dbe2f12b6af6d83ed46023e0dc8",
+        "avg_review_score": 2.75,
+        "total_orders": 17,
+        "total_revenue": 3409.38,
+        "avg_delivery_days": 13.8
+      },
+      {
+        "seller_id": "0725b8c0f3f906e58f70cbe76b7c748c",
+        "avg_review_score": 2.75,
+        "total_orders": 16,
+        "total_revenue": 3024.5,
+        "avg_delivery_days": 12.9
+      },
+      {
+        "seller_id": "62c50c1af4dfdc4149d25c5222043d39",
+        "avg_review_score": 2.75,
+        "total_orders": 12,
+        "total_revenue": 2607.78,
+        "avg_delivery_days": 12.2
+      },
+      {
+        "seller_id": "5b0cc932433fa5184b5b94bfe6bcc256",
+        "avg_review_score": 2.75,
+        "total_orders": 12,
+        "total_revenue": 1994.09,
+        "avg_delivery_days": 12.0
+      },
+      {
+        "seller_id": "2a61c271b1ac763450d846849783e922",
+        "avg_review_score": 2.75,
+        "total_orders": 17,
+        "total_revenue": 1969.04,
+        "avg_delivery_days": 18.5
+      },
+      {
+        "seller_id": "b6e1504972665f739dec4facb9943775",
+        "avg_review_score": 2.75,
+        "total_orders": 14,
+        "total_revenue": 1710.37,
+        "avg_delivery_days": 11.0
+      },
+      {
+        "seller_id": "a066df7361163e7ddc5d7452dd17448b",
+        "avg_review_score": 2.75,
+        "total_orders": 15,
+        "total_revenue": 1344.62,
+        "avg_delivery_days": 15.6
+      }
+    ]
+  },
+  "concentration_analysis": {
+    "description": "Revenue concentration metrics across sellers",
+    "sellers_for_80pct_revenue": 550,
+    "top_10_revenue_share_pct": 12.94,
+    "concentration_ratio_pct": 18.52
+  },
+  "review_score_distribution": {
+    "description": "Distribution of sellers by average review score (sellers with reviews only)",
+    "data": [
+      {
+        "bracket": "Poor (0-2)",
+        "seller_count": 92,
+        "percentage": 3.1
+      },
+      {
+        "bracket": "Fair (2-3)",
+        "seller_count": 968,
+        "percentage": 32.6
+      },
+      {
+        "bracket": "Good (3-4)",
+        "seller_count": 1012,
+        "percentage": 34.1
+      },
+      {
+        "bracket": "Very Good (4-4.5)",
+        "seller_count": 341,
+        "percentage": 11.5
+      },
+      {
+        "bracket": "Excellent (4.5-5)",
+        "seller_count": 552,
+        "percentage": 18.6
+      }
+    ]
+  }
+}

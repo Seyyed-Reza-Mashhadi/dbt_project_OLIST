@@ -1,0 +1,269 @@
+{
+  "description": "Delivery performance analysis including on-time rates, delays, and seller performance",
+  "summary": {
+    "total_orders": 110185,
+    "on_time_deliveries": 101475,
+    "on_time_rate_pct": 92.1,
+    "late_deliveries": 8710,
+    "late_rate_pct": 7.9,
+    "avg_actual_delivery_days": 12.01,
+    "avg_fulfillment_days": 2.79,
+    "avg_delay_vs_estimate": -11.11
+  },
+  "delivery_time_distribution": {
+    "description": "Distribution of orders by actual delivery time brackets",
+    "data": [
+      {
+        "bracket": "0-7 days",
+        "order_count": 38702,
+        "percentage": 35.12
+      },
+      {
+        "bracket": "8-14 days",
+        "order_count": 41716,
+        "percentage": 37.86
+      },
+      {
+        "bracket": "15-21 days",
+        "order_count": 17479,
+        "percentage": 15.86
+      },
+      {
+        "bracket": "22-30 days",
+        "order_count": 7716,
+        "percentage": 7.0
+      },
+      {
+        "bracket": "30+ days",
+        "order_count": 4554,
+        "percentage": 4.13
+      }
+    ]
+  },
+  "delay_analysis": {
+    "description": "Analysis of late deliveries and delay patterns",
+    "late_orders_count": 8710,
+    "avg_delay_late_orders": 8.73,
+    "max_delay": 188,
+    "min_delay": 0,
+    "delay_severity_distribution": [
+      {
+        "bracket": "1-3 days late",
+        "order_count": 1172,
+        "percentage": 13.46
+      },
+      {
+        "bracket": "4-7 days late",
+        "order_count": 2006,
+        "percentage": 23.03
+      },
+      {
+        "bracket": "8-14 days late",
+        "order_count": 1617,
+        "percentage": 18.56
+      },
+      {
+        "bracket": "14+ days late",
+        "order_count": 1527,
+        "percentage": 17.53
+      }
+    ]
+  },
+  "seller_performance": {
+    "top_10_sellers": {
+      "description": "Top 10 sellers by on-time rate (min 10 orders)",
+      "data": [
+        {
+          "seller_id": "013900e863eace745d3ec7614cab5b1a",
+          "total_orders": 26,
+          "on_time_orders": 26,
+          "on_time_rate_pct": 100.0,
+          "avg_delivery_days": 11.04,
+          "avg_delay": -15.12
+        },
+        {
+          "seller_id": "014d9a685fd57276679edd00e07089e5",
+          "total_orders": 12,
+          "on_time_orders": 12,
+          "on_time_rate_pct": 100.0,
+          "avg_delivery_days": 8.5,
+          "avg_delay": -11.58
+        },
+        {
+          "seller_id": "01bcc9d254a0143f0ce9791b960b2a47",
+          "total_orders": 10,
+          "on_time_orders": 10,
+          "on_time_rate_pct": 100.0,
+          "avg_delivery_days": 12.4,
+          "avg_delay": -17.3
+        },
+        {
+          "seller_id": "01c97ebb5cdac52891c0ed1c37ba0012",
+          "total_orders": 12,
+          "on_time_orders": 12,
+          "on_time_rate_pct": 100.0,
+          "avg_delivery_days": 12.33,
+          "avg_delay": -8.33
+        },
+        {
+          "seller_id": "02c988090b766852e088c69d7fb3b551",
+          "total_orders": 16,
+          "on_time_orders": 16,
+          "on_time_rate_pct": 100.0,
+          "avg_delivery_days": 8.06,
+          "avg_delay": -9.81
+        },
+        {
+          "seller_id": "02ecc2a19303f05e59ce133fd923fff7",
+          "total_orders": 24,
+          "on_time_orders": 24,
+          "on_time_rate_pct": 100.0,
+          "avg_delivery_days": 10.38,
+          "avg_delay": -14.04
+        },
+        {
+          "seller_id": "0570350b23eda5444f8d1d9544932058",
+          "total_orders": 11,
+          "on_time_orders": 11,
+          "on_time_rate_pct": 100.0,
+          "avg_delivery_days": 4.0,
+          "avg_delay": -12.09
+        },
+        {
+          "seller_id": "06bb3a2fe5e7b7a845b13e8fb91bd944",
+          "total_orders": 18,
+          "on_time_orders": 18,
+          "on_time_rate_pct": 100.0,
+          "avg_delivery_days": 8.33,
+          "avg_delay": -12.83
+        },
+        {
+          "seller_id": "0791d9fc1e30678ecf03d3e55fa108d3",
+          "total_orders": 11,
+          "on_time_orders": 11,
+          "on_time_rate_pct": 100.0,
+          "avg_delivery_days": 5.73,
+          "avg_delay": -17.27
+        },
+        {
+          "seller_id": "079d295dcbf06ee8bb1b65ba964eb2b6",
+          "total_orders": 10,
+          "on_time_orders": 10,
+          "on_time_rate_pct": 100.0,
+          "avg_delivery_days": 6.3,
+          "avg_delay": -9.6
+        }
+      ]
+    },
+    "bottom_10_sellers": {
+      "description": "Bottom 10 sellers by on-time rate (min 10 orders)",
+      "data": [
+        {
+          "seller_id": "b1b3948701c5c72445495bd161b83a4c",
+          "total_orders": 14,
+          "on_time_orders": 5,
+          "on_time_rate_pct": 35.71,
+          "avg_delivery_days": 22.93,
+          "avg_delay": 4.43
+        },
+        {
+          "seller_id": "8d899e15a5925f097cca50faa49b15e3",
+          "total_orders": 10,
+          "on_time_orders": 4,
+          "on_time_rate_pct": 40.0,
+          "avg_delivery_days": 6.8,
+          "avg_delay": -3.4
+        },
+        {
+          "seller_id": "2709af9587499e95e803a6498a5a56e9",
+          "total_orders": 46,
+          "on_time_orders": 23,
+          "on_time_rate_pct": 50.0,
+          "avg_delivery_days": 11.93,
+          "avg_delay": -3.98
+        },
+        {
+          "seller_id": "c42fd8e4d47dfb18ce5222f2dd7752f9",
+          "total_orders": 11,
+          "on_time_orders": 6,
+          "on_time_rate_pct": 54.55,
+          "avg_delivery_days": 33.73,
+          "avg_delay": 10.09
+        },
+        {
+          "seller_id": "fce62094ffe6a4009188ec44e681dfdd",
+          "total_orders": 11,
+          "on_time_orders": 6,
+          "on_time_rate_pct": 54.55,
+          "avg_delivery_days": 18.45,
+          "avg_delay": -11.36
+        },
+        {
+          "seller_id": "c37b2059d4f90d4feead554e5246565e",
+          "total_orders": 16,
+          "on_time_orders": 9,
+          "on_time_rate_pct": 56.25,
+          "avg_delivery_days": 19.75,
+          "avg_delay": -3.81
+        },
+        {
+          "seller_id": "38e6dada03429a47197d5d584d793b41",
+          "total_orders": 12,
+          "on_time_orders": 7,
+          "on_time_rate_pct": 58.33,
+          "avg_delivery_days": 12.42,
+          "avg_delay": -6.75
+        },
+        {
+          "seller_id": "02d35243ea2e497335cd0f076b45675d",
+          "total_orders": 16,
+          "on_time_orders": 10,
+          "on_time_rate_pct": 62.5,
+          "avg_delivery_days": 25.44,
+          "avg_delay": -5.62
+        },
+        {
+          "seller_id": "f76a3b1349b6df1ee875d1f3fa4340f0",
+          "total_orders": 24,
+          "on_time_orders": 15,
+          "on_time_rate_pct": 62.5,
+          "avg_delivery_days": 16.67,
+          "avg_delay": -4.92
+        },
+        {
+          "seller_id": "973f21788dfab357250f69a8dcb7ddee",
+          "total_orders": 19,
+          "on_time_orders": 12,
+          "on_time_rate_pct": 63.16,
+          "avg_delivery_days": 20.68,
+          "avg_delay": -11.53
+        }
+      ]
+    }
+  },
+  "fulfillment_speed_distribution": {
+    "description": "Distribution of orders by fulfillment time (order to shipment).",
+    "data": [
+      {
+        "bracket": "Same day",
+        "order_count": 27155,
+        "percentage": 24.64
+      },
+      {
+        "bracket": "2-3 days",
+        "order_count": 32316,
+        "percentage": 29.33
+      },
+      {
+        "bracket": "4-7 days",
+        "order_count": 22148,
+        "percentage": 20.1
+      },
+      {
+        "bracket": "7+ days",
+        "order_count": 7091,
+        "percentage": 6.44
+      }
+    ]
+  }
+}

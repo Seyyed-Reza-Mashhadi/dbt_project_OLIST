@@ -1,0 +1,18 @@
+{
+  "description": "Overall business metrics including orders, revenue, and key performance indicators",
+  "business_metrics": {
+    "total_orders": 96477,
+    "total_customers": 93357,
+    "total_sellers": 2970,
+    "total_items_ordered": 110194,
+    "total_revenue": 15422461.77
+  },
+  "key_performance_indicators": {
+    "avg_order_value": 159.86,
+    "avg_basket_size": 1.14,
+    "revenue_per_customer": 165.2,
+    "orders_per_customer": 1.03,
+    "revenue_per_seller": 5192.75,
+    "orders_per_seller": 32.48
+  }
+}

@@ -1,0 +1,405 @@
+{
+  "description": "Regional performance analysis including spending, customers, and concentration metrics",
+  "data_quality": {
+    "excluded_orders": 0,
+    "excluded_customers": 0,
+    "excluded_spending": 0.0,
+    "note": "Orders without valid region information (province = None)"
+  },
+  "summary": {
+    "total_provinces": 27,
+    "total_customers": 93395,
+    "total_orders": 96477,
+    "total_spending": 15422461.77,
+    "avg_spending_per_customer": 165.13,
+    "avg_spending_per_order": 159.86
+  },
+  "top_performers": {
+    "by_total_spending": {
+      "description": "Top 10 provinces by total spending",
+      "data": [
+        {
+          "province": "SP",
+          "latitude": -23.165,
+          "longitude": -47.0503,
+          "total_spending": 5770266.19,
+          "spending_percentage": 37.41,
+          "total_customers": 39155,
+          "total_orders": 40500,
+          "avg_spending_per_customer": 147.37
+        },
+        {
+          "province": "RJ",
+          "latitude": -22.7569,
+          "longitude": -43.1756,
+          "total_spending": 2055690.45,
+          "spending_percentage": 13.33,
+          "total_customers": 11917,
+          "total_orders": 12350,
+          "avg_spending_per_customer": 172.5
+        },
+        {
+          "province": "MG",
+          "latitude": -19.9193,
+          "longitude": -44.4395,
+          "total_spending": 1819277.61,
+          "spending_percentage": 11.8,
+          "total_customers": 11001,
+          "total_orders": 11354,
+          "avg_spending_per_customer": 165.37
+        },
+        {
+          "province": "RS",
+          "latitude": -29.2645,
+          "longitude": -52.0619,
+          "total_spending": 861802.4,
+          "spending_percentage": 5.59,
+          "total_customers": 5168,
+          "total_orders": 5345,
+          "avg_spending_per_customer": 166.76
+        },
+        {
+          "province": "PR",
+          "latitude": -24.8042,
+          "longitude": -50.8035,
+          "total_spending": 781919.55,
+          "spending_percentage": 5.07,
+          "total_customers": 4769,
+          "total_orders": 4923,
+          "avg_spending_per_customer": 163.96
+        },
+        {
+          "province": "SC",
+          "latitude": -27.2435,
+          "longitude": -49.5578,
+          "total_spending": 595208.4,
+          "spending_percentage": 3.86,
+          "total_customers": 3449,
+          "total_orders": 3546,
+          "avg_spending_per_customer": 172.57
+        },
+        {
+          "province": "BA",
+          "latitude": -13.0364,
+          "longitude": -39.4701,
+          "total_spending": 591270.6,
+          "spending_percentage": 3.83,
+          "total_customers": 3158,
+          "total_orders": 3256,
+          "avg_spending_per_customer": 187.23
+        },
+        {
+          "province": "DF",
+          "latitude": -15.8114,
+          "longitude": -47.9711,
+          "total_spending": 346146.17,
+          "spending_percentage": 2.24,
+          "total_customers": 2019,
+          "total_orders": 2080,
+          "avg_spending_per_customer": 171.44
+        },
+        {
+          "province": "GO",
+          "latitude": -16.6066,
+          "longitude": -49.3363,
+          "total_spending": 334294.22,
+          "spending_percentage": 2.17,
+          "total_customers": 1895,
+          "total_orders": 1957,
+          "avg_spending_per_customer": 176.41
+        },
+        {
+          "province": "ES",
+          "latitude": -20.1575,
+          "longitude": -40.4775,
+          "total_spending": 317682.65,
+          "spending_percentage": 2.06,
+          "total_customers": 1928,
+          "total_orders": 1995,
+          "avg_spending_per_customer": 164.77
+        }
+      ]
+    },
+    "by_customer_count": {
+      "description": "Top 10 provinces by customer count",
+      "data": [
+        {
+          "province": "SP",
+          "latitude": -23.165,
+          "longitude": -47.0503,
+          "total_customers": 39155,
+          "total_orders": 40500,
+          "total_spending": 5770266.19,
+          "avg_spending_per_customer": 147.37
+        },
+        {
+          "province": "RJ",
+          "latitude": -22.7569,
+          "longitude": -43.1756,
+          "total_customers": 11917,
+          "total_orders": 12350,
+          "total_spending": 2055690.45,
+          "avg_spending_per_customer": 172.5
+        },
+        {
+          "province": "MG",
+          "latitude": -19.9193,
+          "longitude": -44.4395,
+          "total_customers": 11001,
+          "total_orders": 11354,
+          "total_spending": 1819277.61,
+          "avg_spending_per_customer": 165.37
+        },
+        {
+          "province": "RS",
+          "latitude": -29.2645,
+          "longitude": -52.0619,
+          "total_customers": 5168,
+          "total_orders": 5345,
+          "total_spending": 861802.4,
+          "avg_spending_per_customer": 166.76
+        },
+        {
+          "province": "PR",
+          "latitude": -24.8042,
+          "longitude": -50.8035,
+          "total_customers": 4769,
+          "total_orders": 4923,
+          "total_spending": 781919.55,
+          "avg_spending_per_customer": 163.96
+        },
+        {
+          "province": "SC",
+          "latitude": -27.2435,
+          "longitude": -49.5578,
+          "total_customers": 3449,
+          "total_orders": 3546,
+          "total_spending": 595208.4,
+          "avg_spending_per_customer": 172.57
+        },
+        {
+          "province": "BA",
+          "latitude": -13.0364,
+          "longitude": -39.4701,
+          "total_customers": 3158,
+          "total_orders": 3256,
+          "total_spending": 591270.6,
+          "avg_spending_per_customer": 187.23
+        },
+        {
+          "province": "DF",
+          "latitude": -15.8114,
+          "longitude": -47.9711,
+          "total_customers": 2019,
+          "total_orders": 2080,
+          "total_spending": 346146.17,
+          "avg_spending_per_customer": 171.44
+        },
+        {
+          "province": "ES",
+          "latitude": -20.1575,
+          "longitude": -40.4775,
+          "total_customers": 1928,
+          "total_orders": 1995,
+          "total_spending": 317682.65,
+          "avg_spending_per_customer": 164.77
+        },
+        {
+          "province": "GO",
+          "latitude": -16.6066,
+          "longitude": -49.3363,
+          "total_customers": 1895,
+          "total_orders": 1957,
+          "total_spending": 334294.22,
+          "avg_spending_per_customer": 176.41
+        }
+      ]
+    },
+    "by_avg_spending_per_customer": {
+      "description": "Top 10 provinces by average spending per customer (min 100 customers)",
+      "data": [
+        {
+          "province": "PB",
+          "latitude": -7.0888,
+          "longitude": -35.6618,
+          "avg_spending_per_customer": 273.48,
+          "total_customers": 504,
+          "total_orders": 517,
+          "total_spending": 137834.65
+        },
+        {
+          "province": "RO",
+          "latitude": -10.1476,
+          "longitude": -62.8423,
+          "avg_spending_per_customer": 246.65,
+          "total_customers": 231,
+          "total_orders": 243,
+          "total_spending": 56975.7
+        },
+        {
+          "province": "AL",
+          "latitude": -9.6417,
+          "longitude": -36.0384,
+          "avg_spending_per_customer": 243.4,
+          "total_customers": 387,
+          "total_orders": 397,
+          "total_spending": 94195.79
+        },
+        {
+          "province": "PA",
+          "latitude": -2.468,
+          "longitude": -49.1627,
+          "avg_spending_per_customer": 229.96,
+          "total_customers": 922,
+          "total_orders": 946,
+          "total_spending": 212027.55
+        },
+        {
+          "province": "PI",
+          "latitude": -5.5003,
+          "longitude": -42.5935,
+          "avg_spending_per_customer": 226.88,
+          "total_customers": 464,
+          "total_orders": 476,
+          "total_spending": 105272.17
+        },
+        {
+          "province": "TO",
+          "latitude": -9.7328,
+          "longitude": -48.376,
+          "avg_spending_per_customer": 224.75,
+          "total_customers": 267,
+          "total_orders": 274,
+          "total_spending": 60007.37
+        },
+        {
+          "province": "RN",
+          "latitude": -5.8394,
+          "longitude": -35.9429,
+          "avg_spending_per_customer": 217.09,
+          "total_customers": 464,
+          "total_orders": 474,
+          "total_spending": 100728.3
+        },
+        {
+          "province": "SE",
+          "latitude": -10.8739,
+          "longitude": -37.1751,
+          "avg_spending_per_customer": 213.64,
+          "total_customers": 329,
+          "total_orders": 335,
+          "total_spending": 70289.13
+        },
+        {
+          "province": "MT",
+          "latitude": -14.3734,
+          "longitude": -55.7664,
+          "avg_spending_per_customer": 211.96,
+          "total_customers": 856,
+          "total_orders": 886,
+          "total_spending": 181441.72
+        },
+        {
+          "province": "CE",
+          "latitude": -4.3263,
+          "longitude": -38.9665,
+          "avg_spending_per_customer": 211.82,
+          "total_customers": 1258,
+          "total_orders": 1279,
+          "total_spending": 266463.97
+        }
+      ]
+    }
+  },
+  "bottom_performers": {
+    "description": "Bottom 10 provinces by total spending",
+    "data": [
+      {
+        "province": "RR",
+        "latitude": 2.8367,
+        "longitude": -60.6753,
+        "total_spending": 9039.52,
+        "total_customers": 40,
+        "total_orders": 41
+      },
+      {
+        "province": "AP",
+        "latitude": 0.065,
+        "longitude": -51.1649,
+        "total_spending": 16141.81,
+        "total_customers": 66,
+        "total_orders": 67
+      },
+      {
+        "province": "AC",
+        "latitude": -9.9085,
+        "longitude": -68.0607,
+        "total_spending": 19586.25,
+        "total_customers": 76,
+        "total_orders": 80
+      },
+      {
+        "province": "AM",
+        "latitude": -3.2149,
+        "longitude": -60.0784,
+        "total_spending": 27596.18,
+        "total_customers": 140,
+        "total_orders": 145
+      },
+      {
+        "province": "RO",
+        "latitude": -10.1476,
+        "longitude": -62.8423,
+        "total_spending": 56975.7,
+        "total_customers": 231,
+        "total_orders": 243
+      },
+      {
+        "province": "TO",
+        "latitude": -9.7328,
+        "longitude": -48.376,
+        "total_spending": 60007.37,
+        "total_customers": 267,
+        "total_orders": 274
+      },
+      {
+        "province": "SE",
+        "latitude": -10.8739,
+        "longitude": -37.1751,
+        "total_spending": 70289.13,
+        "total_customers": 329,
+        "total_orders": 335
+      },
+      {
+        "province": "AL",
+        "latitude": -9.6417,
+        "longitude": -36.0384,
+        "total_spending": 94195.79,
+        "total_customers": 387,
+        "total_orders": 397
+      },
+      {
+        "province": "RN",
+        "latitude": -5.8394,
+        "longitude": -35.9429,
+        "total_spending": 100728.3,
+        "total_customers": 464,
+        "total_orders": 474
+      },
+      {
+        "province": "PI",
+        "latitude": -5.5003,
+        "longitude": -42.5935,
+        "total_spending": 105272.17,
+        "total_customers": 464,
+        "total_orders": 476
+      }
+    ]
+  },
+  "concentration_analysis": {
+    "description": "Spending concentration metrics across provinces",
+    "provinces_for_80pct_spending": 6,
+    "top_5_spending_share_pct": 73.2,
+    "concentration_ratio_pct": 22.22
+  }
+}

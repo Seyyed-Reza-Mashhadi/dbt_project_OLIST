@@ -1,0 +1,241 @@
+{
+  "description": "Product category performance analysis including top/bottom performers and concentration metrics",
+  "summary": {
+    "total_categories": 74,
+    "total_revenue": 15843553.24,
+    "total_items_sold": 112650
+  },
+  "top_performers": {
+    "by_items_sold": {
+      "description": "Top 10 categories by items sold (high demand)",
+      "data": [
+        {
+          "product_category_name": "cama_mesa_banho",
+          "total_items_sold": 11115,
+          "items_percentage": 9.87,
+          "total_revenue": 1241681.72,
+          "revenue_percentage": 7.84
+        },
+        {
+          "product_category_name": "beleza_saude",
+          "total_items_sold": 9670,
+          "items_percentage": 8.58,
+          "total_revenue": 1441248.07,
+          "revenue_percentage": 9.1
+        },
+        {
+          "product_category_name": "esporte_lazer",
+          "total_items_sold": 8641,
+          "items_percentage": 7.67,
+          "total_revenue": 1156656.48,
+          "revenue_percentage": 7.3
+        },
+        {
+          "product_category_name": "moveis_decoracao",
+          "total_items_sold": 8334,
+          "items_percentage": 7.4,
+          "total_revenue": 902511.79,
+          "revenue_percentage": 5.7
+        },
+        {
+          "product_category_name": "informatica_acessorios",
+          "total_items_sold": 7827,
+          "items_percentage": 6.95,
+          "total_revenue": 1059272.4,
+          "revenue_percentage": 6.69
+        },
+        {
+          "product_category_name": "utilidades_domesticas",
+          "total_items_sold": 6964,
+          "items_percentage": 6.18,
+          "total_revenue": 778397.77,
+          "revenue_percentage": 4.91
+        },
+        {
+          "product_category_name": "relogios_presentes",
+          "total_items_sold": 5991,
+          "items_percentage": 5.32,
+          "total_revenue": 1305541.61,
+          "revenue_percentage": 8.24
+        },
+        {
+          "product_category_name": "telefonia",
+          "total_items_sold": 4545,
+          "items_percentage": 4.03,
+          "total_revenue": 394883.32,
+          "revenue_percentage": 2.49
+        },
+        {
+          "product_category_name": "ferramentas_jardim",
+          "total_items_sold": 4347,
+          "items_percentage": 3.86,
+          "total_revenue": 584219.21,
+          "revenue_percentage": 3.69
+        },
+        {
+          "product_category_name": "automotivo",
+          "total_items_sold": 4235,
+          "items_percentage": 3.76,
+          "total_revenue": 685384.32,
+          "revenue_percentage": 4.33
+        }
+      ]
+    },
+    "by_revenue": {
+      "description": "Top 10 categories by total revenue",
+      "data": [
+        {
+          "product_category_name": "beleza_saude",
+          "total_revenue": 1441248.07,
+          "revenue_percentage": 9.1,
+          "total_items_sold": 9670,
+          "items_percentage": 8.58
+        },
+        {
+          "product_category_name": "relogios_presentes",
+          "total_revenue": 1305541.61,
+          "revenue_percentage": 8.24,
+          "total_items_sold": 5991,
+          "items_percentage": 5.32
+        },
+        {
+          "product_category_name": "cama_mesa_banho",
+          "total_revenue": 1241681.72,
+          "revenue_percentage": 7.84,
+          "total_items_sold": 11115,
+          "items_percentage": 9.87
+        },
+        {
+          "product_category_name": "esporte_lazer",
+          "total_revenue": 1156656.48,
+          "revenue_percentage": 7.3,
+          "total_items_sold": 8641,
+          "items_percentage": 7.67
+        },
+        {
+          "product_category_name": "informatica_acessorios",
+          "total_revenue": 1059272.4,
+          "revenue_percentage": 6.69,
+          "total_items_sold": 7827,
+          "items_percentage": 6.95
+        },
+        {
+          "product_category_name": "moveis_decoracao",
+          "total_revenue": 902511.79,
+          "revenue_percentage": 5.7,
+          "total_items_sold": 8334,
+          "items_percentage": 7.4
+        },
+        {
+          "product_category_name": "utilidades_domesticas",
+          "total_revenue": 778397.77,
+          "revenue_percentage": 4.91,
+          "total_items_sold": 6964,
+          "items_percentage": 6.18
+        },
+        {
+          "product_category_name": "cool_stuff",
+          "total_revenue": 719329.95,
+          "revenue_percentage": 4.54,
+          "total_items_sold": 3796,
+          "items_percentage": 3.37
+        },
+        {
+          "product_category_name": "automotivo",
+          "total_revenue": 685384.32,
+          "revenue_percentage": 4.33,
+          "total_items_sold": 4235,
+          "items_percentage": 3.76
+        },
+        {
+          "product_category_name": "ferramentas_jardim",
+          "total_revenue": 584219.21,
+          "revenue_percentage": 3.69,
+          "total_items_sold": 4347,
+          "items_percentage": 3.86
+        }
+      ]
+    }
+  },
+  "bottom_performers": {
+    "description": "Bottom 10 categories by revenue (worst selling)",
+    "data": [
+      {
+        "product_category_name": "seguros_e_servicos",
+        "total_items_sold": 2,
+        "items_percentage": 0.0,
+        "total_revenue": 324.51,
+        "revenue_percentage": 0.0
+      },
+      {
+        "product_category_name": "fashion_roupa_infanto_juvenil",
+        "total_items_sold": 8,
+        "items_percentage": 0.01,
+        "total_revenue": 665.36,
+        "revenue_percentage": 0.0
+      },
+      {
+        "product_category_name": "cds_dvds_musicais",
+        "total_items_sold": 14,
+        "items_percentage": 0.01,
+        "total_revenue": 954.99,
+        "revenue_percentage": 0.01
+      },
+      {
+        "product_category_name": "casa_conforto_2",
+        "total_items_sold": 30,
+        "items_percentage": 0.03,
+        "total_revenue": 1170.58,
+        "revenue_percentage": 0.01
+      },
+      {
+        "product_category_name": "flores",
+        "total_items_sold": 33,
+        "items_percentage": 0.03,
+        "total_revenue": 1598.91,
+        "revenue_percentage": 0.01
+      },
+      {
+        "product_category_name": "pc_gamer",
+        "total_items_sold": 9,
+        "items_percentage": 0.01,
+        "total_revenue": 1679.52,
+        "revenue_percentage": 0.01
+      },
+      {
+        "product_category_name": "fraldas_higiene",
+        "total_items_sold": 39,
+        "items_percentage": 0.03,
+        "total_revenue": 2141.27,
+        "revenue_percentage": 0.01
+      },
+      {
+        "product_category_name": "artes_e_artesanato",
+        "total_items_sold": 24,
+        "items_percentage": 0.02,
+        "total_revenue": 2184.14,
+        "revenue_percentage": 0.01
+      },
+      {
+        "product_category_name": "la_cuisine",
+        "total_items_sold": 14,
+        "items_percentage": 0.01,
+        "total_revenue": 2388.54,
+        "revenue_percentage": 0.02
+      },
+      {
+        "product_category_name": "fashion_esporte",
+        "total_items_sold": 30,
+        "items_percentage": 0.03,
+        "total_revenue": 2697.64,
+        "revenue_percentage": 0.02
+      }
+    ]
+  },
+  "concentration_analysis": {
+    "description": "Revenue concentration metrics across categories",
+    "categories_for_80pct_revenue": 17,
+    "top_5_revenue_share_pct": 39.16,
+    "concentration_ratio": 22.97
+  }
+}
