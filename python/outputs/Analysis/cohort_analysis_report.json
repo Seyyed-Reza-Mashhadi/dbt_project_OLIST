@@ -12,61 +12,61 @@
     "data": [
       {
         "period_index": 0,
-        "retention_rate": 10000.0,
+        "retention_rate": 100.0,
         "total_spent": "10472898.47",
         "total_active_customers": 64831
       },
       {
         "period_index": 1,
-        "retention_rate": 41.0,
+        "retention_rate": 0.41,
         "total_spent": "45126.56",
         "total_active_customers": 268
       },
       {
         "period_index": 2,
-        "retention_rate": 34.0,
+        "retention_rate": 0.34,
         "total_spent": "27457.37",
         "total_active_customers": 180
       },
       {
         "period_index": 3,
-        "retention_rate": 28.0,
+        "retention_rate": 0.28,
         "total_spent": "19734.65",
         "total_active_customers": 129
       },
       {
         "period_index": 4,
-        "retention_rate": 23.0,
+        "retention_rate": 0.23,
         "total_spent": "13920.81",
         "total_active_customers": 92
       },
       {
         "period_index": 5,
-        "retention_rate": 19.0,
+        "retention_rate": 0.19,
         "total_spent": "9973.88",
         "total_active_customers": 62
       },
       {
         "period_index": 6,
-        "retention_rate": 18.0,
+        "retention_rate": 0.18,
         "total_spent": "6036.21",
         "total_active_customers": 46
       },
       {
         "period_index": 7,
-        "retention_rate": 18.0,
+        "retention_rate": 0.18,
         "total_spent": "4149.68",
         "total_active_customers": 35
       },
       {
         "period_index": 8,
-        "retention_rate": 18.0,
+        "retention_rate": 0.18,
         "total_spent": "3441.02",
         "total_active_customers": 23
       },
       {
         "period_index": 9,
-        "retention_rate": 14.0,
+        "retention_rate": 0.14,
         "total_spent": "1406.13",
         "total_active_customers": 10
       }
