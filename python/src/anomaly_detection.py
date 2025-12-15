@@ -275,7 +275,7 @@ def perform_anomaly_detection(
 
 # IMPORT DATA & RUN ANOMALY DETECTION 
 
-PROJECT_ROOT = Path(__file__).resolve().parents[2] / "python" / "outputs" /"Anomaly_Detection"
+PROJECT_ROOT = Path(__file__).resolve().parents[2] / "python" / "output" /"Anomaly_Detection"
 
 ###### Sales/Revenue Anomaly Detection for Successful Orders
 
@@ -306,7 +306,7 @@ perform_anomaly_detection(df=df2, value_col= 'total_daily_orders', index_col= 'o
 
 ###### Anomaly Detection for delivery times (number of days between purchase and delivery)
 
-df3 = fetch_data_from_bq(q.GET_delivery_performance_with_time)  # delivery duration with time (only delivered orders)
+df3 = fetch_data_from_bq(q.GET_delivery_duration_time_series)  # delivery duration with time (only delivered orders)
 
 
 perform_anomaly_detection(df=df3, value_col= 'days_to_delivery', index_col= 'order_purchase_date',

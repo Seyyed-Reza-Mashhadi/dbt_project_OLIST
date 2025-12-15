@@ -15,22 +15,32 @@ class BusinessContextBuilder:
         Initialize the context builder.
         
         Args:
-            reports_dir: Directory containing the JSON report files
+            reports_dir: The directory where the *output* file will be saved.
+                         (e.g., 'D:/My_Projects/OLIST/python/output')
         """
+        # This path (self.reports_dir) will be used for saving the final TXT file.
         self.reports_dir = Path(reports_dir)
         self.reports = {}
         
+        # 💡 NEW: Define a specific subdirectory where the *input JSON files* reside.
+        # This is relative to the reports_dir you passed in (D:/.../output)
+        self.analysis_subdir = "Analysis" 
+        
     def load_report(self, filename: str) -> Dict[str, Any]:
-        """Load a single JSON report file."""
-        filepath = self.reports_dir / filename
+        """
+        Load a single JSON report file from the defined 'Analysis' subdirectory.
+        """
+        # 💡 UPDATED: Construct the path to include the 'Analysis' subdirectory.
+        filepath = self.reports_dir / self.analysis_subdir / filename
+        
         try:
             with open(filepath, 'r', encoding='utf-8') as f:
                 return json.load(f)
         except FileNotFoundError:
-            print(f"Warning: {filename} not found")
+            print(f"Warning: {filepath} not found. Skipping.")
             return {}
         except json.JSONDecodeError as e:
-            print(f"Error parsing {filename}: {e}")
+            print(f"Error parsing {filepath}: {e}")
             return {}
     
     def load_all_reports(self):
@@ -49,6 +59,7 @@ class BusinessContextBuilder:
         
         for filename in report_files:
             report_name = filename.replace('_report.json', '')
+            # Calls the updated load_report which looks in the subfolder
             self.reports[report_name] = self.load_report(filename)
     
     def format_currency(self, value: float) -> str:
@@ -58,6 +69,10 @@ class BusinessContextBuilder:
     def format_percentage(self, value: float) -> str:
         """Format percentage values."""
         return f"{value:.2f}%"
+    
+    # ... (All build_section methods remain the same) ...
+    # Due to length, I'm omitting the section build methods here, 
+    # but they are unchanged from your original working code.
     
     def build_executive_summary(self) -> str:
         """Build executive summary section."""
@@ -135,12 +150,12 @@ class BusinessContextBuilder:
                 mom_revenue = month_data.get('revenue_mom_pct')
                 mom_orders = month_data.get('orders_mom_pct')
                 section += f"\n{month_data.get('month')}:\n"
-                section += f"  - Revenue: {self.format_currency(month_data.get('total_revenue', 0))}"
+                section += f"  - Revenue: {self.format_currency(month_data.get('total_revenue', 0))}"
                 if mom_revenue is not None:
                     section += f" ({self.format_percentage(mom_revenue)} MoM)\n"
                 else:
                     section += "\n"
-                section += f"  - Orders: {month_data.get('total_orders', 0):,}"
+                section += f"  - Orders: {month_data.get('total_orders', 0):,}"
                 if mom_orders is not None:
                     section += f" ({self.format_percentage(mom_orders)} MoM)\n"
                 else:
@@ -153,12 +168,12 @@ class BusinessContextBuilder:
                 mom_revenue = month_data.get('revenue_mom_pct')
                 mom_orders = month_data.get('orders_mom_pct')
                 section += f"\n{month_data.get('month')}:\n"
-                section += f"  - Revenue: {self.format_currency(month_data.get('total_revenue', 0))}"
+                section += f"  - Revenue: {self.format_currency(month_data.get('total_revenue', 0))}"
                 if mom_revenue is not None:
                     section += f" ({self.format_percentage(mom_revenue)} MoM)\n"
                 else:
                     section += "\n"
-                section += f"  - Orders: {month_data.get('total_orders', 0):,}"
+                section += f"  - Orders: {month_data.get('total_orders', 0):,}"
                 if mom_orders is not None:
                     section += f" ({self.format_percentage(mom_orders)} MoM)\n"
                 else:
@@ -353,30 +368,30 @@ class BusinessContextBuilder:
             # Add RFM statistics if available
             if rfm_stats:
                 section += "\nRecency (days since last purchase):\n"
-                section += f"  - Min: {rfm_stats.get('recency', {}).get('min', 0):.0f} days\n"
-                section += f"  - Median: {rfm_stats.get('recency', {}).get('median', 0):.0f} days\n"
-                section += f"  - Max: {rfm_stats.get('recency', {}).get('max', 0):.0f} days\n"
+                section += f"  - Min: {rfm_stats.get('recency', {}).get('min', 0):.0f} days\n"
+                section += f"  - Median: {rfm_stats.get('recency', {}).get('median', 0):.0f} days\n"
+                section += f"  - Max: {rfm_stats.get('recency', {}).get('max', 0):.0f} days\n"
                 
                 section += "\nFrequency (number of orders):\n"
-                section += f"  - Min: {rfm_stats.get('frequency', {}).get('min', 0):.0f} orders\n"
-                section += f"  - Median: {rfm_stats.get('frequency', {}).get('median', 0):.0f} orders\n"
-                section += f"  - Max: {rfm_stats.get('frequency', {}).get('max', 0):.0f} orders\n"
+                section += f"  - Min: {rfm_stats.get('frequency', {}).get('min', 0):.0f} orders\n"
+                section += f"  - Median: {rfm_stats.get('frequency', {}).get('median', 0):.0f} orders\n"
+                section += f"  - Max: {rfm_stats.get('frequency', {}).get('max', 0):.0f} orders\n"
                 
                 section += "\nMonetary Value (total spending):\n"
-                section += f"  - Min: {self.format_currency(rfm_stats.get('monetary', {}).get('min', 0))}\n"
-                section += f"  - Median: {self.format_currency(rfm_stats.get('monetary', {}).get('median', 0))}\n"
-                section += f"  - Max: {self.format_currency(rfm_stats.get('monetary', {}).get('max', 0))}\n"
+                section += f"  - Min: {self.format_currency(rfm_stats.get('monetary', {}).get('min', 0))}\n"
+                section += f"  - Median: {self.format_currency(rfm_stats.get('monetary', {}).get('median', 0))}\n"
+                section += f"  - Max: {self.format_currency(rfm_stats.get('monetary', {}).get('max', 0))}\n"
                 section += "\n"
         
         if rfm_segments:
             section += "Customer Segmentation (RFM):\n"
             for seg in rfm_segments:
                 section += f"\n{seg.get('segment')}:\n"
-                section += f"  - Customers: {seg.get('customer_count', 0):,} "
+                section += f"  - Customers: {seg.get('customer_count', 0):,} "
                 section += f"({self.format_percentage(seg.get('percentage_of_customers', 0))})\n"
-                section += f"  - Revenue: {self.format_currency(seg.get('total_revenue', 0))} "
+                section += f"  - Revenue: {self.format_currency(seg.get('total_revenue', 0))} "
                 section += f"({self.format_percentage(seg.get('percentage_of_revenue', 0))})\n"
-                section += f"  - Orders: {seg.get('total_orders', 0):,}\n"
+                section += f"  - Orders: {seg.get('total_orders', 0):,}\n"
             section += "\n"
         
         # Cohort Analysis
@@ -436,6 +451,8 @@ class BusinessContextBuilder:
         
         return section
     
+    # ... (End of build_section methods) ...
+    
     def build_full_context(self) -> str:
         """Build the complete business context."""
         context = "\n"
@@ -460,9 +477,13 @@ class BusinessContextBuilder:
         return context
     
     def save_context(self, output_file: str = "business_context.txt"):
-        """Save the built context to a file."""
+        """Save the built context to a file in the reports_dir."""
         context = self.build_full_context()
+        # 💡 This now saves directly into the path passed to __init__
         output_path = self.reports_dir / output_file
+        
+        # Ensure the output directory exists
+        output_path.parent.mkdir(parents=True, exist_ok=True)
         
         with open(output_path, 'w', encoding='utf-8') as f:
             f.write(context)
@@ -474,15 +495,19 @@ class BusinessContextBuilder:
 
 def main():
     """Main execution function."""
-    # Initialize the builder
-    builder = BusinessContextBuilder(reports_dir=".")
+    # 🎯 User-specified path: D:/My_Projects/OLIST/python/output
+    reports_directory = "D:/My_Projects/OLIST/python/output"
+    
+    # Initialize the builder with the base directory
+    builder = BusinessContextBuilder(reports_dir=reports_directory)
     
     # Load all reports
-    print("Loading reports...")
+    print(f"Loading reports from: {reports_directory}/{builder.analysis_subdir}/...")
     builder.load_all_reports()
     
     # Build and save context
-    print("Building business context...")
+    print(f"Building and saving business context to {reports_directory}...")
+    # This will save to D:/My_Projects/OLIST/python/output/business_context.txt
     output_path = builder.save_context("business_context.txt")
     
     # Also print to console for preview

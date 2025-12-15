@@ -122,7 +122,7 @@ def create_cohort_report(df, path= None):
 
 # Performing analysis and generating reports
 
-directory = Path(__file__).resolve().parents[2] / "python" / "outputs" / "Analysis" 
+directory = Path(__file__).resolve().parents[2] / "python" / "output" / "Analysis" 
 
 # Cohort Customer Retention Data
 df1 = fetch_data_from_bq(q.GET_BI_CUSTOMER_COHORTS)

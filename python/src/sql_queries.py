@@ -106,6 +106,20 @@ SELECT
 FROM `olist-ecommerce-1234321.mart.BI_delivery_performance`
 WHERE fulfillment_days IS NOT NULL  -- excluding a few cases with Null values
 """
+
+# delivery performance with purchase_date 
+
+GET_delivery_duration_time_series = """
+SELECT 
+  DATE(o.order_purchase_timestamp) AS order_purchase_date,
+  round(AVG(dp.actual_delivery_days),2) AS days_to_delivery
+
+FROM `olist-ecommerce-1234321.mart.FACT_orders` AS o
+JOIN `olist-ecommerce-1234321.mart.BI_delivery_performance` AS dp 
+  ON o.order_id = dp.order_id
+GROUP BY date(o.order_purchase_timestamp)
+"""
+
 # product category performance
 
 GET_product_category_performance = """
@@ -122,7 +136,6 @@ LEFT JOIN `olist-ecommerce-1234321.mart.FACT_orders` AS o
    AND o.order_status = 'delivered'
 GROUP BY p.product_category_name
 """
-
 
 
 # Region (province) performance

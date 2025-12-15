@@ -141,4 +141,4 @@ queries_to_process = {
 
 for df_clean_name, sql_query_name in queries_to_process.items():
     qc = perform_data_qc(fetch_data_from_bq(sql_query_name), df_name=df_clean_name)
-    save_qc_report(qc, PROJECT_ROOT / "python" / "outputs" /"QC_Reports" / f"{df_clean_name}.json")
+    save_qc_report(qc, PROJECT_ROOT / "python" / "output" /"QC_Reports" / f"{df_clean_name}.json")

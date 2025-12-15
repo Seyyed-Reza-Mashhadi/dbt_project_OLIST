@@ -1,7 +1,7 @@
 
 ████████████████████████████████████████████████████████████████████████████████
 COMPREHENSIVE BUSINESS INTELLIGENCE REPORT
-Generated: 2025-12-14 23:08:58
+Generated: 2025-12-15 01:08:07
 ████████████████████████████████████████████████████████████████████████████████
 
 ================================================================================
@@ -42,52 +42,52 @@ Last 12 Months Summary:
 Last 12 Months Monthly Performance:
 
 2017-09:
-  - Revenue: $701,169.99 (8.54% MoM)
-  - Orders: 4,150 (-1.03% MoM)
+  - Revenue: $701,169.99 (8.54% MoM)
+  - Orders: 4,150 (-1.03% MoM)
 
 2017-10:
-  - Revenue: $751,140.27 (7.13% MoM)
-  - Orders: 4,478 (7.90% MoM)
+  - Revenue: $751,140.27 (7.13% MoM)
+  - Orders: 4,478 (7.90% MoM)
 
 2017-11:
-  - Revenue: $1,153,528.05 (53.57% MoM)
-  - Orders: 7,289 (62.77% MoM)
+  - Revenue: $1,153,528.05 (53.57% MoM)
+  - Orders: 7,289 (62.77% MoM)
 
 2017-12:
-  - Revenue: $843,199.17 (-26.90% MoM)
-  - Orders: 5,513 (-24.37% MoM)
+  - Revenue: $843,199.17 (-26.90% MoM)
+  - Orders: 5,513 (-24.37% MoM)
 
 2018-01:
-  - Revenue: $1,078,606.86 (27.92% MoM)
-  - Orders: 7,069 (28.22% MoM)
+  - Revenue: $1,078,606.86 (27.92% MoM)
+  - Orders: 7,069 (28.22% MoM)
 
 2018-02:
-  - Revenue: $966,510.88 (-10.39% MoM)
-  - Orders: 6,555 (-7.27% MoM)
+  - Revenue: $966,510.88 (-10.39% MoM)
+  - Orders: 6,555 (-7.27% MoM)
 
 2018-03:
-  - Revenue: $1,120,678.00 (15.95% MoM)
-  - Orders: 7,003 (6.83% MoM)
+  - Revenue: $1,120,678.00 (15.95% MoM)
+  - Orders: 7,003 (6.83% MoM)
 
 2018-04:
-  - Revenue: $1,132,933.95 (1.09% MoM)
-  - Orders: 6,798 (-2.93% MoM)
+  - Revenue: $1,132,933.95 (1.09% MoM)
+  - Orders: 6,798 (-2.93% MoM)
 
 2018-05:
-  - Revenue: $1,128,836.69 (-0.36% MoM)
-  - Orders: 6,749 (-0.72% MoM)
+  - Revenue: $1,128,836.69 (-0.36% MoM)
+  - Orders: 6,749 (-0.72% MoM)
 
 2018-06:
-  - Revenue: $1,012,090.68 (-10.34% MoM)
-  - Orders: 6,099 (-9.63% MoM)
+  - Revenue: $1,012,090.68 (-10.34% MoM)
+  - Orders: 6,099 (-9.63% MoM)
 
 2018-07:
-  - Revenue: $1,027,903.86 (1.56% MoM)
-  - Orders: 6,159 (0.98% MoM)
+  - Revenue: $1,027,903.86 (1.56% MoM)
+  - Orders: 6,159 (0.98% MoM)
 
 2018-08:
-  - Revenue: $985,414.28 (-4.13% MoM)
-  - Orders: 6,351 (3.12% MoM)
+  - Revenue: $985,414.28 (-4.13% MoM)
+  - Orders: 6,351 (3.12% MoM)
 
 ================================================================================
 CATEGORY PERFORMANCE
@@ -215,29 +215,29 @@ RFM Analysis Overview (12-month period: 2017-11-01 to 2018-11-01):
 Customer Segmentation (RFM):
 
 Potential Loyalists:
-  - Customers: 31,199 (48.12%)
-  - Revenue: $6,061,767.74 (57.16%)
-  - Orders: 31,954
+  - Customers: 31,199 (48.12%)
+  - Revenue: $6,061,767.74 (57.16%)
+  - Orders: 31,954
 
 Loyal Customers:
-  - Customers: 7,856 (12.12%)
-  - Revenue: $2,601,032.57 (24.53%)
-  - Orders: 8,591
+  - Customers: 7,856 (12.12%)
+  - Revenue: $2,601,032.57 (24.53%)
+  - Orders: 8,591
 
 At Risk:
-  - Customers: 23,180 (35.75%)
-  - Revenue: $1,835,012.20 (17.30%)
-  - Orders: 23,280
+  - Customers: 23,180 (35.75%)
+  - Revenue: $1,835,012.20 (17.30%)
+  - Orders: 23,280
 
 Lost:
-  - Customers: 2,588 (3.99%)
-  - Revenue: $102,052.22 (0.96%)
-  - Orders: 2,588
+  - Customers: 2,588 (3.99%)
+  - Revenue: $102,052.22 (0.96%)
+  - Orders: 2,588
 
 Champions:
-  - Customers: 8 (0.01%)
-  - Revenue: $4,280.05 (0.04%)
-  - Orders: 38
+  - Customers: 8 (0.01%)
+  - Revenue: $4,280.05 (0.04%)
+  - Orders: 38
 
 Cohort Analysis Overview:
 - Analysis Period: 2017-11 to 2018-09

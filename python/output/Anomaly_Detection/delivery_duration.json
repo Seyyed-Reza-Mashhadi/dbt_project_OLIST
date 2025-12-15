@@ -1,0 +1,77 @@
+{
+    "pipeline_run_details": {
+        "metric_desc": "Delivery Duration in days",
+        "method": "Z-Score",
+        "analysis_mode": "Distributional (Static)",
+        "checks_run": [
+            "N/A (Distributional (Static))"
+        ]
+    },
+    "anomaly_checks": [
+        {
+            "analysis_mode": "Distributional (Static)",
+            "frequency": "N/A",
+            "metric_desc": "Delivery Duration in days",
+            "method": "Z-Score",
+            "limit_description": "Z-Score Limit: > +/- 3.0 Standard Deviations",
+            "total_points": 611,
+            "anomaly_count": 9,
+            "anomalies": [
+                {
+                    "index_id": "2017-01-09",
+                    "value": 26.83,
+                    "type": "Peak (High)",
+                    "method_details": "Z-Score: 4.84"
+                },
+                {
+                    "index_id": "2016-10-03",
+                    "value": 24.57,
+                    "type": "Peak (High)",
+                    "method_details": "Z-Score: 4.10"
+                },
+                {
+                    "index_id": "2016-10-04",
+                    "value": 24.17,
+                    "type": "Peak (High)",
+                    "method_details": "Z-Score: 3.97"
+                },
+                {
+                    "index_id": "2017-01-12",
+                    "value": 23.43,
+                    "type": "Peak (High)",
+                    "method_details": "Z-Score: 3.73"
+                },
+                {
+                    "index_id": "2017-01-07",
+                    "value": 22.2,
+                    "type": "Peak (High)",
+                    "method_details": "Z-Score: 3.33"
+                },
+                {
+                    "index_id": "2016-10-06",
+                    "value": 21.51,
+                    "type": "Peak (High)",
+                    "method_details": "Z-Score: 3.10"
+                },
+                {
+                    "index_id": "2018-08-27",
+                    "value": 2.1,
+                    "type": "Valley (Low)",
+                    "method_details": "Z-Score: -3.23"
+                },
+                {
+                    "index_id": "2018-08-28",
+                    "value": 1.47,
+                    "type": "Valley (Low)",
+                    "method_details": "Z-Score: -3.43"
+                },
+                {
+                    "index_id": "2018-08-29",
+                    "value": 1.0,
+                    "type": "Valley (Low)",
+                    "method_details": "Z-Score: -3.59"
+                }
+            ]
+        }
+    ]
+}
