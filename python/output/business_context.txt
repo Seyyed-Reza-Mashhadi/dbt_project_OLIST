@@ -1,8 +1,46 @@
 
-████████████████████████████████████████████████████████████████████████████████
+================================================================================
+INTRODUCTION
+================================================================================
+
+Dataset Overview:
+- **Dataset Name**: Brazilian E-commerce (OLIST)
+- **Source**: Kaggle (Open Dataset)
+- **Time Span**: 2016 - 2018
+- **Scope**: This dataset represents orders made through the Olist platform, a Brazilian online marketplace that connects customers with a variety of sellers across multiple categories. It contains detailed transactional, product, seller, and customer information.
+
+Objective:
+The purpose of this report is to provide a comprehensive analysis of the Olist e-commerce dataset, with the aim of uncovering business insights, identifying trends, assessing risks, and detecting anomalies. 
+The analysis spans across multiple aspects of business performance, customer behavior, and operational efficiency, which are critical for improving decision-making.
+
+Key Goals of this Report:
+1. **Assess Overall Business Performance**: 
+   - Analyze key business metrics such as revenue, sales volume, and order trends.
+   - Evaluate the performance of different product categories, regions, and sellers.
+
+2. **Identify Trends and Patterns**: 
+   - Identify seasonal trends and cyclic patterns in sales, order volume, and customer behavior.
+   - Examine the growth or decline in specific product categories, regions, and customer segments.
+
+3. **Highlight Risks and Opportunities**:
+   - Detect underperforming segments, such as slow-moving products, regions with declining sales, or sellers with customer satisfaction issues.
+   - Pinpoint areas where the business can take corrective action or capitalize on emerging trends.
+
+4. **Provide Actionable Insights**:
+   - Deliver insights into customer behavior, seller performance, delivery efficiency, and product popularity.
+   - Offer concrete recommendations for business optimization, marketing strategies, and operational improvements.
+
+Expected Deliverables:
+- **Detailed Business Intelligence Reports** on performance metrics, including category, product, region, and seller analysis.
+- **Anomaly Detection Findings**: Identification of data irregularities such as unexpected spikes in sales, delivery delays, and order cancellations.
+- **Data Quality Checks**: Validation of dataset integrity, highlighting any data issues such as missing values or inconsistencies.
+- **Anything Relavant / Interesting?** Provide other insights can be reported/interpreted based on provided data/metrics.
+
+
+================================================================================
 COMPREHENSIVE BUSINESS INTELLIGENCE REPORT
-Generated: 2025-12-15 01:08:07
-████████████████████████████████████████████████████████████████████████████████
+Generated: 2025-12-15 15:35:18
+================================================================================
 
 ================================================================================
 EXECUTIVE SUMMARY
@@ -24,6 +62,110 @@ Key Performance Indicators:
 - Orders per Seller: 32.48
 
 ================================================================================
+DATA QUALITY ASSESSMENT
+================================================================================
+
+OVERALL DATASET SUMMARY:
+----------------------------------------
+- Total Datasets Analyzed: 8
+- Combined Total Rows: 1,550,847
+- Combined Total Columns: 48
+- Total Duplicated Rows: 261,831
+
+TABLE-LEVEL DATA QUALITY METRICS:
+----------------------------------------
+
+- CUSTOMERS:
+   • Rows: 99,441
+   • Columns: 5
+   • Duplicated Rows: 0 (0.00%)
+   • Data Types:
+     - Int64: 1 columns
+     - object: 4 columns
+
+- GEOLOCATION:
+   • Rows: 1,000,163
+   • Columns: 5
+   • Duplicated Rows: 261,831 (26.18%)
+   • Data Types:
+     - Int64: 1 columns
+     - float64: 2 columns
+     - object: 2 columns
+
+- ORDERS:
+   • Rows: 99,441
+   • Columns: 8
+   • Duplicated Rows: 0 (0.00%)
+   • Columns with Nulls: 3/8
+   • Total Null Values: 4,908
+   • Low Cardinality Columns (<10 unique values): 1
+     - order_status: 8 unique values
+   • Data Types:
+     - datetime64[us, UTC]: 5 columns
+     - object: 3 columns
+
+- ORDER_ITEMS:
+   • Rows: 112,650
+   • Columns: 7
+   • Duplicated Rows: 0 (0.00%)
+   • Data Types:
+     - Int64: 1 columns
+     - datetime64[us, UTC]: 1 columns
+     - float64: 2 columns
+     - object: 3 columns
+
+- ORDER_PAYMENTS:
+   • Rows: 103,886
+   • Columns: 5
+   • Duplicated Rows: 0 (0.00%)
+   • Low Cardinality Columns (<10 unique values): 1
+     - payment_type: 5 unique values
+   • Data Types:
+     - Int64: 2 columns
+     - float64: 1 columns
+     - object: 2 columns
+
+- ORDER_REVIEWS:
+   • Rows: 99,220
+   • Columns: 5
+   • Duplicated Rows: 0 (0.00%)
+   • Data Types:
+     - Int64: 1 columns
+     - boolean: 1 columns
+     - datetime64[us, UTC]: 1 columns
+     - object: 2 columns
+
+- PRODUCTS:
+   • Rows: 32,951
+   • Columns: 9
+   • Duplicated Rows: 0 (0.00%)
+   • Columns with Nulls: 8/9
+   • Total Null Values: 2,448
+   • Data Types:
+     - Int64: 7 columns
+     - object: 2 columns
+
+- SELLERS:
+   • Rows: 3,095
+   • Columns: 4
+   • Duplicated Rows: 0 (0.00%)
+   • Data Types:
+     - Int64: 1 columns
+     - object: 3 columns
+
+DATA QUALITY ISSUES SUMMARY:
+----------------------------------------
+
+- No major data quality issues detected (all columns have <5% null values)
+
+DATA COMPLETENESS SUMMARY:
+----------------------------------------
+
+- Total Columns Across All Tables: 48
+- Fully Complete Columns (0% nulls): 37
+- Data Completeness Score: 77.08%
+
+================================================================================
 MONTHLY TRENDS & GROWTH
 ================================================================================
 
@@ -42,52 +184,80 @@ Last 12 Months Summary:
 Last 12 Months Monthly Performance:
 
 2017-09:
-  - Revenue: $701,169.99 (8.54% MoM)
-  - Orders: 4,150 (-1.03% MoM)
+  - Revenue: $701,169.99 (8.54% MoM)
+  - Orders: 4,150 (-1.03% MoM)
 
 2017-10:
-  - Revenue: $751,140.27 (7.13% MoM)
-  - Orders: 4,478 (7.90% MoM)
+  - Revenue: $751,140.27 (7.13% MoM)
+  - Orders: 4,478 (7.90% MoM)
 
 2017-11:
-  - Revenue: $1,153,528.05 (53.57% MoM)
-  - Orders: 7,289 (62.77% MoM)
+  - Revenue: $1,153,528.05 (53.57% MoM)
+  - Orders: 7,289 (62.77% MoM)
 
 2017-12:
-  - Revenue: $843,199.17 (-26.90% MoM)
-  - Orders: 5,513 (-24.37% MoM)
+  - Revenue: $843,199.17 (-26.90% MoM)
+  - Orders: 5,513 (-24.37% MoM)
 
 2018-01:
-  - Revenue: $1,078,606.86 (27.92% MoM)
-  - Orders: 7,069 (28.22% MoM)
+  - Revenue: $1,078,606.86 (27.92% MoM)
+  - Orders: 7,069 (28.22% MoM)
 
 2018-02:
-  - Revenue: $966,510.88 (-10.39% MoM)
-  - Orders: 6,555 (-7.27% MoM)
+  - Revenue: $966,510.88 (-10.39% MoM)
+  - Orders: 6,555 (-7.27% MoM)
 
 2018-03:
-  - Revenue: $1,120,678.00 (15.95% MoM)
-  - Orders: 7,003 (6.83% MoM)
+  - Revenue: $1,120,678.00 (15.95% MoM)
+  - Orders: 7,003 (6.83% MoM)
 
 2018-04:
-  - Revenue: $1,132,933.95 (1.09% MoM)
-  - Orders: 6,798 (-2.93% MoM)
+  - Revenue: $1,132,933.95 (1.09% MoM)
+  - Orders: 6,798 (-2.93% MoM)
 
 2018-05:
-  - Revenue: $1,128,836.69 (-0.36% MoM)
-  - Orders: 6,749 (-0.72% MoM)
+  - Revenue: $1,128,836.69 (-0.36% MoM)
+  - Orders: 6,749 (-0.72% MoM)
 
 2018-06:
-  - Revenue: $1,012,090.68 (-10.34% MoM)
-  - Orders: 6,099 (-9.63% MoM)
+  - Revenue: $1,012,090.68 (-10.34% MoM)
+  - Orders: 6,099 (-9.63% MoM)
 
 2018-07:
-  - Revenue: $1,027,903.86 (1.56% MoM)
-  - Orders: 6,159 (0.98% MoM)
+  - Revenue: $1,027,903.86 (1.56% MoM)
+  - Orders: 6,159 (0.98% MoM)
 
 2018-08:
-  - Revenue: $985,414.28 (-4.13% MoM)
-  - Orders: 6,351 (3.12% MoM)
+  - Revenue: $985,414.28 (-4.13% MoM)
+  - Orders: 6,351 (3.12% MoM)
+
+================================================================================
+PRODUCT PERFORMANCE
+================================================================================
+
+Product Overview:
+- Total Products: 32,951
+- Total Revenue: $15,843,553.24
+- Total Items Sold: 112,650
+- Avg Review Score: 4.12/5.0
+- Avg Delivery Days: 11.7
+
+Top 10 Products by Revenue:
+1. Product bb50f2e2... (beleza_saude): $67,606.10 (195 items, 4.24/5.0)
+2. Product d1c42706... (informatica_acessorios): $60,976.03 (343 items, 4.28/5.0)
+3. Product 6cdd5384... (beleza_saude): $59,093.99 (156 items, 4.36/5.0)
+4. Product 99a4788c... (cama_mesa_banho): $51,071.60 (488 items, 3.93/5.0)
+5. Product d6160fb7... (pcs): $50,326.18 (35 items, 4.67/5.0)
+6. Product 3dd2a171... (informatica_acessorios): $48,212.22 (274 items, 4.22/5.0)
+7. Product aca2eb7d... (moveis_decoracao): $44,820.76 (527 items, 4.05/5.0)
+8. Product 5f504b3a... (cool_stuff): $41,725.81 (63 items, 4.56/5.0)
+9. Product 25c38557... (bebes): $40,311.95 (38 items, 2.68/5.0)
+10. Product 53b36df6... (relogios_presentes): $39,957.93 (323 items, 4.20/5.0)
+
+Product Correlation Insights:
+- Items Sold vs Review Score: -0.216
+- Items Sold vs Delivery Days: 0.109
+- Review Score vs Delivery Days: -0.251
 
 ================================================================================
 CATEGORY PERFORMANCE
@@ -155,35 +325,6 @@ Top 5 Provinces by Avg Customer Value:
 5. PI: $226.88 per customer (464 customers)
 
 ================================================================================
-SELLER PERFORMANCE
-================================================================================
-
-Seller Overview:
-- Total Sellers: 2,970
-- Total Revenue: $15,446,080.16
-- Total Orders: 97,818
-- Average Review Score: 3.67/5.0
-- Average Delivery Days: 12.1
-
-Seller Concentration:
-- Sellers needed for 80% revenue: 550
-- Top 10 sellers revenue share: 12.94%
-
-Top 5 Sellers by Revenue:
-1. Seller 4869f7a5...: $247,007.06 (1,124 orders, 3.00/5.0 rating)
-2. Seller 7c67e144...: $238,968.90 (973 orders, 3.00/5.0 rating)
-3. Seller 4a3ca931...: $232,895.17 (1,772 orders, 3.00/5.0 rating)
-4. Seller 53243585...: $230,797.02 (348 orders, 3.00/5.0 rating)
-5. Seller fa1c13f2...: $200,833.50 (578 orders, 3.00/5.0 rating)
-
-Bottom 5 Sellers by Review Score (min 10 orders):
-1. Seller 1b1ae47a...: 2.67/5.0 rating (10 orders, 10.7 days delivery)
-2. Seller 40db9e9a...: 2.75/5.0 rating (12 orders, 14.7 days delivery)
-3. Seller af4a0e4c...: 2.75/5.0 rating (21 orders, 13.3 days delivery)
-4. Seller 5bc55dbe...: 2.75/5.0 rating (17 orders, 13.8 days delivery)
-5. Seller 0725b8c0...: 2.75/5.0 rating (16 orders, 12.9 days delivery)
-
-================================================================================
 DELIVERY PERFORMANCE
 ================================================================================
 
@@ -215,29 +356,29 @@ RFM Analysis Overview (12-month period: 2017-11-01 to 2018-11-01):
 Customer Segmentation (RFM):
 
 Potential Loyalists:
-  - Customers: 31,199 (48.12%)
-  - Revenue: $6,061,767.74 (57.16%)
-  - Orders: 31,954
+  - Customers: 31,199 (48.12%)
+  - Revenue: $6,061,767.74 (57.16%)
+  - Orders: 31,954
 
 Loyal Customers:
-  - Customers: 7,856 (12.12%)
-  - Revenue: $2,601,032.57 (24.53%)
-  - Orders: 8,591
+  - Customers: 7,856 (12.12%)
+  - Revenue: $2,601,032.57 (24.53%)
+  - Orders: 8,591
 
 At Risk:
-  - Customers: 23,180 (35.75%)
-  - Revenue: $1,835,012.20 (17.30%)
-  - Orders: 23,280
+  - Customers: 23,180 (35.75%)
+  - Revenue: $1,835,012.20 (17.30%)
+  - Orders: 23,280
 
 Lost:
-  - Customers: 2,588 (3.99%)
-  - Revenue: $102,052.22 (0.96%)
-  - Orders: 2,588
+  - Customers: 2,588 (3.99%)
+  - Revenue: $102,052.22 (0.96%)
+  - Orders: 2,588
 
 Champions:
-  - Customers: 8 (0.01%)
-  - Revenue: $4,280.05 (0.04%)
-  - Orders: 38
+  - Customers: 8 (0.01%)
+  - Revenue: $4,280.05 (0.04%)
+  - Orders: 38
 
 Cohort Analysis Overview:
 - Analysis Period: 2017-11 to 2018-09
@@ -256,33 +397,125 @@ Month 8: 0.18% retention, $0.00 avg revenue, (23 active customers)
 Month 9: 0.14% retention, $0.00 avg revenue, (10 active customers)
 
 ================================================================================
-PRODUCT PERFORMANCE
+SELLER PERFORMANCE
 ================================================================================
 
-Product Overview:
-- Total Products: 32,951
-- Total Revenue: $15,843,553.24
-- Total Items Sold: 112,650
-- Avg Review Score: 4.12/5.0
-- Avg Delivery Days: 11.7
+Seller Overview:
+- Total Sellers: 2,970
+- Total Revenue: $15,446,080.16
+- Total Orders: 97,818
+- Average Review Score: 3.67/5.0
+- Average Delivery Days: 12.1
 
-Top 10 Products by Revenue:
-1. Product bb50f2e2... (beleza_saude): $67,606.10 (195 items, 4.24/5.0)
-2. Product d1c42706... (informatica_acessorios): $60,976.03 (343 items, 4.28/5.0)
-3. Product 6cdd5384... (beleza_saude): $59,093.99 (156 items, 4.36/5.0)
-4. Product 99a4788c... (cama_mesa_banho): $51,071.60 (488 items, 3.93/5.0)
-5. Product d6160fb7... (pcs): $50,326.18 (35 items, 4.67/5.0)
-6. Product 3dd2a171... (informatica_acessorios): $48,212.22 (274 items, 4.22/5.0)
-7. Product aca2eb7d... (moveis_decoracao): $44,820.76 (527 items, 4.05/5.0)
-8. Product 5f504b3a... (cool_stuff): $41,725.81 (63 items, 4.56/5.0)
-9. Product 25c38557... (bebes): $40,311.95 (38 items, 2.68/5.0)
-10. Product 53b36df6... (relogios_presentes): $39,957.93 (323 items, 4.20/5.0)
+Seller Concentration:
+- Sellers needed for 80% revenue: 550
+- Top 10 sellers revenue share: 12.94%
 
-Product Correlation Insights:
-- Items Sold vs Review Score: -0.216
-- Items Sold vs Delivery Days: 0.109
-- Review Score vs Delivery Days: -0.251
+Top 5 Sellers by Revenue:
+1. Seller 4869f7a5...: $247,007.06 (1,124 orders, 3.00/5.0 rating)
+2. Seller 7c67e144...: $238,968.90 (973 orders, 3.00/5.0 rating)
+3. Seller 4a3ca931...: $232,895.17 (1,772 orders, 3.00/5.0 rating)
+4. Seller 53243585...: $230,797.02 (348 orders, 3.00/5.0 rating)
+5. Seller fa1c13f2...: $200,833.50 (578 orders, 3.00/5.0 rating)
+
+Bottom 5 Sellers by Review Score (min 10 orders):
+1. Seller 1b1ae47a...: 2.67/5.0 rating (10 orders, 10.7 days delivery)
+2. Seller 40db9e9a...: 2.75/5.0 rating (12 orders, 14.7 days delivery)
+3. Seller af4a0e4c...: 2.75/5.0 rating (21 orders, 13.3 days delivery)
+4. Seller 5bc55dbe...: 2.75/5.0 rating (17 orders, 13.8 days delivery)
+5. Seller 0725b8c0...: 2.75/5.0 rating (16 orders, 12.9 days delivery)
+
+================================================================================
+ANOMALY DETECTION ANALYSIS
+================================================================================
+
+Sales Anomalies:
+- Method: IQR
+- Analysis Mode: Time-Series
+
+Daily Analysis:
+  - Total Data Points: 613
+  - Anomalies Detected: 4 (0.65%)
+  - Detection Limits: IQR Limits: -13,507.83 to 62,326.49
+  - Top Anomalies:
+    1. 2017-11-24: $176,599.36 (Peak (High))
+    2. 2017-11-25: $71,179.18 (Peak (High))
+    3. 2018-05-16: $64,279.82 (Peak (High))
+    4. 2018-08-06: $62,923.11 (Peak (High))
+Weekly Analysis:
+  - Total Data Points: 92
+  - Anomalies Detected: 1 (1.09%)
+  - Detection Limits: IQR Limits: -101,112.20 to 452,841.99
+  - Top Anomalies:
+    1. 2017-W47: $468,424.66 (Peak (High))
+
+--------------------------------------------------------------------------------
+Order Cancellation Anomalies:
+- Method: IQR
+- Analysis Mode: Time-Series
+
+Daily Analysis:
+  - Total Data Points: 344
+  - Anomalies Detected: 33 (9.59%)
+  - Detection Limits: IQR Limits: -0.50 to 3.50
+  - Top Anomalies:
+    1. 2018-08-07: 9.0 cancellations (Peak (High))
+    2. 2018-08-09: 6.0 cancellations (Peak (High))
+    3. 2018-01-30: 6.0 cancellations (Peak (High))
+    4. 2016-10-04: 5.0 cancellations (Peak (High))
+    5. 2018-02-05: 5.0 cancellations (Peak (High))
+Weekly Analysis:
+  - Total Data Points: 96
+  - Anomalies Detected: 9 (9.38%)
+  - Detection Limits: IQR Limits: -4.50 to 15.50
+  - Top Anomalies:
+    1. 2018-W05: 25.0 cancellations (Peak (High))
+    2. 2018-W32: 24.0 cancellations (Peak (High))
+    3. 2018-W33: 23.0 cancellations (Peak (High))
+    4. 2016-W40: 20.0 cancellations (Peak (High))
+    5. 2018-W06: 19.0 cancellations (Peak (High))
+
+--------------------------------------------------------------------------------
+Successful Orders Anomalies:
+- Method: IQR
+- Analysis Mode: Time-Series
+
+Daily Analysis:
+  - Total Data Points: 613
+  - Anomalies Detected: 3 (0.49%)
+  - Detection Limits: IQR Limits: -77.50 to 390.50
+  - Top Anomalies:
+    1. 2017-11-24: 1159.0 orders (Peak (High))
+    2. 2017-11-25: 493.0 orders (Peak (High))
+    3. 2017-11-27: 398.0 orders (Peak (High))
+Weekly Analysis:
+  - Total Data Points: 92
+  - Anomalies Detected: 1 (1.09%)
+  - Detection Limits: IQR Limits: -709.38 to 2,927.62
+  - Top Anomalies:
+    1. 2017-W47: 2949.0 orders (Peak (High))
+
+--------------------------------------------------------------------------------
+Delivery Duration Anomalies:
+- Method: Z-Score
+- Analysis Mode: Distributional (Static)
+
+Summary:
+  - Total Data Points: 611
+  - Anomalies Detected: 9 (1.47%)
+  - Detection Limits: Z-Score Limit: > +/- 3.0 Standard Deviations
+  - Notable Anomalies:
+    1. 2017-01-09: 26.83 days (Peak (High))
+    2. 2016-10-03: 24.57 days (Peak (High))
+    3. 2016-10-04: 24.17 days (Peak (High))
+    4. 2017-01-12: 23.43 days (Peak (High))
+    5. 2017-01-07: 22.20 days (Peak (High))
 
 ================================================================================
 END OF REPORT
+================================================================================
+*** ADDITIONAL CONSIDERATIONS / WARNING ***
+- PLEASE DO NOT HALLUCINATE OR ASSUME ANYTHING. PLEASE ONLY CONSIDER THE PROVIDED 
+  DATA OR METRICS ABOVE FOR YOUR INTERPETATIONS/ANALYSIS.
+- PROVIDE YOUR RESPONSE SIMILAR TO A REPORT; WITH CLEAR TONE AND GOOD STRUCTURE.
 ================================================================================

@@ -3,6 +3,56 @@ from pathlib import Path
 from typing import Dict, Any, List
 from datetime import datetime
 
+import json
+from pathlib import Path
+from typing import Dict, Any, List
+from datetime import datetime
+
+def intro_text():
+    return f"""
+Dataset Overview:
+- **Dataset Name**: Brazilian E-commerce (OLIST)
+- **Source**: Kaggle (Open Dataset)
+- **Time Span**: 2016 - 2018
+- **Scope**: This dataset represents orders made through the Olist platform, a Brazilian online marketplace that connects customers with a variety of sellers across multiple categories. It contains detailed transactional, product, seller, and customer information.
+
+Objective:
+The purpose of this report is to provide a comprehensive analysis of the Olist e-commerce dataset, with the aim of uncovering business insights, identifying trends, assessing risks, and detecting anomalies. 
+The analysis spans across multiple aspects of business performance, customer behavior, and operational efficiency, which are critical for improving decision-making.
+
+Key Goals of this Report:
+1. **Assess Overall Business Performance**: 
+   - Analyze key business metrics such as revenue, sales volume, and order trends.
+   - Evaluate the performance of different product categories, regions, and sellers.
+
+2. **Identify Trends and Patterns**: 
+   - Identify seasonal trends and cyclic patterns in sales, order volume, and customer behavior.
+   - Examine the growth or decline in specific product categories, regions, and customer segments.
+
+3. **Highlight Risks and Opportunities**:
+   - Detect underperforming segments, such as slow-moving products, regions with declining sales, or sellers with customer satisfaction issues.
+   - Pinpoint areas where the business can take corrective action or capitalize on emerging trends.
+
+4. **Provide Actionable Insights**:
+   - Deliver insights into customer behavior, seller performance, delivery efficiency, and product popularity.
+   - Offer concrete recommendations for business optimization, marketing strategies, and operational improvements.
+
+Expected Deliverables:
+- **Detailed Business Intelligence Reports** on performance metrics, including category, product, region, and seller analysis.
+- **Anomaly Detection Findings**: Identification of data irregularities such as unexpected spikes in sales, delivery delays, and order cancellations.
+- **Data Quality Checks**: Validation of dataset integrity, highlighting any data issues such as missing values or inconsistencies.
+- **Anything Relavant / Interesting?** Provide other insights can be reported/interpreted based on provided data/metrics.
+
+"""
+
+def ending_text():
+    return f"""
+*** ADDITIONAL CONSIDERATIONS / WARNING ***
+- PLEASE DO NOT HALLUCINATE OR ASSUME ANYTHING. PLEASE ONLY CONSIDER THE PROVIDED 
+  DATA OR METRICS ABOVE FOR YOUR INTERPETATIONS/ANALYSIS.
+- PROVIDE YOUR RESPONSE SIMILAR TO A REPORT; WITH CLEAR TONE AND GOOD STRUCTURE.
+"""
+
 
 class BusinessContextBuilder:
     """
@@ -18,20 +68,26 @@ class BusinessContextBuilder:
             reports_dir: The directory where the *output* file will be saved.
                          (e.g., 'D:/My_Projects/OLIST/python/output')
         """
-        # This path (self.reports_dir) will be used for saving the final TXT file.
         self.reports_dir = Path(reports_dir)
         self.reports = {}
+        self.anomaly_reports = {}
+        self.qc_reports = {}
         
-        # 💡 NEW: Define a specific subdirectory where the *input JSON files* reside.
-        # This is relative to the reports_dir you passed in (D:/.../output)
-        self.analysis_subdir = "Analysis" 
+        # Define subdirectories for input files
+        self.analysis_subdir = "Analysis"
+        self.anomaly_subdir = "Anomaly_Detection"
+        self.qc_subdir = "QC_Reports"
         
-    def load_report(self, filename: str) -> Dict[str, Any]:
+    def load_report(self, filename: str, subdir: str = None) -> Dict[str, Any]:
         """
-        Load a single JSON report file from the defined 'Analysis' subdirectory.
+        Load a single JSON report file from the specified subdirectory.
+        
+        Args:
+            filename: Name of the JSON file
+            subdir: Subdirectory name (defaults to analysis_subdir)
         """
-        # 💡 UPDATED: Construct the path to include the 'Analysis' subdirectory.
-        filepath = self.reports_dir / self.analysis_subdir / filename
+        subdir = subdir or self.analysis_subdir
+        filepath = self.reports_dir / subdir / filename
         
         try:
             with open(filepath, 'r', encoding='utf-8') as f:
@@ -44,7 +100,8 @@ class BusinessContextBuilder:
             return {}
     
     def load_all_reports(self):
-        """Load all standard report files."""
+        """Load all standard report files and anomaly detection reports."""
+        # Load standard analysis reports
         report_files = [
             'overall_business_metrics_report.json',
             'monthly_time_series_report.json',
@@ -59,8 +116,35 @@ class BusinessContextBuilder:
         
         for filename in report_files:
             report_name = filename.replace('_report.json', '')
-            # Calls the updated load_report which looks in the subfolder
             self.reports[report_name] = self.load_report(filename)
+        
+        # Load anomaly detection reports
+        anomaly_files = [
+            'delivery_duration.json',
+            'order_cancellations.json',
+            'sales.json',
+            'successful_orders.json'
+        ]
+        
+        for filename in anomaly_files:
+            report_name = filename.replace('.json', '')
+            self.anomaly_reports[report_name] = self.load_report(filename, self.anomaly_subdir)
+
+        # Load data quality basic reports from QC_Reports folder
+        qc_files = [
+            'ORDER_ITEMS.json',
+            'PRODUCTS.json',
+            'ORDER_REVIEWS.json',
+            'CUSTOMERS.json',
+            'SELLERS.json',
+            'ORDER_PAYMENTS.json',
+            'GEOLOCATION.json',
+            'ORDERS.json'
+        ]
+        
+        for filename in qc_files:
+            report_name = filename.replace('.json', '')
+            self.qc_reports[report_name] = self.load_report(filename, self.qc_subdir)
     
     def format_currency(self, value: float) -> str:
         """Format currency values."""
@@ -69,10 +153,6 @@ class BusinessContextBuilder:
     def format_percentage(self, value: float) -> str:
         """Format percentage values."""
         return f"{value:.2f}%"
-    
-    # ... (All build_section methods remain the same) ...
-    # Due to length, I'm omitting the section build methods here, 
-    # but they are unchanged from your original working code.
     
     def build_executive_summary(self) -> str:
         """Build executive summary section."""
@@ -103,7 +183,7 @@ class BusinessContextBuilder:
         
         return summary
     
-    def build_time_series_section(self) -> str:
+    def build_time_series_section(self) -> str: # monthly time series 
         """Build monthly trends section."""
         time_series = self.reports.get('monthly_time_series', {})
         summary = time_series.get('summary', {})
@@ -121,16 +201,13 @@ class BusinessContextBuilder:
             section += f"- Average Monthly Orders: {summary.get('avg_monthly_orders', 0):,}\n\n"
         
         if monthly_data and len(monthly_data) >= 12:
-            # Get last 12 months
             last_12_months = monthly_data[-12:]
             
-            # Calculate averages for last 12 months
             total_revenue_12m = sum(m.get('total_revenue', 0) for m in last_12_months)
             total_orders_12m = sum(m.get('total_orders', 0) for m in last_12_months)
             avg_revenue_12m = total_revenue_12m / 12
             avg_orders_12m = total_orders_12m / 12
             
-            # Find highest and lowest MoM revenue growth (excluding first month)
             months_with_mom = [m for m in last_12_months if m.get('revenue_mom_pct') is not None]
             highest_mom = max(months_with_mom, key=lambda x: x.get('revenue_mom_pct', -999)) if months_with_mom else None
             lowest_mom = min(months_with_mom, key=lambda x: x.get('revenue_mom_pct', 999)) if months_with_mom else None
@@ -150,30 +227,29 @@ class BusinessContextBuilder:
                 mom_revenue = month_data.get('revenue_mom_pct')
                 mom_orders = month_data.get('orders_mom_pct')
                 section += f"\n{month_data.get('month')}:\n"
-                section += f"  - Revenue: {self.format_currency(month_data.get('total_revenue', 0))}"
+                section += f"  - Revenue: {self.format_currency(month_data.get('total_revenue', 0))}"
                 if mom_revenue is not None:
                     section += f" ({self.format_percentage(mom_revenue)} MoM)\n"
                 else:
                     section += "\n"
-                section += f"  - Orders: {month_data.get('total_orders', 0):,}"
+                section += f"  - Orders: {month_data.get('total_orders', 0):,}"
                 if mom_orders is not None:
                     section += f" ({self.format_percentage(mom_orders)} MoM)\n"
                 else:
                     section += "\n"
             section += "\n"
         elif monthly_data:
-            # If less than 12 months, show what we have
             section += f"Monthly Performance (Last {len(monthly_data)} months):\n"
             for month_data in monthly_data:
                 mom_revenue = month_data.get('revenue_mom_pct')
                 mom_orders = month_data.get('orders_mom_pct')
                 section += f"\n{month_data.get('month')}:\n"
-                section += f"  - Revenue: {self.format_currency(month_data.get('total_revenue', 0))}"
+                section += f"  - Revenue: {self.format_currency(month_data.get('total_revenue', 0))}"
                 if mom_revenue is not None:
                     section += f" ({self.format_percentage(mom_revenue)} MoM)\n"
                 else:
                     section += "\n"
-                section += f"  - Orders: {month_data.get('total_orders', 0):,}"
+                section += f"  - Orders: {month_data.get('total_orders', 0):,}"
                 if mom_orders is not None:
                     section += f" ({self.format_percentage(mom_orders)} MoM)\n"
                 else:
@@ -357,7 +433,6 @@ class BusinessContextBuilder:
         section += "CUSTOMER ANALYSIS\n"
         section += "=" * 80 + "\n\n"
         
-        # RFM Analysis
         rfm_summary = rfm.get('summary', {})
         rfm_segments = rfm.get('rfm_segment_distribution', {}).get('data', [])
         rfm_stats = rfm.get('rfm_statistics', {})
@@ -365,36 +440,34 @@ class BusinessContextBuilder:
         if rfm_summary or rfm_stats:
             section += "RFM Analysis Overview (12-month period: 2017-11-01 to 2018-11-01):\n"
             
-            # Add RFM statistics if available
             if rfm_stats:
                 section += "\nRecency (days since last purchase):\n"
-                section += f"  - Min: {rfm_stats.get('recency', {}).get('min', 0):.0f} days\n"
-                section += f"  - Median: {rfm_stats.get('recency', {}).get('median', 0):.0f} days\n"
-                section += f"  - Max: {rfm_stats.get('recency', {}).get('max', 0):.0f} days\n"
+                section += f"  - Min: {rfm_stats.get('recency', {}).get('min', 0):.0f} days\n"
+                section += f"  - Median: {rfm_stats.get('recency', {}).get('median', 0):.0f} days\n"
+                section += f"  - Max: {rfm_stats.get('recency', {}).get('max', 0):.0f} days\n"
                 
                 section += "\nFrequency (number of orders):\n"
-                section += f"  - Min: {rfm_stats.get('frequency', {}).get('min', 0):.0f} orders\n"
-                section += f"  - Median: {rfm_stats.get('frequency', {}).get('median', 0):.0f} orders\n"
-                section += f"  - Max: {rfm_stats.get('frequency', {}).get('max', 0):.0f} orders\n"
+                section += f"  - Min: {rfm_stats.get('frequency', {}).get('min', 0):.0f} orders\n"
+                section += f"  - Median: {rfm_stats.get('frequency', {}).get('median', 0):.0f} orders\n"
+                section += f"  - Max: {rfm_stats.get('frequency', {}).get('max', 0):.0f} orders\n"
                 
                 section += "\nMonetary Value (total spending):\n"
-                section += f"  - Min: {self.format_currency(rfm_stats.get('monetary', {}).get('min', 0))}\n"
-                section += f"  - Median: {self.format_currency(rfm_stats.get('monetary', {}).get('median', 0))}\n"
-                section += f"  - Max: {self.format_currency(rfm_stats.get('monetary', {}).get('max', 0))}\n"
+                section += f"  - Min: {self.format_currency(rfm_stats.get('monetary', {}).get('min', 0))}\n"
+                section += f"  - Median: {self.format_currency(rfm_stats.get('monetary', {}).get('median', 0))}\n"
+                section += f"  - Max: {self.format_currency(rfm_stats.get('monetary', {}).get('max', 0))}\n"
                 section += "\n"
         
         if rfm_segments:
             section += "Customer Segmentation (RFM):\n"
             for seg in rfm_segments:
                 section += f"\n{seg.get('segment')}:\n"
-                section += f"  - Customers: {seg.get('customer_count', 0):,} "
+                section += f"  - Customers: {seg.get('customer_count', 0):,} "
                 section += f"({self.format_percentage(seg.get('percentage_of_customers', 0))})\n"
-                section += f"  - Revenue: {self.format_currency(seg.get('total_revenue', 0))} "
+                section += f"  - Revenue: {self.format_currency(seg.get('total_revenue', 0))} "
                 section += f"({self.format_percentage(seg.get('percentage_of_revenue', 0))})\n"
-                section += f"  - Orders: {seg.get('total_orders', 0):,}\n"
+                section += f"  - Orders: {seg.get('total_orders', 0):,}\n"
             section += "\n"
         
-        # Cohort Analysis
         cohort_summary = cohort.get('overall_summary', {})
         cohort_data = cohort.get('average_by_period_index', {}).get('data', [])
         
@@ -451,39 +524,333 @@ class BusinessContextBuilder:
         
         return section
     
-    # ... (End of build_section methods) ...
+    def build_anomaly_section(self) -> str:
+        """Build anomaly detection section."""
+        section = "=" * 80 + "\n"
+        section += "ANOMALY DETECTION ANALYSIS\n"
+        section += "=" * 80 + "\n\n"
+        
+        if not self.anomaly_reports:
+            section += "No anomaly detection reports available.\n\n"
+            return section
+        
+        # Sales Anomalies
+        sales = self.anomaly_reports.get('sales', {})
+        if sales:
+            section += "Sales Anomalies:\n"
+            pipeline = sales.get('pipeline_run_details', {})
+            section += f"- Method: {pipeline.get('method', 'N/A')}\n"
+            section += f"- Analysis Mode: {pipeline.get('analysis_mode', 'N/A')}\n\n"
+            
+            for check in sales.get('anomaly_checks', []):
+                freq = check.get('frequency', 'N/A')
+                total = check.get('total_points', 0)
+                anomaly_count = check.get('anomaly_count', 0)
+                anomaly_pct = (anomaly_count / total * 100) if total > 0 else 0
+                
+                section += f"{freq} Analysis:\n"
+                section += f"  - Total Data Points: {total:,}\n"
+                section += f"  - Anomalies Detected: {anomaly_count} ({anomaly_pct:.2f}%)\n"
+                section += f"  - Detection Limits: {check.get('limit_description', 'N/A')}\n"
+                
+                anomalies = check.get('anomalies', [])
+                if anomalies:
+                    section += f"  - Top Anomalies:\n"
+                    for i, anom in enumerate(anomalies[:5], 1):
+                        val = anom.get('value', 0)
+                        section += f"    {i}. {anom.get('index_id')}: {self.format_currency(val)} ({anom.get('type')})\n"
+            section += "\n" + "-" * 80 + "\n"
+        
+        # Order Cancellation Anomalies
+        cancellations = self.anomaly_reports.get('order_cancellations', {})
+        if cancellations:
+            section += "Order Cancellation Anomalies:\n"
+            pipeline = cancellations.get('pipeline_run_details', {})
+            section += f"- Method: {pipeline.get('method', 'N/A')}\n"
+            section += f"- Analysis Mode: {pipeline.get('analysis_mode', 'N/A')}\n\n"
+            
+            for check in cancellations.get('anomaly_checks', []):
+                freq = check.get('frequency', 'N/A')
+                total = check.get('total_points', 0)
+                anomaly_count = check.get('anomaly_count', 0)
+                anomaly_pct = (anomaly_count / total * 100) if total > 0 else 0
+                
+                section += f"{freq} Analysis:\n"
+                section += f"  - Total Data Points: {total:,}\n"
+                section += f"  - Anomalies Detected: {anomaly_count} ({anomaly_pct:.2f}%)\n"
+                section += f"  - Detection Limits: {check.get('limit_description', 'N/A')}\n"
+                
+                anomalies = check.get('anomalies', [])
+                if anomalies:
+                    section += f"  - Top Anomalies:\n"
+                    for i, anom in enumerate(anomalies[:5], 1):
+                        section += f"    {i}. {anom.get('index_id')}: {anom.get('value')} cancellations ({anom.get('type')})\n"
+            section += "\n" + "-" * 80 + "\n"
+        
+        # Successful Orders Anomalies
+        orders = self.anomaly_reports.get('successful_orders', {})
+        if orders:
+            section += "Successful Orders Anomalies:\n"
+            pipeline = orders.get('pipeline_run_details', {})
+            section += f"- Method: {pipeline.get('method', 'N/A')}\n"
+            section += f"- Analysis Mode: {pipeline.get('analysis_mode', 'N/A')}\n\n"
+            
+            for check in orders.get('anomaly_checks', []):
+                freq = check.get('frequency', 'N/A')
+                total = check.get('total_points', 0)
+                anomaly_count = check.get('anomaly_count', 0)
+                anomaly_pct = (anomaly_count / total * 100) if total > 0 else 0
+                
+                section += f"{freq} Analysis:\n"
+                section += f"  - Total Data Points: {total:,}\n"
+                section += f"  - Anomalies Detected: {anomaly_count} ({anomaly_pct:.2f}%)\n"
+                section += f"  - Detection Limits: {check.get('limit_description', 'N/A')}\n"
+                
+                anomalies = check.get('anomalies', [])
+                if anomalies:
+                    section += f"  - Top Anomalies:\n"
+                    for i, anom in enumerate(anomalies[:5], 1):
+                        section += f"    {i}. {anom.get('index_id')}: {anom.get('value')} orders ({anom.get('type')})\n"
+            section += "\n" + "-" * 80 + "\n"
+        
+        # Delivery Duration Anomalies
+        delivery = self.anomaly_reports.get('delivery_duration', {})
+        if delivery:
+            section += "Delivery Duration Anomalies:\n"
+            pipeline = delivery.get('pipeline_run_details', {})
+            section += f"- Method: {pipeline.get('method', 'N/A')}\n"
+            section += f"- Analysis Mode: {pipeline.get('analysis_mode', 'N/A')}\n\n"
+            
+            for check in delivery.get('anomaly_checks', []):
+                freq = check.get('frequency', 'N/A')
+                total = check.get('total_points', 0)
+                anomaly_count = check.get('anomaly_count', 0)
+                anomaly_pct = (anomaly_count / total * 100) if total > 0 else 0
+                
+                section += f"Summary:\n"
+                section += f"  - Total Data Points: {total:,}\n"
+                section += f"  - Anomalies Detected: {anomaly_count} ({anomaly_pct:.2f}%)\n"
+                section += f"  - Detection Limits: {check.get('limit_description', 'N/A')}\n"
+                
+                anomalies = check.get('anomalies', [])
+                if anomalies:
+                    section += f"  - Notable Anomalies:\n"
+                    for i, anom in enumerate(anomalies[:5], 1):
+                        section += f"    {i}. {anom.get('index_id')}: {anom.get('value'):.2f} days ({anom.get('type')})\n"
+                section += "\n"
+        
+        return section
+    
+    def build_data_quality_section(self) -> str:
+        """Build data quality section from QC reports."""
+        if not self.qc_reports:
+            return ""
+        
+        section = "=" * 80 + "\n"
+        section += "DATA QUALITY ASSESSMENT\n"
+        section += "=" * 80 + "\n\n"
+        
+        section += "OVERALL DATASET SUMMARY:\n"
+        section += "-" * 40 + "\n"
+        
+        # Calculate overall statistics
+        total_rows_all = 0
+        total_columns_all = 0
+        total_duplicated_rows = 0
+        
+        for table_name, report in self.qc_reports.items():
+            if report:
+                total_rows_all += report.get('total_rows', 0)
+                total_columns_all += report.get('total_columns', 0)
+                total_duplicated_rows += report.get('total_duplicated_rows', 0)
+        
+        section += f"- Total Datasets Analyzed: {len(self.qc_reports)}\n"
+        section += f"- Combined Total Rows: {total_rows_all:,}\n"
+        section += f"- Combined Total Columns: {total_columns_all}\n"
+        section += f"- Total Duplicated Rows: {total_duplicated_rows:,}\n\n"
+        
+        # Detailed table-by-table analysis
+        section += "TABLE-LEVEL DATA QUALITY METRICS:\n"
+        section += "-" * 40 + "\n\n"
+        
+        for table_name, report in sorted(self.qc_reports.items()):
+            if not report:
+                continue
+                
+            df_name = report.get('df_name', table_name)
+            total_rows = report.get('total_rows', 0)
+            total_columns = report.get('total_columns', 0)
+            total_duplicated = report.get('total_duplicated_rows', 0)
+            
+            section += f"- {df_name}:\n"
+            section += f"   • Rows: {total_rows:,}\n"
+            section += f"   • Columns: {total_columns}\n"
+            section += f"   • Duplicated Rows: {total_duplicated:,} "
+            
+            if total_rows > 0:
+                dup_percentage = (total_duplicated / total_rows) * 100
+                section += f"({dup_percentage:.2f}%)\n"
+            else:
+                section += "\n"
+            
+            # Column-level quality metrics
+            column_qc = report.get('column_qc', {})
+            if column_qc:
+                # Count null columns
+                columns_with_nulls = 0
+                total_null_count = 0
+                
+                for col_name, col_info in column_qc.items():
+                    null_count = col_info.get('null_count', 0)
+                    if null_count > 0:
+                        columns_with_nulls += 1
+                        total_null_count += null_count
+                
+                if columns_with_nulls > 0:
+                    section += f"   • Columns with Nulls: {columns_with_nulls}/{total_columns}\n"
+                    section += f"   • Total Null Values: {total_null_count:,}\n"
+                
+                # Find unique value counts
+                unique_counts = []
+                for col_name, col_info in column_qc.items():
+                    unique_count = col_info.get('unique_count')
+                    if unique_count is not None:
+                        unique_counts.append((col_name, unique_count))
+                
+                if unique_counts:
+                    # Sort by unique count (ascending)
+                    unique_counts.sort(key=lambda x: x[1])
+                    
+                    # Show low cardinality columns (less than 10 unique values)
+                    low_cardinality = [(name, count) for name, count in unique_counts if count < 10]
+                    if low_cardinality:
+                        section += f"   • Low Cardinality Columns (<10 unique values): {len(low_cardinality)}\n"
+                        for name, count in low_cardinality[:3]:  # Show first 3
+                            section += f"     - {name}: {count} unique values\n"
+                
+                # Show data type distribution
+                dtype_counts = {}
+                for col_name, col_info in column_qc.items():
+                    dtype = col_info.get('dtype', 'unknown')
+                    dtype_counts[dtype] = dtype_counts.get(dtype, 0) + 1
+                
+                section += f"   • Data Types:\n"
+                for dtype, count in sorted(dtype_counts.items()):
+                    section += f"     - {dtype}: {count} columns\n"
+            
+            section += "\n"
+        
+        # Data quality issues summary
+        section += "DATA QUALITY ISSUES SUMMARY:\n"
+        section += "-" * 40 + "\n\n"
+        
+        issues_found = []
+        
+        for table_name, report in self.qc_reports.items():
+            if not report:
+                continue
+                
+            column_qc = report.get('column_qc', {})
+            if not column_qc:
+                continue
+            
+            for col_name, col_info in column_qc.items():
+                null_count = col_info.get('null_count', 0)
+                null_percent = col_info.get('null_percent', 0.0)
+                
+                if null_percent > 5.0:  # Flag columns with >5% nulls
+                    issues_found.append({
+                        'table': table_name,
+                        'column': col_name,
+                        'null_percent': null_percent,
+                        'null_count': null_count
+                    })
+        
+        if issues_found:
+            section += f"-  High Null Percentage (>5%) Columns Found: {len(issues_found)}\n\n"
+            # Sort by null percentage descending
+            issues_found.sort(key=lambda x: x['null_percent'], reverse=True)
+            
+            for issue in issues_found[:5]:  # Show top 5
+                section += f"• {issue['table']}.{issue['column']}: "
+                section += f"{issue['null_percent']:.3f}% null ({issue['null_count']:,} null values)\n"
+        else:
+            section += "- No major data quality issues detected (all columns have <5% null values)\n"
+        
+        section += "\n"
+        
+        # Data completeness summary
+        section += "DATA COMPLETENESS SUMMARY:\n"
+        section += "-" * 40 + "\n\n"
+        
+        total_columns_all = 0
+        complete_columns = 0
+        
+        for table_name, report in self.qc_reports.items():
+            if not report:
+                continue
+                
+            column_qc = report.get('column_qc', {})
+            total_columns = report.get('total_columns', 0)
+            total_columns_all += total_columns
+            
+            for col_name, col_info in column_qc.items():
+                null_count = col_info.get('null_count', 0)
+                if null_count == 0:
+                    complete_columns += 1
+        
+        if total_columns_all > 0:
+            completeness_percentage = (complete_columns / total_columns_all) * 100
+            section += f"- Total Columns Across All Tables: {total_columns_all}\n"
+            section += f"- Fully Complete Columns (0% nulls): {complete_columns}\n"
+            section += f"- Data Completeness Score: {completeness_percentage:.2f}%\n"
+        else:
+            section += "- No column information available\n"
+        
+        section += "\n"
+        return section
     
     def build_full_context(self) -> str:
         """Build the complete business context."""
         context = "\n"
-        context += "█" * 80 + "\n"
+        context += "=" * 80 + "\n"
+        context += "INTRODUCTION" + "\n"
+        context += "=" * 80 + "\n"
+        context += intro_text()
+        context += "\n"
+        context += "=" * 80 + "\n"
         context += "COMPREHENSIVE BUSINESS INTELLIGENCE REPORT\n"
         context += f"Generated: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n"
-        context += "█" * 80 + "\n\n"
-        
+        context += "=" * 80 + "\n\n"
+
+        # Main Analytics Reports
         context += self.build_executive_summary()
+        # Data Quality section
+        context += self.build_data_quality_section()
+        # Other Analytics
         context += self.build_time_series_section()
+        context += self.build_product_section()
         context += self.build_category_section()
         context += self.build_regional_section()
-        context += self.build_seller_section()
         context += self.build_delivery_section()
         context += self.build_customer_section()
-        context += self.build_product_section()
+        context += self.build_seller_section()
         
+        # Anomaly Detection
+        context += self.build_anomaly_section()
+
         context += "=" * 80 + "\n"
         context += "END OF REPORT\n"
+        context += "=" * 80
+        context += ending_text()
         context += "=" * 80 + "\n"
         
         return context
     
     def save_context(self, output_file: str = "business_context.txt"):
-        """Save the built context to a file in the reports_dir."""
+        """Save the built context to a file."""
         context = self.build_full_context()
-        # 💡 This now saves directly into the path passed to __init__
         output_path = self.reports_dir / output_file
-        
-        # Ensure the output directory exists
-        output_path.parent.mkdir(parents=True, exist_ok=True)
         
         with open(output_path, 'w', encoding='utf-8') as f:
             f.write(context)
@@ -491,7 +858,7 @@ class BusinessContextBuilder:
         print(f"Business context saved to: {output_path}")
         print(f"Total length: {len(context):,} characters")
         return output_path
-
+    
 
 def main():
     """Main execution function."""
@@ -503,6 +870,7 @@ def main():
     
     # Load all reports
     print(f"Loading reports from: {reports_directory}/{builder.analysis_subdir}/...")
+    print(f"Loading QC reports from: {reports_directory}/{builder.qc_subdir}/...")
     builder.load_all_reports()
     
     # Build and save context

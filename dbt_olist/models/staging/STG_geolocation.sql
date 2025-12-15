@@ -1,14 +1,22 @@
-with source as (
-        select * from {{ source('olist_dataset', 'geolocation') }}
-  ),
-  renamed as (
-      select
-        SAFE_CAST({{ adapter.quote("geolocation_zip_code_prefix") }} AS INT64) AS zip_code_prefix,
-        SAFE_CAST({{ adapter.quote("geolocation_lat") }} AS FLOAT64) AS latitude,
-        SAFE_CAST({{ adapter.quote("geolocation_lng") }} AS FLOAT64) AS longitude,
-        SAFE_CAST({{ adapter.quote("geolocation_city") }} AS STRING) AS city,
-        SAFE_CAST({{ adapter.quote("geolocation_state") }} AS STRING) AS province
+WITH renamed as (
+    select
+        safe_cast({{ adapter.quote("geolocation_zip_code_prefix") }} as int64) as zip_code_prefix,
+        safe_cast({{ adapter.quote("geolocation_lat") }} as float64) as latitude,
+        safe_cast({{ adapter.quote("geolocation_lng") }} as float64) as longitude,
+        safe_cast({{ adapter.quote("geolocation_city") }} as string) as city,
+        safe_cast({{ adapter.quote("geolocation_state") }} as string) as province
+    from {{ source('olist_dataset', 'geolocation') }}
+)
 
-      from source
-  )
-  select * from renamed
+select
+    zip_code_prefix,
+    latitude,
+    longitude,
+    any_value(city) as city,
+    any_value(province) as province
+from renamed
+-- for removing duplicates
+group by      
+    zip_code_prefix,
+    latitude,
+    longitude
