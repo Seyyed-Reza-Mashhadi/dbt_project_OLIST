@@ -8,6 +8,10 @@ from typing import Optional, Dict, Any
 from datetime import datetime
 
 
+
+### DEFINING THE OUTPUT DIRECTORY
+directory = Path(__file__).resolve().parents[2] / "python" / "output" / "Analysis" 
+
 ###################################################################################################################
 #### Cohort Analysis and Retention Rates
 ###################################################################################################################
@@ -119,10 +123,6 @@ def create_cohort_report(df, path= None):
         print(f"\n Cohort analysis saved to: {path}")
 
     return output
-
-# Performing analysis and generating reports
-
-directory = Path(__file__).resolve().parents[2] / "python" / "output" / "Analysis" 
 
 # Cohort Customer Retention Data
 df1 = fetch_data_from_bq(q.GET_BI_CUSTOMER_COHORTS)

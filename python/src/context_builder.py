@@ -10,47 +10,124 @@ from datetime import datetime
 
 def intro_text():
     return f"""
-Dataset Overview:
-- **Dataset Name**: Brazilian E-commerce (OLIST)
-- **Source**: Kaggle (Open Dataset)
-- **Time Span**: 2016 - 2018
-- **Scope**: This dataset represents orders made through the Olist platform, a Brazilian online marketplace that connects customers with a variety of sellers across multiple categories. It contains detailed transactional, product, seller, and customer information.
+================================================================================
+ROLE & TASK DEFINITION (FOR LLM)
+================================================================================
 
-Objective:
-The purpose of this report is to provide a comprehensive analysis of the Olist e-commerce dataset, with the aim of uncovering business insights, identifying trends, assessing risks, and detecting anomalies. 
-The analysis spans across multiple aspects of business performance, customer behavior, and operational efficiency, which are critical for improving decision-making.
+You are acting as a SENIOR BUSINESS INTELLIGENCE ANALYST
+with strong experience in e-commerce, marketplace analytics,
+and executive-level business interpretation.
 
-Key Goals of this Report:
-1. **Assess Overall Business Performance**: 
-   - Analyze key business metrics such as revenue, sales volume, and order trends.
-   - Evaluate the performance of different product categories, regions, and sellers.
+This document contains:
+- Pre-computed analytical results
+- Aggregated business metrics
+- Trend analyses, segmentation outputs, and anomaly detection results
 
-2. **Identify Trends and Patterns**: 
-   - Identify seasonal trends and cyclic patterns in sales, order volume, and customer behavior.
-   - Examine the growth or decline in specific product categories, regions, and customer segments.
+All data preparation, cleaning, and modeling steps
+have already been completed by the analyst.
 
-3. **Highlight Risks and Opportunities**:
-   - Detect underperforming segments, such as slow-moving products, regions with declining sales, or sellers with customer satisfaction issues.
-   - Pinpoint areas where the business can take corrective action or capitalize on emerging trends.
+IMPORTANT CONTEXT ABOUT DATA QUALITY:
+- The "Data Quality" section reflects observed issues at the SOURCE DATA level
+- These issues do NOT imply that the analytical models are incorrect
+- Cleaning, deduplication, and preprocessing have already been applied
+- The purpose of data quality reporting is to inform future data collection
+  and upstream system improvements
 
-4. **Provide Actionable Insights**:
-   - Deliver insights into customer behavior, seller performance, delivery efficiency, and product popularity.
-   - Offer concrete recommendations for business optimization, marketing strategies, and operational improvements.
+--------------------------------------------------------------------------------
+PRIMARY OBJECTIVE
+--------------------------------------------------------------------------------
 
-Expected Deliverables:
-- **Detailed Business Intelligence Reports** on performance metrics, including category, product, region, and seller analysis.
-- **Anomaly Detection Findings**: Identification of data irregularities such as unexpected spikes in sales, delivery delays, and order cancellations.
-- **Data Quality Checks**: Validation of dataset integrity, highlighting any data issues such as missing values or inconsistencies.
-- **Anything Relavant / Interesting?** Provide other insights can be reported/interpreted based on provided data/metrics.
+Your task is to INTERPRET and SYNTHESIZE the analytical results below
+and produce a clear, structured BUSINESS INSIGHT REPORT.
 
+Specifically, you should:
+- Extract meaningful insights from the provided metrics
+- Identify patterns, relationships, and cross-metric implications
+- Explain what is likely happening behind the numbers
+- Highlight opportunities, risks, and trade-offs relevant to the business
+- Provide thoughtful, business-oriented recommendations
+
+You are encouraged to:
+- Combine insights across multiple sections (e.g. product + delivery + reviews)
+- Restate key metrics WHEN they help support an insight
+- Draw careful, logical interpretations grounded strictly in the provided data
+
+--------------------------------------------------------------------------------
+IMPORTANT CONSTRAINTS
+--------------------------------------------------------------------------------
+
+- Do NOT hallucinate or assume data that is not present
+- Do NOT introduce external benchmarks or industry averages
+- Do NOT critique the technical implementation unless explicitly implied by results
+- If evidence is insufficient to support a conclusion, state this clearly
+
+--------------------------------------------------------------------------------
+REQUIRED OUTPUT RULES (MANDATORY)
+--------------------------------------------------------------------------------
+1. Introduction
+    - very brief about report scope, goals, etc.
+2. Data Quality Analysis
+    - Basic stats on total dataset/tables
+    - Raw Data problems (mention which tables are problematic, breifly) 
+    - Highlighting that data is cleaned, deduplicated, etc. and that the models/results are based on cleansed data
+3. Data-drieven Insights
+    The following insights should be discovered and explained but you can arrange and organize
+    the subheaders or subsections (i.e., 3.1, 3.2, etc.) in a different order. Even if it makes sense, 
+    you can combine subsections, remove them, etc. (based on your assessments).
+    Here are the contents on section 3:
+    - Executive Summary (Top-level KPIs, insights & strategic implications)
+    - Financial Performance (Revenue & Growth) 
+        - Trends, seasonality, spikes (monthly, weekly), e.g., what was the month with the best revenue
+        - Anomalies in revenue or sales
+    - Customer Insights
+        - Cohort analysis (retention rates, and revenue performance of cohorts, etc.)
+        - RFM segments insights
+        - Links to revenue & product preference, Customer lifetime value implications, etc.
+    - Product & Category Performance
+        - Top products, bottom performers
+        - Concentration & portfolio risks
+        - Cross-links to revenue & demand trends
+    - Operational & Delivery Insights
+        - Fulfillment performance, delays, cancellations
+        - Correlation to reviews and product categories (if any)      
+    - Anomalies
+        - Consolidated view of unusual patterns across metrics (relationship between potential events, etc.)
+        - Assessing all anomaly detection reports and providing relevant insights, business impact, etc.
+    - Seller Insights 
+        - which region / province / city had the most revenue / customers, etc.
+    - Regional insights 
+        - which region / province / city had the most revenue / customers, etc.
+    - Other Data Driven Insights
+        - Patterns revealed by combining multiple dimensions, any other relavant insights that can give further details about the business, etc.
+    (Structure section 3 and the order of contents in a proper manner)
+
+4. Conclusions & Actionable Recommendations
+   - Overview of main insights and conclusions
+   - Proposed actionable recommendations for the improvement of business tasks, operations, etc. 
+   - Prioritizing them if possible (i.e., Short-term vs. long-term actions)
+
+GENERAL RULES:
+- Base all insights STRICTLY on the provided content.
+- Be analytical, structured, and business-focused
+- Write in a clear, professional report style. 
+- An explicit and relatively detailed report should be created. 
+- Regarding the structure:
+    - Keep the 1 to 4 sections, creation of further subsections is OK but not compulsory. 
+    - If possible, add proper icons for sections, etc. to make the report visually nice and tidy.
+    - Use proper paragraphs and sentences instead of listing multiple bullet points.
+- MORE IMPORTANTLY, DOUBLE CHECK YOUR REPORT TO ENSURE IT FITS THE STATED REQUIREMENTS AND THERE IS NO INCONSISTENCY 
+    - for example, you should not say sth in introduction that is not done
+================================================================================
+END OF INSTRUCTIONS
+================================================================================
+================================================================================
+START OF DATASET INTRODUCTION AND ANALYTICAL RESULTS
+================================================================================
 """
 
 def ending_text():
     return f"""
-*** ADDITIONAL CONSIDERATIONS / WARNING ***
-- PLEASE DO NOT HALLUCINATE OR ASSUME ANYTHING. PLEASE ONLY CONSIDER THE PROVIDED 
-  DATA OR METRICS ABOVE FOR YOUR INTERPETATIONS/ANALYSIS.
-- PROVIDE YOUR RESPONSE SIMILAR TO A REPORT; WITH CLEAR TONE AND GOOD STRUCTURE.
+
 """
 
 
@@ -163,6 +240,7 @@ class BusinessContextBuilder:
         summary = "=" * 80 + "\n"
         summary += "EXECUTIVE SUMMARY\n"
         summary += "=" * 80 + "\n\n"
+        
         
         if metrics:
             summary += "Business Overview:\n"
@@ -813,20 +891,19 @@ class BusinessContextBuilder:
     def build_full_context(self) -> str:
         """Build the complete business context."""
         context = "\n"
-        context += "=" * 80 + "\n"
-        context += "INTRODUCTION" + "\n"
-        context += "=" * 80 + "\n"
         context += intro_text()
         context += "\n"
         context += "=" * 80 + "\n"
         context += "COMPREHENSIVE BUSINESS INTELLIGENCE REPORT\n"
         context += f"Generated: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n"
-        context += "=" * 80 + "\n\n"
+        context += "NOTE: The following report represents analyst-generated outputs and metrics."
+        context += "\n      It has NOT been independently validated and is subject to review.\n"
 
         # Main Analytics Reports
         context += self.build_executive_summary()
         # Data Quality section
         context += self.build_data_quality_section()
+        context += "NOTE THAT DATA QC REPORT REFLECTS PROBLEMS IN DATA SOURCES. THE DATA IS CLEANED (DEDUPLICATED,ETC.) FOR ANALYTICS."
         # Other Analytics
         context += self.build_time_series_section()
         context += self.build_product_section()
@@ -843,7 +920,7 @@ class BusinessContextBuilder:
         context += "END OF REPORT\n"
         context += "=" * 80
         context += ending_text()
-        context += "=" * 80 + "\n"
+    
         
         return context
     
