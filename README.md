@@ -282,14 +282,8 @@ Overall, this dbt project bridges data engineering and analytics, demonstrating 
 
 
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/8a237af7-5bdd-4c16-84d2-cacdb25920d8" width="1000">
+  <img src="https://github.com/user-attachments/assets/f1156c89-3260-4b1b-a0e1-9812c8713c49" width="1000">
 </p>
-
-
-
-
-
-
 
 
 
