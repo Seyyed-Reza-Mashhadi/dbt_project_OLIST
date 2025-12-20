@@ -3,7 +3,7 @@
 </p>
 
 ## 🧩 Project Summary  
-This project transforms, validates, and demonstrates data analytics and reporting of the Olist Brazilian E-commerce dataset. After loading raw CSV files into BigQuery, dbt manages the **transformation** in the ELT workflow — covering **data modeling**, **testing**, **documentation**, and **analytics readiness**. Then, a **Python** analytics package that performs anomaly detection, KPI calculations, and constructing a proper prompt to be able to generate AI / LLM-driven report with actionable business insights. The generated AI narrative is embedded into Power BI alongside the dashboards. The most important thing is that the whole data cleaning, transformation, analytics, and report generation is **automated**, which means that the most updated dashboards and report with data-driven insights can be created easily and quickly.  
+This project transforms, validates, and demonstrates data analytics and reporting of the Olist Brazilian E-commerce dataset. After loading raw CSV files into BigQuery, dbt manages the **transformation** in the ELT workflow — covering **data modeling**, **testing**, **documentation**, and **analytics readiness**. Then, a **Python analytics package** that performs anomaly detection, KPI calculations, and constructing a proper prompt to be able to generate **AI / LLM**-driven report with actionable business insights. The generated AI narrative is embedded into Power BI alongside the dashboards. The most important thing is that the whole data cleaning, transformation, analytics, and report generation is **automated**, which means that the most updated dashboards and report with data-driven insights can be created easily and quickly.  
 
 
 **Key ideas:**
@@ -47,6 +47,40 @@ OLIST/
 ## dbt: Data Testing & Transformation
 
 The project was initially developed locally using **dbt-core** in **VS Code**, connected to **BigQuery** through a **service account key**. After completing the development, the **GitHub repository** was linked to **dbt Cloud** to execute transformations and explore the **dbt Catalog**. 
+
+### 🏗️ Architecture
+
+```graphql
+OLIST/
+├─ dbt-olist/                         # dbt transformation and testing
+│  ├─ analysis/
+│  ├─ dbt_project.yml
+│  ├─ profiles.yml
+│  ├─ models/
+│  │  ├─ staging/                            # staging layer models
+│  │  │  ├─ _sources.yml                     # defining the sources        
+│  │  │  ├─ _staging.yml                     # defining model configs, tests, etc.
+│  │  │  ├─ STG_orders.sql
+│  │  │  ├─ ...
+│  │  ├─ intermediate/                       # intermediate layer models
+│  │  │  ├─ INT_order_items_agg.sql
+│  │  │  ├─ ...
+│  │  ├─ mart/                               # mart layer models
+│  │  │  ├─ _mart.yml                        # defining model configs, tests, etc.
+│  │  │  ├─ Fact_orders.sql        
+│  │  │  ├─ ...
+│  ├─ tests/
+│  │  ├─ tests/
+│  │  │  ├─ not_negative.sql                 # custom generic test
+│  │  ├─ coordinates_validation.sql          # singular test 1
+│  │  ├─ delivery_date_check.sql             # singular test 2
+│  │  ├─ payment_test_1.sql                  # singular test 3
+│  │  ├─ ...
+│  ├─ macros/
+│  │  ├─ schema.sql                          # macro to define schema
+│  └─ ...
+│ ...
+```
 
 ### 🎯 Objectives
 The strength of **dbt** lies in providing a scalable, version-controlled development lifecycle that ensures consistency in how data is modeled, tested, and deployed across environments and teams. This project explores the end-to-end process of building a **modular and maintainable** dbt project by following the objectives below:
@@ -303,16 +337,27 @@ seeds:
 This section describes the Python modules, how they consume dbt marts in BigQuery, produce JSON artifacts (QC, anomalies, analysis), build an LLM-safe context, and request AI insights from OpenAI and Google Gemini.
 
 📦 Python package structure
-
-src/
-├─ utils.py                 # BigQuery client & helpers
-├─ queries.py               # SQL strings / files to load from BigQuery
-├─ rawdata_qc.py            # Programmatic QC checks -> outputs QC JSON
-├─ anomaly_detection.py     # Time series anomaly detection -> anomaly JSON
-├─ analysis.py              # KPI/aggregation -> analysis JSON
-├─ context_builder.py       # Merges JSON + constructs prompt/context
-└─ ai_report_generator.py   # Calls OpenAI & Gemini -> saves text reports
-
+```graphql
+OLIST/
+├─ python/                          # Python analytics + AI layer
+│  ├─ config/
+│  ├─ src/
+│  │  ├─ __init__.py
+│  │  ├─ utils.py                   # BigQuery client & helpers
+│  │  ├─ queries.py                 # SQL strings / queries to run and load from BigQuery
+│  │  ├─ raw_data_qc.py             # General QC checks of raw data + summary outputs to JSON
+│  │  ├─ anomaly_detection.py       # Anomaly detection + summary outputs to JSON
+│  │  ├─ analysis.py                # KPI/aggregation for different analytics + summary outputs to JSON
+│  │  ├─ context_builder.py         # Merges JSON outputs + constructs prompt/context
+│  │  └─ ai_generator.py            # Calls OpenAI & Gemini + saving AI reports in text format
+│  ├─ scripts/
+│  │  ├─ __init__.py
+│  │  ├─ run_all.py                 # orchastation 
+│  ├─ notebooks/                    # notebooks for data exploration
+│  ├─ outputs/                      # directory to save JSON files and AI-report
+│  └─ ...
+│ ...
+```
 
 
 
@@ -392,6 +437,7 @@ Overall, this dbt project bridges data engineering and analytics, demonstrating 
 <p align="center">
   <img src="https://github.com/user-attachments/assets/f1156c89-3260-4b1b-a0e1-9812c8713c49" width="1000">
 </p>
+
 
 
 
