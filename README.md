@@ -3,17 +3,14 @@
 </p>
 
 
-
 ## 🧩 Project Summary  
-This project transforms, validates, and demonstrates data analytics and reporting of the Olist Brazilian E-commerce dataset. After loading raw CSV files into BigQuery, dbt manages the **transformation** in the ELT workflow — covering **data modeling**, **testing**, **documentation**, and **analytics readiness**. Then, a **Python analytics package** that performs anomaly detection, KPI calculations, and constructing a proper prompt to be able to generate **AI / LLM**-driven report with actionable business insights. The generated AI narrative is embedded into Power BI alongside the dashboards. The most important thing is that the whole data cleaning, transformation, analytics, and report generation is **automated**, which means that the most updated dashboards and report with data-driven insights can be created easily and quickly.  
 
+This project demonstrates a **fully automated, end-to-end analytics and reporting platform** built on the Olist Brazilian E-commerce dataset.
+Raw CSV files are loaded into **Google BigQuery**, where **dbt (Data Build Tool)** manages the complete **transformation layer** of the ELT workflow — including **data modeling**, **testing**, **documentation**, and **analytics readiness**.  
+On top of the dbt-produced marts, a **Python analytics package** performs deeper programmatic checks, anomaly detection, KPI calculations, and constructs a controlled prompt to generate **AI / LLM–driven narrative reports** (using **OpenAI** and **Google Gemini**) with actionable business insights.  
+The generated AI narrative is then embedded into **Power BI** alongside interactive dashboards.
 
-**Key ideas:**
-- **Google BigQuery** serves as the data warehouse with powerful computation resource.
-- **dbt (Data Build Tool)** provides the trusted, tested, version-controlled transformation foundation.
-- A **Python** analytics layer consumes dbt-produced marts, runs deeper programmatic checks, and produces structured JSON summaries.
-- A constrained **AI / LLM** layer (**OpenAI** + **Google Gemini**) synthesizes explainable, auditable narrative reports from these summaries.
-- Everything is automated, ...
+The key design principle of this project is **automation**: data cleaning, transformation, analytics, and report generation are fully automated, enabling fast regeneration of up-to-date dashboards and data-driven insights with minimal manual effort.
 
 🔗 **Dataset:** The data is available on [Kaggle](https://www.kaggle.com/datasets/olistbr/brazilian-ecommerce)
 
@@ -31,14 +28,14 @@ OLIST/
 │  ├─ outputs/
 │  └─ ...
 ├─ README.md                      # project documentation 
-├─ .env                           # file containting services account details, API keys (excluded from github repository)
-├─ Run_Pipeline.bat               # batch to the project by a double click
-│ ...
+├─ .env                           # service account & API keys (excluded from GitHub)
+├─ Run_Pipeline.bat               # one-click pipeline execution
+└─ ...
 ```
  
 ## dbt: Data Testing & Transformation
 
-The project was initially developed locally using **dbt-core** in **VS Code**, connected to **BigQuery** through a **service account key**. After completing the development, the **GitHub repository** was linked to **dbt Cloud** to execute transformations and explore the **dbt Catalog**. 
+The dbt component of this project was initially developed locally using **dbt-core** in **VS Code**, connected to **BigQuery** through a **service account key**. After completing the development, the **GitHub repository** was linked to **dbt Cloud** to execute transformations and explore the **dbt Catalog**. 
 
 ### 🏗️ Architecture
 
@@ -240,7 +237,7 @@ LIMIT 1000  -- Cap the materialization to avoid excessive data storing in case o
 - **Purpose:** Ensures financial completeness & accuracy  
 - **Tolerance:** ±0.05 (to avoid rounding noise)  
 - **Severity:** ⚠️ `warn`
-- **Result:** ~258 mismatches were detected. Logically, this test should have an `error` severity to fail the run, but due to known data quirks (e.g., installment interest), it was set to `warn` to allow the pipeline to continue while still flagging potential issues.
+- **Result:** ~258 mismatches were detected. Logically, this test should have an `error` severity to fail the run, but due to known data quirks (e.g., installment interest, taxes, etc.), it was set to `warn` to allow the pipeline to continue while still flagging potential issues.
 
 <p align="center"><i>`payment_test_1.sql`</i></p>
 
@@ -326,9 +323,13 @@ seeds:
 
 ## Python Analytics & AI (LLM) Layer
 
+This layer builds directly on top of dbt-produced marts in BigQuery and extends the platform with programmatic analytics, anomaly detection, and AI-assisted narrative reporting.
+Its role is not to replace dbt, but to consume trusted dbt outputs and generate higher-level analytical artifacts and executive-friendly insights.
+All Python modules read exclusively from analytics-ready dbt models, ensuring that downstream logic operates on tested, documented, and version-controlled data. The only exception is the module that examines raw data quality.
+
 This section describes the Python modules, how they consume dbt marts in BigQuery, produce JSON artifacts (QC, anomalies, analysis), build an LLM-safe context, and request AI insights from OpenAI and Google Gemini.
 
-📦 Python package structure
+### 📦 Python package structure
 ```graphql
 OLIST/
 ├─ python/                          # Python analytics + AI layer
@@ -351,49 +352,205 @@ OLIST/
 │ ...
 ```
 
+#### `utils.py` — BigQuery connectivity & helpers
+This module centralizes BigQuery connectivity and shared utility functions, ensuring consistent authentication and reuse across analytics modules. 
 
+```py
+import os
+from pathlib import Path
+from dotenv import load_dotenv
+from google.cloud import bigquery
+from google.cloud import bigquery_storage
 
-utils.py — minimal example (no secrets)
-code snippet 
-queries.py — keep SQL separated
-code snippet 
+# --- Global client cache (Singletons) ---
+_bq_client = None
+_bq_storage_client = None
+def get_bq_client():
+    """
+    Initializes and caches BigQuery clients using environment variables.
+    """
+    global _bq_client, _bq_storage_client
+    
+    if _bq_client is None or _bq_storage_client is None:
+        try:
+            basedir = Path(__file__).resolve().parents[2]
+            load_dotenv(basedir / '.env')
+            _bq_client = bigquery.Client()   
+            _bq_storage_client = bigquery_storage.BigQueryReadClient()
+            print("✅ BigQuery and Storage clients initialized.")
+        except Exception as e:
+            print("\n❌ FATAL ERROR: Could not initialize BigQuery clients.")
+            print("👉 Check GOOGLE_APPLICATION_CREDENTIALS in your .env file.")
+            print(f"👉 Error details: {e}\n")
+            return None, None
+    return _bq_client, _bq_storage_client
+
+def fetch_data_from_bq(sql_query):
+    """
+    Runs a query and returns a Pandas DataFrame using the high-speed Storage API.
+    """
+    client, storage_client = get_bq_client()
+    if client is None:
+        print("🛑 Fetch failed: Clients not initialized.")
+        return None
+    try:
+        query_job = client.query(sql_query)
+        df = query_job.to_dataframe(bqstorage_client=storage_client)
+        mb_processed = query_job.total_bytes_processed / (1024**2)
+        print(f"✔️ Query successful. Scanned {mb_processed:.2f} MB. Loaded {len(df)} rows.")
+        return df
+    except Exception as e:
+        print("\n--- ⚠️ BIGQUERY QUERY FAILED ---")
+        print(f"Error: {e}")
+        print(f"Check your SQL syntax in sql_queries.py.")
+        print(f"Failing Query Snippet: {sql_query.strip()[:100]}...\n")
+        return None
+```
+
+#### `queries.py` — Analytics queries
+This is where all SQL queires (used in the python scripts for analytics) live. 
+
+```py
+# SQL Queries for Olist Analytics
+
+# Star schema fact and dimension tables
+
+GET_FACT_ORDERS = """
+SELECT * FROM `olist-ecommerce-1234321.mart.FACT_orders`
+"""
 ...
 
-Responsible AI / LLM practices used
+### ADDITIONAL ANALYTICS QUERIES
 
-Grounding: LLMs only read validated JSON summaries (no raw tables).
+# Canceled Orders - Daily Sales and Orders
+GET_canceled_daily_orders = """
+SELECT 
+    date(order_purchase_timestamp) AS order_purchase_date,
+    count(DISTINCT order_id) AS total_daily_orders,
+    sum(payment_value) AS total_daily_revenue
+FROM `olist-ecommerce-1234321.mart.FACT_orders`
+WHERE order_status = 'canceled'
+GROUP BY order_purchase_date
+"""
+...
+```
 
-Constraints in prompt: explicit instruction to avoid inventing facts — "Do not assume or hallucinate; reference only the supplied numbers and labeled anomalies."
 
-Determinism: low temperature and structural JSON output to reduce randomness.
+#### `raw_data_qc.py` — High-level QC summaries
 
-Audit trail: all context files and LLM outputs are saved to outputs/ for reproducibility and audit.
+This module performs **lightweight, descriptive quality checks** (null counts, duplicates, basic distributions) and outputs JSON summaries.
 
-Dual-model comparison: run both OpenAI and Gemini, compare outputs for coherence and factuality, then pick the best.
+Note: **Critical data quality enforcement is handled in dbt** via tests.
+This Python QC layer is intentionally limited to **reporting and monitoring**, not enforcement.
 
-Power BI
+#### `anomaly_detection.py` — Detection of High/Low Anomalies In Data
+
+This module detects unusual behavior in key metrics (e.g., spikes in revenue, drops in order volume) using statistical thresholds and rolling comparisons. Two different methods are used based on data distribution (IQR and Z-SCORE) to be able to provide meaningful anomalies for both normal and non-normal distributions.
+
+Detected anomalies are explicitly labeled and quantified, then exported as structured JSON.
+
+SCREENSHOT FROM ANOMALY DETECTION
+
+#### `analysis.py` — KPI & analytical summaries
+This module computes core KPIs and...
+The results are stored in a machine-readable JSON summary, designed specifically for downstream AI consumption.
+
+SCREENSHOT FROM ANALYSIS RESULTS
+
+#### `context_builder.py` & `ai_generator.py` — AI / LLM reporting layer
+
+These modules transform analytical JSON outputs into a controlled, LLM-safe context and generate a business-facing narrative report. 
+- Responsible AI / LLM practices
+- Grounded inputs
+LLMs receive only validated JSON summaries — never raw tables.
+
+Strict prompt constraints
+Prompts explicitly prohibit assumptions or hallucinations:
+
+“Use only the supplied metrics and labeled anomalies. Do not invent explanations.”
+
+Determinism
+Low temperature and structured prompts minimize randomness.
+
+Auditability
+All prompts, contexts, and AI outputs are saved to /outputs for traceability.
+
+Dual-model validation
+Reports are generated using OpenAI and Google Gemini, compared for coherence and factual consistency, and the best result is retained.
+
+#### run_all.py — Pipeline orchestration
+
+This script executes the entire analytics and AI pipeline in sequence:
+1. Load dbt mart data from BigQuery
+2. Run QC checks
+3. Detect anomalies
+4. Generate KPI summaries
+5. Build LLM context
+6. Generate AI narrative report
+This enables one-click regeneration of insights after any dbt update.
+
+
+```py
+import os
+from pathlib import Path
+from dotenv import load_dotenv
+from src.raw_data_qc import run_raw_data_qc            # Step 1
+from src.anomaly_detection import run_anomaly_detection    # Step 2a
+from src.analysis import run_analysis              # Step 2b
+from src.context_builder import run_context_builder   # Step 3
+from src.ai_generator import run_ai_generator  # Step 4
+
+load_dotenv()   # Load environment variables (API Keys, BQ Path)
+def main():
+    print("🚀 --- STARTING OLIST AI-ANALYTICS PIPELINE --- 🚀")
+    print("="*50)
+    print("\n🔍 STEP 1: Running Raw Data Quality Control...")
+    try:
+        run_raw_data_qc()
+        print("✅ Data QC Complete.")
+    except Exception as e:
+        print(f"❌ QC Failed: {e}")
+    print("\n📈 STEP 2: Detecting Anomalies in BigQuery Data...")
+    try:
+        run_anomaly_detection()
+        print("✅ Anomaly Detection Complete.")
+    except Exception as e:
+        print(f"❌ Anomaly Detection Failed: {e}")
+    print("\n📊 STEP 3: Computing Core Business Metrics...")
+    try:
+        run_analysis()
+        print("✅ Business Analysis Complete.")
+    except Exception as e:
+        print(f"❌ Analysis Failed: {e}")
+    print("\n📝 STEP 4: Building AI Context from JSON outputs...")
+    try:
+        run_context_builder()
+        print("✅ AI Context built (business_context.txt created).")
+    except Exception as e:
+        print(f"❌ Context Builder Failed: {e}")
+    print("\n✨ STEP 5: Generating AI Reports and Recommendations...")
+    try:
+        run_ai_generator()
+        print("✅ AI Reports generated successfully.")
+    except Exception as e:
+        print(f"❌ AI Generation Failed: {e}")
+    print("\n" + "="*50)
+    print("🏁 PIPELINE FULLY EXECUTED!")
+    print("📂 Check 'python/output/' for all reports and JSON files.")
+    print("📊 Your Power BI dashboard is ready for refresh.")
+if __name__ == "__main__":
+    main()
+```
+
+
+
+
+
+## Adding AI-generated Report to Power BI
 
 Import analysis_summary.json or connect Power BI directly to BigQuery marts.
 
-Add the final AI narrative into a Power BI narrative page (text box or HTML container).
-
-Tech Stack (concise)
-
-Data Warehouse: Google BigQuery
-
-Transformations: dbt (dbt-core + dbt Cloud)
-
-Analysis: Python (pandas, google-cloud-bigquery)
-
-AI / LLM: OpenAI, Google Gemini (Gemini) — constrained prompt design
-
-BI: Power BI (dashboards + narrative page)
-
-CI / Repo: GitHub + dbt Cloud
-
-Conclusion (unified)
-
-This repository is a single, end-to-end analytics project built on top of dbt transformations. dbt is the authoritative source for cleaned, tested, analytics-ready tables; the Python layer extends dbt with programmatic data quality checks, anomaly detection, KPI aggregation, and AI-driven narrative generation. The LLM layer is used responsibly — to interpret validated metrics and to generate an executive-ready narrative embedded into Power BI. This design demonstrates how analytics engineering, reproducible data science, and constrained AI/LLM usage can be integrated to deliver trustworthy, decision-ready insights.
+Add the final AI narrative into a Power BI narrative page.
 
 
 
@@ -404,31 +561,32 @@ This repository is a single, end-to-end analytics project built on top of dbt tr
 
 
 
+## 🧩 Conclusions
+
+### General Remarks About The Project 
+
+This project represents **a single, automated, end-to-end analytics project** with dbt-controlled transformation, python-based analytics and AI-augmented reporting.
+
+Firstly, the project highlights **dbt**’s strength as a **transformation framework**, enabling modular, tested, and transparent data pipelines. It demonstrates the complete transformation workflow — from staging and intermediate logic to analytical marts — emphasizing the “T” in ELT process. Note that **freshness** and **incremental models** were not needed here for this static dataset. However, they remain essential for real-time or production-level dbt projects. 
+
+Secondly, **Python layer** extends dbt with complex data analytics such as anomaly detection, KPI calculations, as well as AI-driven narrative generation. The LLM layer is used responsibly — to interpret validated metrics and to generate an executive-ready narrative embedded into Power BI. This is useful to get updated glamps of data as well as quick interpretations any time needed. (addind a sentence on why this is useful)
+
+This design demonstrates how analytics engineering, reproducible data science, and constrained AI/LLM usage can be integrated to deliver trustworthy, decision-ready insights.
 
 
+### Data-driven Insights About OLIST Dataset 
 
+Complete data analytic summaries (JSON files) as well as AI-augmented reports (txt files) are available in this directory [this folder](https://github.com/Seyyed-Reza-Mashhadi/dbt_project_OLIST/tree/master/python/outputs). 
 
+Here, customer cohort retention and FRM segmentation results are highlighted together with basic KPIs.
 
-
-
-
-
-## 🧩 Final Remarks
-
-This project highlights dbt’s strength as a **transformation framework**, enabling modular, tested, and transparent data pipelines. Even as a static project, it demonstrates the complete transformation workflow — from staging and intermediate logic to analytical marts — emphasizing the “T” in ELT.
-
-While **freshness** and **incremental models** were not needed here, they remain essential for real-time or production pipelines. dbt Cloud’s **Catalog** and **Lineage** features provided deep visibility into data dependencies and column-level transformations.
-
-Custom testing exposed **over 200 mismatches** between order payments and product price totals, revealing real-world inconsistencies in the Olist dataset — likely due to installment payments with interest, taxes, or other adjustments.
 
 Analytical models in the mart layer added value for analytics and reporting. For instance, **Cohort Retention** and **RFM Segmentation** (visualized in Power BI, shown below) show strong acquisition but weak retention: **fewer than 1% of customers** repurchase after their first month. Only **~12.5% of customers** qualify as loyal or champion segments, while most revenue comes from potential loyalists. This means that OLIST is functioning as a **one-time, high-value purchase model, with revenue highly dependent on new customer acquisition** and suffering from a near-total failure to generate repeat business. 
-
-Overall, this dbt project bridges data engineering and analytics, demonstrating how clean, tested transformations can power reliable business insights and BI-ready datasets.
-
 
 <p align="center">
   <img src="https://github.com/user-attachments/assets/f1156c89-3260-4b1b-a0e1-9812c8713c49" width="1000">
 </p>
+
 
 
 
