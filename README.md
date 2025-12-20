@@ -20,27 +20,17 @@ The picture below shows the dbt project folder structure.
 
 ```graphql
 OLIST/
-├─ README.md
-├─ .env
-├─ run_pipeline.bat
-├─ dbt-olist/                         # dbt transformation and testing
-│  ├─ dbt_project.yml
+├─ dbt-olist/                     # dbt transformation and testing
 │  ├─ models/
 │  ├─ tests/
-│  ├─ macros/
 │  └─ ...
-├─ python/                      # Python analytics + AI layer
+├─ python/                        # Python analytics + AI layer
 │  ├─ src/
-│  │  ├─ __init__.py
-│  │  ├─ utils.py
-│  │  ├─ queries.py
-│  │  ├─ raw_data_qc.py
-│  │  ├─ anomaly_detection.py
-│  │  ├─ analysis.py
-│  │  ├─ context_builder.py
-│  │  └─ ai_generator.py
 │  ├─ outputs/
 │  └─ ...
+├─ README.md                      # project documentation 
+├─ .env                           # file containting services account details, API keys (excluded from github repository)
+├─ Run_Pipeline.bat               # batch to the project by a double click
 │ ...
 ```
  
@@ -437,6 +427,7 @@ Overall, this dbt project bridges data engineering and analytics, demonstrating 
 <p align="center">
   <img src="https://github.com/user-attachments/assets/f1156c89-3260-4b1b-a0e1-9812c8713c49" width="1000">
 </p>
+
 
 
 
