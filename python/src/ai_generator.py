@@ -1,10 +1,14 @@
 from pathlib import Path
 import os
+from dotenv import load_dotenv
 from openai import OpenAI
-from google import genai  # Modern Gemini SDK
+from google import genai  
 
 # --- PATH CONFIGURATION ---
-# Points to D:\My_Projects\OLIST\python\output
+basedir = Path(__file__).resolve().parents[2]
+load_dotenv(basedir / '.env')
+
+# export destination folder
 directory = Path(__file__).resolve().parents[2] / "python" / "output"
 
 # -------------------------
@@ -57,7 +61,7 @@ def generate_gemini_response(prompt, model_name="gemini-2.5-flash"):
 # -------------------------
 # Main pipeline
 # -------------------------
-def main():
+def run_ai_generator():
     input_path = directory / "business_context.txt"
     
     if not input_path.exists():
@@ -82,4 +86,4 @@ def main():
     print(f"📍 {directory}")
 
 if __name__ == "__main__":
-    main()
+    run_ai_generator()

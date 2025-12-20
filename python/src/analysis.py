@@ -9,8 +9,7 @@ from datetime import datetime
 
 
 
-### DEFINING THE OUTPUT DIRECTORY
-directory = Path(__file__).resolve().parents[2] / "python" / "output" / "Analysis" 
+
 
 ###################################################################################################################
 #### Cohort Analysis and Retention Rates
@@ -123,10 +122,6 @@ def create_cohort_report(df, path= None):
         print(f"\n Cohort analysis saved to: {path}")
 
     return output
-
-# Cohort Customer Retention Data
-df1 = fetch_data_from_bq(q.GET_BI_CUSTOMER_COHORTS)
-create_cohort_report(df=df1, path= directory / "cohort_analysis_report.json")
 
 
 ###################################################################################################################
@@ -341,12 +336,6 @@ def create_rfm_report(df: pd.DataFrame, path: Optional[str] = None, further_note
     return output
 
 
-# RFM Analysis Data 
-df2 = fetch_data_from_bq(q.GET_BI_CUSTOMER_RFM)
-create_rfm_report(df=df2, path= directory / "rfm_analysis_report.json", 
-                  further_notes="The majority of customers (i.e. more than 95 percent of customers) only had only 1 order so the histogram of F (Frequency) is highly skewed")
-
-
 ###################################################################################################################
 #### Products Performance  
 ###################################################################################################################
@@ -548,9 +537,6 @@ def create_product_performance_report(df: pd.DataFrame, path: Optional[str] = No
     
     return output
 
-# Product Performance Data 
-df3 = fetch_data_from_bq(q.GET_BI_PRODUCT_PERFORMANCE)
-create_product_performance_report(df=df3, path= directory / "product_performance_report.json")
 
 ###################################################################################################################
 #### Product Category Performance  
@@ -733,9 +719,6 @@ def create_category_performance_report(df: pd.DataFrame, path: Optional[str] = N
         print(f"\n Category performance analysis saved to: {path}")
     return output
 
-# Category Performance Data 
-df4 = fetch_data_from_bq(q.GET_product_category_performance)
-create_category_performance_report(df=df4, path= directory / "category_performance_report.json")
 
 ###################################################################################################################
 #### Sellers Performance  
@@ -983,10 +966,6 @@ def create_seller_performance_report(df, path=None):
     
     return output
 
-
-# Seller Performance Data 
-df5 = fetch_data_from_bq(q.GET_BI_SELLER_PERFORMANCE)
-create_seller_performance_report(df=df5, path= directory / "seller_performance_report.json")
 
 ###################################################################################################################
 #### Delivery Performance 
@@ -1237,10 +1216,6 @@ def create_delivery_performance_report(df, path = None):
         print(f"\nDelivery performance analysis saved to: {path}")
     return output
 
-# Delivery Performance Data 
-df6 = fetch_data_from_bq(q.GET_delivery_performance)
-create_delivery_performance_report(df=df6, path= directory / "delivery_performance_report.json")
-
 
 ###################################################################################################################
 #### Region / Province Performance 
@@ -1486,11 +1461,6 @@ def create_region_performance_report(df, path=None):
         print(f"\nRegional performance analysis saved to: {path}")
     return output
 
-# Region Performance Data 
-df7 = fetch_data_from_bq(q.GET_region_performance)
-create_region_performance_report(df=df7, path= directory / "region_performance_report.json")
-
-
 ###################################################################################################################
 #### Overal Business Summary / Main KPIs  + Monthly Time Series & MoM
 ###################################################################################################################
@@ -1706,10 +1676,51 @@ def create_monthly_time_series_report(df, path=None):
     return output
 
 
-# Data Import and Reporting for Main Business Metrics & MoM Data
- 
-df8 = fetch_data_from_bq(q.GET_overal_business_metrics)
-create_overall_business_metrics_report(df=df8, path= directory / "overall_business_metrics_report.json")
+def run_analysis():
 
-df9 = fetch_data_from_bq(q.GET_monthly_time_series)
-create_monthly_time_series_report(df=df9, path= directory / "monthly_time_series_report.json")
+    ### DEFINING THE OUTPUT DIRECTORY
+    directory = Path(__file__).resolve().parents[2] / "python" / "output" / "Analysis" 
+    
+    # Cohort Customer Retention Data
+    df1 = fetch_data_from_bq(q.GET_BI_CUSTOMER_COHORTS)
+    create_cohort_report(df=df1, path= directory / "cohort_analysis_report.json")
+    
+    # RFM Analysis Data 
+    df2 = fetch_data_from_bq(q.GET_BI_CUSTOMER_RFM)
+    create_rfm_report(df=df2, path= directory / "rfm_analysis_report.json", 
+                    further_notes="The majority of customers (i.e. more than 95 percent of customers) only had only 1 order so the histogram of F (Frequency) is highly skewed")
+
+    # Product Performance Data 
+    df3 = fetch_data_from_bq(q.GET_BI_PRODUCT_PERFORMANCE)
+    create_product_performance_report(df=df3, path= directory / "product_performance_report.json")
+
+    # Category Performance Data 
+    df4 = fetch_data_from_bq(q.GET_product_category_performance)
+    create_category_performance_report(df=df4, path= directory / "category_performance_report.json")
+    
+    # Seller Performance Data 
+    df5 = fetch_data_from_bq(q.GET_BI_SELLER_PERFORMANCE)
+    create_seller_performance_report(df=df5, path= directory / "seller_performance_report.json")
+
+    # Delivery Performance Data 
+    df6 = fetch_data_from_bq(q.GET_delivery_performance)
+    create_delivery_performance_report(df=df6, path= directory / "delivery_performance_report.json")
+
+    # Region Performance Data 
+    df7 = fetch_data_from_bq(q.GET_region_performance)
+    create_region_performance_report(df=df7, path= directory / "region_performance_report.json")
+
+    # Main Business Metrics & MoM Data
+    
+    df8 = fetch_data_from_bq(q.GET_overal_business_metrics)
+    create_overall_business_metrics_report(df=df8, path= directory / "overall_business_metrics_report.json")
+
+    df9 = fetch_data_from_bq(q.GET_monthly_time_series)
+    create_monthly_time_series_report(df=df9, path= directory / "monthly_time_series_report.json")
+
+
+if __name__ == "__main__":
+    run_analysis()
+
+
+    

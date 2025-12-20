@@ -3,11 +3,6 @@ from pathlib import Path
 from typing import Dict, Any, List
 from datetime import datetime
 
-import json
-from pathlib import Path
-from typing import Dict, Any, List
-from datetime import datetime
-
 def intro_text():
     return f"""
 ================================================================================
@@ -937,43 +932,28 @@ class BusinessContextBuilder:
         return output_path
     
 
-def main():
-    """Main execution function."""
-    # 🎯 User-specified path: D:/My_Projects/OLIST/python/output
-    reports_directory = "D:/My_Projects/OLIST/python/output"
+def run_context_builder():
+    """
+    Main execution function called by the Orchestrator (run_all.py).
+    """
+    # 1. Dynamically find the output directory relative to this file
+    # Path: src/context_builder.py -> src/ -> python/ -> OLIST/
+    PROJECT_ROOT = Path(__file__).resolve().parents[2]
+    reports_directory = PROJECT_ROOT / "python" / "output"
     
-    # Initialize the builder with the base directory
+    # 2. Initialize the builder
     builder = BusinessContextBuilder(reports_dir=reports_directory)
     
-    # Load all reports
-    print(f"Loading reports from: {reports_directory}/{builder.analysis_subdir}/...")
-    print(f"Loading QC reports from: {reports_directory}/{builder.qc_subdir}/...")
+    # 3. Load all JSON reports (QC and Analysis)
+    print(f"📂 Loading reports from: {reports_directory}")
     builder.load_all_reports()
     
-    # Build and save context
-    print(f"Building and saving business context to {reports_directory}...")
-    # This will save to D:/My_Projects/OLIST/python/output/business_context.txt
+    # 4. Build and save the aggregated .txt file
+    # This creates: .../python/output/business_context.txt
     output_path = builder.save_context("business_context.txt")
-    
-    # Also print to console for preview
-    print("\n" + "="*80)
-    print("PREVIEW (first 2000 characters):")
-    print("="*80)
-    context = builder.build_full_context()
-    print(context[:2000])
-    print("\n... (truncated)")
     
     return output_path
 
-
-# Quick usage function
-def quick_build(reports_dir="."):
-    """Quick function to build context from a directory."""
-    builder = BusinessContextBuilder(reports_dir=reports_dir)
-    builder.load_all_reports()
-    output_path = builder.save_context("business_context.txt")
-    return builder, output_path
-
-
 if __name__ == "__main__":
-    main()
+    # This allows you to test this file individually
+    run_context_builder()
