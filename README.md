@@ -590,28 +590,8 @@ Here, customer cohort retention and FRM segmentation results are highlighted tog
 Analytical models in the mart layer added value for analytics and reporting. For instance, **Cohort Retention** and **RFM Segmentation** (visualized in Power BI, shown below) show strong acquisition but weak retention: **fewer than 1% of customers** repurchase after their first month. Only **~12.5% of customers** qualify as loyal or champion segments, while most revenue comes from potential loyalists. This means that OLIST is functioning as a **one-time, high-value purchase model, with revenue highly dependent on new customer acquisition** and suffering from a near-total failure to generate repeat business. 
 
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/f1156c89-3260-4b1b-a0e1-9812c8713c49" width="1000">
+  <img src="https://github.com/user-attachments/assets/5456d22e-e1b8-4575-a434-2843d274b32d" width="800">
 </p>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
