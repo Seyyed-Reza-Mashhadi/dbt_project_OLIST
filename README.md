@@ -1,16 +1,56 @@
-<h1 align="center">  dbt Project - Olist Ecommerce Dataset </h1>  
+<h1 align="center">  OLIST Project: </p> dbt + Python Analytics + AI-Augmented Reporting </h1> 
+
 <p align="center">
   <img src="https://github.com/user-attachments/assets/f44ab50e-220b-42be-a0e0-91068f7d5cdf" width="2000">
 </p>
 
-## 🧩 About the Project  
-This project transforms and validates the Olist Brazilian E-commerce dataset using **dbt (Data Build Tool)** with **Google BigQuery** as the data warehouse. After loading raw CSV files into BigQuery, dbt manages the **transformation** in the ELT workflow — covering **data modeling**, **testing**, **documentation**, and **analytics readiness**. 
+## 🧩 Project Summary  
+This project transforms, validates, and demonstrates data analytics and reporting of the Olist Brazilian E-commerce dataset. After loading raw CSV files into BigQuery, dbt manages the **transformation** in the ELT workflow — covering **data modeling**, **testing**, **documentation**, and **analytics readiness**. Then, a **Python** analytics package that performs anomaly detection, KPI calculations, and constructing a proper prompt to be able to generate AI / LLM-driven report with actionable business insights. The generated AI narrative is embedded into Power BI alongside the dashboards. The most important thing is that the whole data cleaning, transformation, analytics, and report generation is **automated**, which means that the most updated dashboards and report with data-driven insights can be created easily and quickly.  
+
+
+**Key ideas:**
+- **Google BigQuery** serves as the data warehouse with powerful computation resource.
+- **dbt (Data Build Tool)** provides the trusted, tested, version-controlled transformation foundation.
+- A **Python** analytics layer consumes dbt-produced marts, runs deeper programmatic checks, and produces structured JSON summaries.
+- A constrained **AI / LLM** layer (**OpenAI** + **Google Gemini**) synthesizes explainable, auditable narrative reports from these summaries.
+- Everything is automated, ...
 
 🔗 **Dataset:** The data is available on [Kaggle](https://www.kaggle.com/datasets/olistbr/brazilian-ecommerce)
 
+## 🏗️ Project Architecture
+The picture below shows the dbt project folder structure. 
+
+```graphql
+OLIST/
+├─ README.md
+├─ .env
+├─ run_pipeline.bat
+├─ dbt-olist/                         # dbt transformation and testing
+│  ├─ dbt_project.yml
+│  ├─ models/
+│  ├─ tests/
+│  ├─ macros/
+│  └─ ...
+├─ python/                      # Python analytics + AI layer
+│  ├─ src/
+│  │  ├─ __init__.py
+│  │  ├─ utils.py
+│  │  ├─ queries.py
+│  │  ├─ raw_data_qc.py
+│  │  ├─ anomaly_detection.py
+│  │  ├─ analysis.py
+│  │  ├─ context_builder.py
+│  │  └─ ai_generator.py
+│  ├─ outputs/
+│  └─ ...
+│ ...
+```
+ 
+## dbt: Data Testing & Transformation
+
 The project was initially developed locally using **dbt-core** in **VS Code**, connected to **BigQuery** through a **service account key**. After completing the development, the **GitHub repository** was linked to **dbt Cloud** to execute transformations and explore the **dbt Catalog**. 
 
-## 🎯 Objectives
+### 🎯 Objectives
 The strength of **dbt** lies in providing a scalable, version-controlled development lifecycle that ensures consistency in how data is modeled, tested, and deployed across environments and teams. This project explores the end-to-end process of building a **modular and maintainable** dbt project by following the objectives below:
 
 - 🧱 **Data Modeling & Architecture**
@@ -29,17 +69,7 @@ The strength of **dbt** lies in providing a scalable, version-controlled develop
   - Automate transformations and testing on **dbt Cloud** + **BigQuery**
   - Generate interactive documentation and **DAG (Directed Acyclic Graph)** lineage visualizations for transparency and reproducibility using **dbt Catalog**
 
-
-## 🏗️ Project Architecture  
-
-The picture below shows the dbt project folder structure. 
-
-<p align="center">
-  <img src="https://github.com/user-attachments/assets/1befca44-0fda-4b36-b7da-07c2a86e639a" width="700">
-</p>
-
-
-## ⚙️ Data Source Configuration  
+### ⚙️ Data Source Configuration  
 The source datasets are defined in `_sources.yml`, referencing all raw tables located in the `rawdata` schema of the `olist-ecommerce-2025` dataset in **BigQuery**.
 
 <p align="center"><i>Excerpt from `_sources.yml`</i></p>
@@ -58,7 +88,7 @@ sources:
       ...
 ```
 
-## 🧩 Modeling, Testing & Transformation Workflow  
+### 🧩 Modeling, Testing & Transformation Workflow  
 In dbt, data transformation, testing, and documentation are tightly integrated rather than sequential. Each model, once created or updated, it is immediately tested and incorporated into the project's **Directed Acyclic Graph (DAG)**. 
 
 <p align="center"><i>DAG of DIM_sellers model</i></p>
@@ -67,8 +97,8 @@ In dbt, data transformation, testing, and documentation are tightly integrated r
 </p>
 
 
-### 🧱 Model Layers
-#### Overview
+#### 🧱 Model Layers
+##### Overview
 - **Staging Layer** – Renaming column names, standardize datatypes, etc. 
 - **Intermediate Layer** – Performs joins, aggregations, and logic transformations between staging and marts.
 - **Marts Layer** – Produces analytics-ready tables for reporting and BI, including both **star schema** models and **standalone analytical models** such as RFM segmentation, seller performance, and delivery reliability.
@@ -87,7 +117,7 @@ A **seed** CSV enriches the models with full province names (linked by province 
     {%- endif -%}
 {%- endmacro %}
 ```
-#### A Look Into the Mart Layer
+##### A Look Into the Mart Layer
 The marts layer contains both dimensional and analytical models:
 - **Fact and Dimension Tables** – Form the basis of a star schema, including a `date` dimension table 
 - **standalone BI specific models:** Designed to answer concrete business questions and support dashboards (e.g., RFM segmentation, cohort retention, seller reliability).
@@ -114,9 +144,9 @@ This model groups customers into **cohorts** based on their **first purchase dat
   <img src="https://github.com/user-attachments/assets/609b0059-56c7-40ac-9a29-3cadb5cff9ed" width="800">
 </p>
 
-## ✅ Integrated Data Testing
+### ✅ Integrated Data Testing
 Testing occurs alongside model development — ensuring every transformation maintains data quality before it’s used downstream.
-### 1️⃣ Generic Tests  
+#### 1️⃣ Generic Tests  
 Generic tests ensure fundamental data integrity. Defining **unique** and **not_null** tests for primary keys is essential, while **relationships** tests validate foreign key references. For columns with a limited set of valid categorical values (e.g., `order_status`), **accepted_values** tests are applied to enforce consistency.
 
 <p align="center"><i>Excerpt from `_staging.yml`</i></p>
@@ -148,7 +178,7 @@ models:
                 values: ['credit_card', 'boleto', 'voucher', 'debit_card', 'not_defined']
 ```
 
-### 2️⃣ Custom Generic Test  
+#### 2️⃣ Custom Generic Test  
 The `not_negative` test ensures that numeric columns (e.g., `price`, `payment_value`) never contain negative values. As a **custom generic test**, it is modular and reusable across multiple models and columns.
 
 <p align="center"><i>`not_negative.sql`</i></p>
@@ -161,11 +191,11 @@ The `not_negative` test ensures that numeric columns (e.g., `price`, `payment_va
 {% endtest %} 
 ```
 
-### 3️⃣ Singular Tests – Business Logic & Cross-Table Validation  
+#### 3️⃣ Singular Tests – Business Logic & Cross-Table Validation  
 
 We implemented domain-specific singular tests to ensure business logic and data consistency. These tests highlight how **dbt enables rule-based data validation** beyond basic null checks. 
 
-#### Example 1: Coordinates validation
+##### Example 1: Coordinates validation
 - **Logic:** longitude and latitude ranges should be logical  
 - **Purpose:** Ensures data reliability for future BI illustrations in maps 
 - **Severity:** ❌ `error` 
@@ -181,7 +211,7 @@ WHERE latitude < -90 OR latitude > 90 OR longitude < -180 OR longitude > 180
 LIMIT 1000  -- Cap the materialization to avoid excessive data storing in case of widespread failures
 ```
 
-#### Example 2: Payment consistency
+##### Example 2: Payment consistency
 - **Logic:** For delivered/shipped/invoiced orders, aggregated payments = item price + freight  
 - **Purpose:** Ensures financial completeness & accuracy  
 - **Tolerance:** ±0.05 (to avoid rounding noise)  
@@ -208,7 +238,7 @@ WHERE
 LIMIT 1000  -- Cap the materialization to avoid excessive data storing in case of widespread failures
 ```
 
-## ☁️ Deployment on dbt Cloud  
+### ☁️ Deployment on dbt Cloud  
 
 After completing and testing all dbt models locally using **dbt-core** in VS code, the project was deployed to **dbt Cloud**, connected directly to the GitHub repository for version control and continuous integration. The dbt Cloud environment is configured to use **Google BigQuery** as the data warehouse for computation and storage.
 
@@ -268,6 +298,86 @@ seeds:
   <img src="https://github.com/user-attachments/assets/368aeac8-0f79-41b5-a47a-fd051eca20e1" width="700">
 </p>
 
+
+
+## Python Analytics & AI (LLM) Layer
+
+This section describes the Python modules, how they consume dbt marts in BigQuery, produce JSON artifacts (QC, anomalies, analysis), build an LLM-safe context, and request AI insights from OpenAI and Google Gemini.
+
+📦 Python package structure
+
+src/
+├─ utils.py                 # BigQuery client & helpers
+├─ queries.py               # SQL strings / files to load from BigQuery
+├─ rawdata_qc.py            # Programmatic QC checks -> outputs QC JSON
+├─ anomaly_detection.py     # Time series anomaly detection -> anomaly JSON
+├─ analysis.py              # KPI/aggregation -> analysis JSON
+├─ context_builder.py       # Merges JSON + constructs prompt/context
+└─ ai_report_generator.py   # Calls OpenAI & Gemini -> saves text reports
+
+
+
+
+utils.py — minimal example (no secrets)
+code snippet 
+queries.py — keep SQL separated
+code snippet 
+...
+
+Responsible AI / LLM practices used
+
+Grounding: LLMs only read validated JSON summaries (no raw tables).
+
+Constraints in prompt: explicit instruction to avoid inventing facts — "Do not assume or hallucinate; reference only the supplied numbers and labeled anomalies."
+
+Determinism: low temperature and structural JSON output to reduce randomness.
+
+Audit trail: all context files and LLM outputs are saved to outputs/ for reproducibility and audit.
+
+Dual-model comparison: run both OpenAI and Gemini, compare outputs for coherence and factuality, then pick the best.
+
+Power BI
+
+Import analysis_summary.json or connect Power BI directly to BigQuery marts.
+
+Add the final AI narrative into a Power BI narrative page (text box or HTML container).
+
+Tech Stack (concise)
+
+Data Warehouse: Google BigQuery
+
+Transformations: dbt (dbt-core + dbt Cloud)
+
+Analysis: Python (pandas, google-cloud-bigquery)
+
+AI / LLM: OpenAI, Google Gemini (Gemini) — constrained prompt design
+
+BI: Power BI (dashboards + narrative page)
+
+CI / Repo: GitHub + dbt Cloud
+
+Conclusion (unified)
+
+This repository is a single, end-to-end analytics project built on top of dbt transformations. dbt is the authoritative source for cleaned, tested, analytics-ready tables; the Python layer extends dbt with programmatic data quality checks, anomaly detection, KPI aggregation, and AI-driven narrative generation. The LLM layer is used responsibly — to interpret validated metrics and to generate an executive-ready narrative embedded into Power BI. This design demonstrates how analytics engineering, reproducible data science, and constrained AI/LLM usage can be integrated to deliver trustworthy, decision-ready insights.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ## 🧩 Final Remarks
 
 This project highlights dbt’s strength as a **transformation framework**, enabling modular, tested, and transparent data pipelines. Even as a static project, it demonstrates the complete transformation workflow — from staging and intermediate logic to analytical marts — emphasizing the “T” in ELT.
@@ -284,6 +394,7 @@ Overall, this dbt project bridges data engineering and analytics, demonstrating 
 <p align="center">
   <img src="https://github.com/user-attachments/assets/f1156c89-3260-4b1b-a0e1-9812c8713c49" width="1000">
 </p>
+
 
 
 
