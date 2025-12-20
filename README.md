@@ -449,13 +449,13 @@ This module detects unusual behavior in key metrics (e.g., spikes in revenue, dr
 
 Detected anomalies are explicitly labeled and quantified, then exported as structured JSON.
 
-SCREENSHOT FROM ANOMALY DETECTION
+SCREENSHOT FROM ANOMALY DETECTION?
 
 #### `analysis.py` — KPI & analytical summaries
 This module computes core KPIs and...
 The results are stored in a machine-readable JSON summary, designed specifically for downstream AI consumption.
 
-SCREENSHOT FROM ANALYSIS RESULTS
+SCREENSHOT FROM ANALYSIS RESULTS?
 
 #### `context_builder.py` & `ai_generator.py` — AI / LLM reporting layer
 
@@ -488,6 +488,9 @@ This script executes the entire analytics and AI pipeline in sequence:
 5. Build LLM context
 6. Generate AI narrative report
 This enables one-click regeneration of insights after any dbt update.
+
+SCREENSHOT FROM SUCCESSFUL RUN OF BAT?
+
 
 
 ```py
@@ -554,6 +557,9 @@ Add the final AI narrative into a Power BI narrative page.
 
 
 
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/455dbded-296f-4bf1-b66f-2427a50bf217" width="700">
+</p>
 
 
 
@@ -586,6 +592,7 @@ Analytical models in the mart layer added value for analytics and reporting. For
 <p align="center">
   <img src="https://github.com/user-attachments/assets/f1156c89-3260-4b1b-a0e1-9812c8713c49" width="1000">
 </p>
+
 
 
 
