@@ -1,8 +1,6 @@
 <h1 align="center">  OLIST Project: </p> dbt + Python Analytics + AI-Augmented Reporting </h1> 
 
-<p align="center">
-  <img src="https://github.com/user-attachments/assets/f44ab50e-220b-42be-a0e0-91068f7d5cdf" width="2000">
-</p>
+
 
 ## 🧩 Project Summary  
 This project transforms, validates, and demonstrates data analytics and reporting of the Olist Brazilian E-commerce dataset. After loading raw CSV files into BigQuery, dbt manages the **transformation** in the ELT workflow — covering **data modeling**, **testing**, **documentation**, and **analytics readiness**. Then, a **Python** analytics package that performs anomaly detection, KPI calculations, and constructing a proper prompt to be able to generate AI / LLM-driven report with actionable business insights. The generated AI narrative is embedded into Power BI alongside the dashboards. The most important thing is that the whole data cleaning, transformation, analytics, and report generation is **automated**, which means that the most updated dashboards and report with data-driven insights can be created easily and quickly.  
@@ -91,9 +89,9 @@ sources:
 ### 🧩 Modeling, Testing & Transformation Workflow  
 In dbt, data transformation, testing, and documentation are tightly integrated rather than sequential. Each model, once created or updated, it is immediately tested and incorporated into the project's **Directed Acyclic Graph (DAG)**. 
 
-<p align="center"><i>DAG of DIM_sellers model</i></p>
+<p align="center"><i>DAG of Entire Project</i></p>
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/eacffebc-d6cf-4a6a-9c57-ad0b1c8d8a0c" width="700">
+  <img src="https://github.com/user-attachments/assets/f44ab50e-220b-42be-a0e0-91068f7d5cdf" width="2000">
 </p>
 
 
@@ -394,6 +392,7 @@ Overall, this dbt project bridges data engineering and analytics, demonstrating 
 <p align="center">
   <img src="https://github.com/user-attachments/assets/f1156c89-3260-4b1b-a0e1-9812c8713c49" width="1000">
 </p>
+
 
 
 
