@@ -131,13 +131,13 @@ This model segments customers using the classic **Recency, Frequency, Monetary (
 - **Scope:** Last 12 months of transactions in the dataset are considered
 - Combined RFM score determines customer segments (*Champions*, *Loyal Customers*,*Potential Loyalists*, *At Risk*, *Lost*)
 
-🔗 **File:** [RFM Segmentation Model](https://github.com/Seyyed-Reza-Mashhadi/dbt_project_OLIST/blob/master/olist/models/mart/BI_customer_rfm.sql)
+🔗 **File:** [RFM Segmentation Model](https://github.com/Seyyed-Reza-Mashhadi/OLIST_Project/blob/master/olist/models/mart/BI_customer_rfm.sql)
 
 **_Example 2: Cohort Analysis Model_**
 
 This model groups customers into **cohorts** based on their **first purchase date** and tracks **customer retention rate** and spending across time periods. It evaluates both individual cohort performance and weighted averages to reveal overall customer lifecycle trends.
 
-🔗 **File:** [Cohort Analysis Model](https://github.com/Seyyed-Reza-Mashhadi/dbt_project_OLIST/blob/master/olist/models/mart/BI_customer_cohorts.sql)
+🔗 **File:** [Cohort Analysis Model](https://github.com/Seyyed-Reza-Mashhadi/OLIST_Project/blob/master/olist/models/mart/BI_customer_cohorts.sql)
 
 <p align="center"><i>Executing Cohort Analysis model build with dbt Core in VS Code</i></p>
 <p align="center">
@@ -331,12 +331,12 @@ OLIST/
 - This module centralizes authentication, client initialization, and query execution for BigQuery.
 - It ensures consistent configuration and reuse across all analytics modules.
 
-🔗 Code: [utils.py](https://github.com/Seyyed-Reza-Mashhadi/dbt_project_OLIST/blob/master/python/src/utils.py)
+🔗 Code: [utils.py](https://github.com/Seyyed-Reza-Mashhadi/OLIST_Project/blob/master/python/src/utils.py)
 
 ## <img src="https://github.com/user-attachments/assets/5a40fcd3-a093-4cc3-911e-9704ab711bef" height="22" /> Analytics queries — `queries.py`
 - This is where all SQL queires (used in the python scripts for analytics) live.
 
-🔗 Code: [queries.py](https://github.com/Seyyed-Reza-Mashhadi/dbt_project_OLIST/blob/master/python/src/queries.py)
+🔗 Code: [queries.py](https://github.com/Seyyed-Reza-Mashhadi/OLIST_Project/blob/master/python/src/queries.py)
 
 ## <img src="https://github.com/user-attachments/assets/ede013cf-7784-4668-97c6-c53b69009438" height="22" /> High-level QC summaries — `raw_data_qc.py`
 
@@ -345,7 +345,7 @@ OLIST/
   - Enforcement of data quality rules is handled in dbt tests.
   - This Python module is intentionally limited to monitoring and reporting, not validation.
 
-🔗 Code: [raw_data_qc.py](https://github.com/Seyyed-Reza-Mashhadi/dbt_project_OLIST/blob/master/python/src/raw_data_qc.py)
+🔗 Code: [raw_data_qc.py](https://github.com/Seyyed-Reza-Mashhadi/OLIST_Project/blob/master/python/src/raw_data_qc.py)
 
 ## <img src="https://github.com/user-attachments/assets/c1c6b48c-83ab-4290-b6db-5825d4e01826" height="22" /> Detection of High/Low Anomalies In Data — `anomaly_detection.py` 
 
@@ -355,13 +355,13 @@ OLIST/
     - **Z-score** detection for approximately normal distributions
 - Detected anomalies are explicitly labeled, quantified, and exported as structured JSON artifacts.
 
-🔗 Code: [anomaly_detection.py](https://github.com/Seyyed-Reza-Mashhadi/dbt_project_OLIST/blob/master/python/src/anomaly_detection.py)
+🔗 Code: [anomaly_detection.py](https://github.com/Seyyed-Reza-Mashhadi/OLIST_Project/blob/master/python/src/anomaly_detection.py)
 
 ## <img src="https://github.com/user-attachments/assets/b1c1f27b-14e7-444f-a612-7b3a24a47c42" height="22" /> KPI & analytical summaries — `analysis.py`
 - This module computes core business KPIs and analytical aggregates derived from dbt marts, such as revenue and order trends, Average Order Value (AOV), seller performance and so on.
 - The output is a machine-readable JSON summary, designed specifically for downstream AI consumption and auditability.
 
-🔗 Code: [analysis.py](https://github.com/Seyyed-Reza-Mashhadi/dbt_project_OLIST/blob/master/python/src/analysis.py)
+🔗 Code: [analysis.py](https://github.com/Seyyed-Reza-Mashhadi/OLIST_Project/blob/master/python/src/analysis.py)
 
 ## <img src="https://github.com/user-attachments/assets/a460faaa-642a-4523-a51b-92ef63d1a1d1" height="22" /> LLM-safe context construction — `context_builder.py`
 - This module does not call any LLMs. Its responsibility is to:
@@ -369,7 +369,7 @@ OLIST/
   - Normalize metrics and labels
   - Construct a controlled, grounded analytical context for AI consumption
 
-🔗 Code: [context_builder.py](https://github.com/Seyyed-Reza-Mashhadi/dbt_project_OLIST/blob/master/python/src/context_builder.py)
+🔗 Code: [context_builder.py](https://github.com/Seyyed-Reza-Mashhadi/OLIST_Project/blob/master/python/src/context_builder.py)
 
 ## <img src="https://github.com/user-attachments/assets/2debcca9-4190-41e1-91b6-32643550af44" height="22" /> AI / LLM narrative generation — `ai_generator.py`  
 - This module consumes the context produced by `context_builder.py` and generates business-facing narrative reports using **OpenAI** <img src="https://github.com/user-attachments/assets/d41cb35d-a1d5-40c5-b731-40274850d27d" height="18" /> and **Google Gemini** <img src="https://github.com/user-attachments/assets/3e8b6bb5-38a3-4b20-86d6-e25fc7e30b72" height="18" />.
@@ -381,14 +381,14 @@ OLIST/
   - Auditability: All prompts, contexts, and AI outputs are saved to /outputs for traceability.
   - Outputs from OpenAI and Gemini are provided for coherence and factual consistency.
 
-🔗 Code: [ai_generator.py](https://github.com/Seyyed-Reza-Mashhadi/dbt_project_OLIST/blob/master/python/src/ai_generator.py)
+🔗 Code: [ai_generator.py](https://github.com/Seyyed-Reza-Mashhadi/OLIST_Project/blob/master/python/src/ai_generator.py)
 
 ## <img src="https://github.com/user-attachments/assets/171fd51d-b677-4946-83ae-0baf826b2dac" height="22" /> Pipeline orchestration — `run_all.py`
 
 - This script orchestrates the entire analytics and AI pipeline, and enables one-click regeneration of insights.
-- A companion batch file ([Run_Pipeline.bat](https://github.com/Seyyed-Reza-Mashhadi/dbt_project_OLIST/blob/master/Run_Pipeline.bat)) allows execution via double-click on Windows.
+- A companion batch file ([Run_Pipeline.bat](https://github.com/Seyyed-Reza-Mashhadi/OLIST_Project/blob/master/Run_Pipeline.bat)) allows execution via double-click on Windows.
 
-🔗 Code: [run_all.py](https://github.com/Seyyed-Reza-Mashhadi/dbt_project_OLIST/blob/master/python/scripts/run_all.py)
+🔗 Code: [run_all.py](https://github.com/Seyyed-Reza-Mashhadi/OLIST_Project/blob/master/python/scripts/run_all.py)
 
 <p align="center">
   <img " src="https://github.com/user-attachments/assets/01935818-1449-404d-87ed-28e9ed72796c" width="700">
@@ -434,11 +434,12 @@ Additional insights confirm this trend:
   - Only **~12.5% of customers** qualify as loyal or champion segments  
   - Most revenue comes from potential loyalists  
 
-Complete analytic summaries (JSON files) and AI-augmented reports with business recommendations (txt files) are available in [this folder](https://github.com/Seyyed-Reza-Mashhadi/dbt_project_OLIST/tree/master/python/outputs).
+Complete analytic summaries (JSON files) and AI-augmented reports with business recommendations (txt files) are available in [this folder](https://github.com/Seyyed-Reza-Mashhadi/OLIST_Project/tree/master/python/output).
 
 <p align="center">
   <img src="https://github.com/user-attachments/assets/5456d22e-e1b8-4575-a434-2843d274b32d" width="800">
 </p>
+
 
 
 
