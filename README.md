@@ -131,13 +131,13 @@ This model segments customers using the classic **Recency, Frequency, Monetary (
 - **Scope:** Last 12 months of transactions in the dataset are considered
 - Combined RFM score determines customer segments (*Champions*, *Loyal Customers*,*Potential Loyalists*, *At Risk*, *Lost*)
 
-🔗 **File:** [RFM Segmentation Model](https://github.com/Seyyed-Reza-Mashhadi/OLIST_Project/blob/master/olist/models/mart/BI_customer_rfm.sql)
+🔗 **File:** [RFM Segmentation Model](https://github.com/Seyyed-Reza-Mashhadi/OLIST_Project/blob/master/dbt_olist/models/mart/BI_customer_rfm.sql)
 
 **_Example 2: Cohort Analysis Model_**
 
 This model groups customers into **cohorts** based on their **first purchase date** and tracks **customer retention rate** and spending across time periods. It evaluates both individual cohort performance and weighted averages to reveal overall customer lifecycle trends.
 
-🔗 **File:** [Cohort Analysis Model](https://github.com/Seyyed-Reza-Mashhadi/OLIST_Project/blob/master/olist/models/mart/BI_customer_cohorts.sql)
+🔗 **File:** [Cohort Analysis Model](https://github.com/Seyyed-Reza-Mashhadi/OLIST_Project/blob/master/dbt_olist/models/mart/BI_customer_cohorts.sql)
 
 <p align="center"><i>Executing Cohort Analysis model build with dbt Core in VS Code</i></p>
 <p align="center">
@@ -434,11 +434,12 @@ Additional insights confirm this trend:
   - Only **~12.5% of customers** qualify as loyal or champion segments  
   - Most revenue comes from potential loyalists  
 
-Complete analytic summaries (JSON files) and AI-augmented reports with business recommendations (txt files) are available in [this folder](https://github.com/Seyyed-Reza-Mashhadi/OLIST_Project/tree/master/python/output).
+Complete analytic summaries (JSON files) and AI-augmented reports with business recommendations (txt files) are available in [this folder](https://github.com/Seyyed-Reza-Mashhadi/OLIST_Project/blob/master/python/output).
 
 <p align="center">
   <img src="https://github.com/user-attachments/assets/5456d22e-e1b8-4575-a434-2843d274b32d" width="800">
 </p>
+
 
 
 
