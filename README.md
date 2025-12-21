@@ -2,7 +2,6 @@
   <img src="https://github.com/user-attachments/assets/a2dd997e-ad75-46b7-a76e-018b6e9e5bde" width="2000">
 </p>
 
-
 # 🧩 Project Summary  
 
 This project demonstrates a **fully automated, end-to-end analytics and reporting platform** built on the Olist Brazilian E-commerce dataset:
@@ -440,6 +439,7 @@ Complete analytic summaries (JSON files) and AI-augmented reports with business 
 <p align="center">
   <img src="https://github.com/user-attachments/assets/5456d22e-e1b8-4575-a434-2843d274b32d" width="800">
 </p>
+
 
 
 
