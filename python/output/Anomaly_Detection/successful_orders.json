@@ -43,7 +43,7 @@
             "frequency": "Weekly",
             "metric_desc": "Total Successful Orders",
             "method": "IQR",
-            "limit_description": "IQR Limits: -707.50 to 2,926.50",
+            "limit_description": "IQR Limits: -709.38 to 2,927.62",
             "total_points": 92,
             "anomaly_count": 1,
             "anomalies": [

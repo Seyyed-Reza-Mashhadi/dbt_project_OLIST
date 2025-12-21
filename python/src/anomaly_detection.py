@@ -272,46 +272,49 @@ def perform_anomaly_detection(
 
 
 
+def run_anomaly_detection():
+    # IMPORT DATA & RUN ANOMALY DETECTION 
 
-# IMPORT DATA & RUN ANOMALY DETECTION 
+    PROJECT_ROOT = Path(__file__).resolve().parents[2] / "python" / "output" /"Anomaly_Detection"
 
-PROJECT_ROOT = Path(__file__).resolve().parents[2] / "python" / "outputs" /"Anomaly_Detection"
+    ###### Sales/Revenue Anomaly Detection for Successful Orders
 
-###### Sales/Revenue Anomaly Detection for Successful Orders
+    df1 = fetch_data_from_bq(q.GET_completed_daily_orders)  # only successful orders ('delivered', 'approved', 'shipped') (agg daily)
 
-df1 = fetch_data_from_bq(q.GET_completed_daily_orders)  # only successful orders ('delivered', 'approved', 'shipped') (agg daily)
+    perform_anomaly_detection(df=df1, value_col= 'total_daily_revenue', index_col= 'order_purchase_date',
+                            analysis_mode= 'TIME_AGGREGATED',
+                            metric_desc= 'Total Sales', frequencies= ['D', 'W'], method= 'IQR',
+                            output_path= PROJECT_ROOT / "sales.json")
 
-perform_anomaly_detection(df=df1, value_col= 'total_daily_revenue', index_col= 'order_purchase_date',
-                          analysis_mode= 'TIME_AGGREGATED',
-                          metric_desc= 'Total Sales', frequencies= ['D', 'W'], method= 'IQR',
-                          output_path= PROJECT_ROOT / "sales.json")
+    ###### Anomaly Detection for Successful Orders
 
-###### Anomaly Detection for Successful Orders
-
-perform_anomaly_detection(df=df1, value_col= 'total_daily_orders', index_col= 'order_purchase_date',
-                          analysis_mode= 'TIME_AGGREGATED',
-                          metric_desc= 'Total Successful Orders', frequencies= ['D', 'W'], method= 'IQR',
-                          output_path= PROJECT_ROOT / "successful_orders.json")
-
-
-###### Anomaly Detection for Canceled Orders
-
-df2 = fetch_data_from_bq(q.GET_canceled_daily_orders)  # only canceled orders
-
-perform_anomaly_detection(df=df2, value_col= 'total_daily_orders', index_col= 'order_purchase_date',
-                          analysis_mode= 'TIME_AGGREGATED',
-                          metric_desc= 'Total Order Cancellations', frequencies= ['D', 'W'], method= 'IQR',
-                          output_path= PROJECT_ROOT / "order_cancellations.json")
+    perform_anomaly_detection(df=df1, value_col= 'total_daily_orders', index_col= 'order_purchase_date',
+                            analysis_mode= 'TIME_AGGREGATED',
+                            metric_desc= 'Total Successful Orders', frequencies= ['D', 'W'], method= 'IQR',
+                            output_path= PROJECT_ROOT / "successful_orders.json")
 
 
-###### Anomaly Detection for delivery times (number of days between purchase and delivery)
+    ###### Anomaly Detection for Canceled Orders
 
-df3 = fetch_data_from_bq(q.GET_delivery_performance_with_time)  # delivery duration with time (only delivered orders)
+    df2 = fetch_data_from_bq(q.GET_canceled_daily_orders)  # only canceled orders
+
+    perform_anomaly_detection(df=df2, value_col= 'total_daily_orders', index_col= 'order_purchase_date',
+                            analysis_mode= 'TIME_AGGREGATED',
+                            metric_desc= 'Total Order Cancellations', frequencies= ['D', 'W'], method= 'IQR',
+                            output_path= PROJECT_ROOT / "order_cancellations.json")
 
 
-perform_anomaly_detection(df=df3, value_col= 'days_to_delivery', index_col= 'order_purchase_date',
-                          analysis_mode= 'DISTRIBUTIONAL',
-                          metric_desc= 'Delivery Duration in days', frequencies= ['D', 'W'], method= 'Z-Score',
-                          output_path= PROJECT_ROOT / "delivery_duration.json")
+    ###### Anomaly Detection for delivery times (number of days between purchase and delivery)
+
+    df3 = fetch_data_from_bq(q.GET_delivery_duration_time_series)  # delivery duration with time (only delivered orders)
 
 
+    perform_anomaly_detection(df=df3, value_col= 'days_to_delivery', index_col= 'order_purchase_date',
+                            analysis_mode= 'DISTRIBUTIONAL',
+                            metric_desc= 'Delivery Duration in days', frequencies= ['D', 'W'], method= 'Z-Score',
+                            output_path= PROJECT_ROOT / "delivery_duration.json")
+
+
+
+if __name__ == "__main__":
+    run_anomaly_detection()

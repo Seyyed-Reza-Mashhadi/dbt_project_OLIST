@@ -124,21 +124,24 @@ def save_qc_report(report: dict, path: str | Path):
 
 
 # Perform QC on all relevant dataframes (all raw data tables)
+def run_raw_data_qc():
+    PROJECT_ROOT = Path(__file__).resolve().parents[2]  # points to OLIST/
 
-PROJECT_ROOT = Path(__file__).resolve().parents[2]  # points to OLIST/
+    queries_to_process = {
+        # Output Name (Key) : SQL Query Variable (Value)
+        "CUSTOMERS": q.GET_CUSTOMERS,
+        "GEOLOCATION": q.GET_GEOLOCATION,
+        "ORDER_ITEMS": q.GET_ORDER_ITEMS,
+        "ORDER_PAYMENTS": q.GET_ORDER_PAYMENTS,
+        "ORDER_REVIEWS": q.GET_ORDER_REVIEWS,
+        "ORDERS": q.GET_ORDERS,
+        "PRODUCTS": q.GET_PRODUCTS,
+        "SELLERS": q.GET_SELLERS
+    }
 
-queries_to_process = {
-    # Output Name (Key) : SQL Query Variable (Value)
-    "CUSTOMERS": q.GET_CUSTOMERS,
-    "GEOLOCATION": q.GET_GEOLOCATION,
-    "ORDER_ITEMS": q.GET_ORDER_ITEMS,
-    "ORDER_PAYMENTS": q.GET_ORDER_PAYMENTS,
-    "ORDER_REVIEWS": q.GET_ORDER_REVIEWS,
-    "ORDERS": q.GET_ORDERS,
-    "PRODUCTS": q.GET_PRODUCTS,
-    "SELLERS": q.GET_SELLERS
-}
+    for df_clean_name, sql_query_name in queries_to_process.items():
+        qc = perform_data_qc(fetch_data_from_bq(sql_query_name), df_name=df_clean_name)
+        save_qc_report(qc, PROJECT_ROOT / "python" / "output" /"QC_Reports" / f"{df_clean_name}.json")
 
-for df_clean_name, sql_query_name in queries_to_process.items():
-    qc = perform_data_qc(fetch_data_from_bq(sql_query_name), df_name=df_clean_name)
-    save_qc_report(qc, PROJECT_ROOT / "python" / "outputs" /"QC_Reports" / f"{df_clean_name}.json")
+if __name__ == "__main__":
+    run_raw_data_qc()
