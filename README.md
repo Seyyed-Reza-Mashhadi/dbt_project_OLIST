@@ -300,13 +300,13 @@ OLIST/
 
 ## <img src="https://github.com/user-attachments/assets/6be46acc-a1c3-4b56-b0fd-f414da68f416" height="24" /> BigQuery connectivity & helpers — `utils.py` 
 
-- This module centralizes authentication, client initialization, and query execution for BigQuery.
+- This module **centralizes authentication, client initialization, and query execution** for BigQuery.
 - It ensures consistent configuration and reuse across all analytics modules.
 
 🔗 Code: [utils.py](https://github.com/Seyyed-Reza-Mashhadi/OLIST_Project/blob/master/python/src/utils.py)
 
 ## <img src="https://github.com/user-attachments/assets/5a40fcd3-a093-4cc3-911e-9704ab711bef" height="24" /> Analytics SQL queries — `sql_queries.py`
-- This is where all SQL queires (used in the python scripts for analytics) live.
+- This is where **all SQL queires** (used in the python scripts for analytics) live.
 
 🔗 Code: [sql_queries.py](https://github.com/Seyyed-Reza-Mashhadi/OLIST_Project/blob/master/python/src/sql_queries.py)
 
@@ -321,38 +321,53 @@ OLIST/
 
 ## <img src="https://github.com/user-attachments/assets/db342015-9fc8-447b-906b-0199f125f159" height="24" /> Detection of High/Low Anomalies In Data — `anomaly_detection.py` 
 
-- This module detects unusual behavior in key metrics (e.g. revenue spikes, sudden drops in order volume) using statistical techniques.
+- This module detects **unusual behavior in key metrics** (e.g. revenue spikes, sudden drops in order volume) using statistical techniques.
 - Two complementary methods are used:
     - **IQR**-based detection for skewed distributions
     - **Z-score** detection for approximately normal distributions
-- Detected anomalies are explicitly labeled, quantified, and exported as structured JSON artifacts.
+- Detected anomalies are explicitly labeled, quantified, and exported as structured JSON files.
 
 🔗 Code: [anomaly_detection.py](https://github.com/Seyyed-Reza-Mashhadi/OLIST_Project/blob/master/python/src/anomaly_detection.py)
 
 ## <img src="https://github.com/user-attachments/assets/b1c1f27b-14e7-444f-a612-7b3a24a47c42" height="24" /> KPI & analytical summaries — `analysis.py`
-- This module computes core business KPIs and analytical aggregates derived from dbt marts, such as revenue and order trends, Average Order Value (AOV), seller performance and so on.
+- This module **computes core business KPIs and analytical aggregates** derived from dbt marts, such as revenue and order trends, Average Order Value (AOV), seller performance and so on.
 - The output is a machine-readable JSON summary, designed specifically for downstream AI consumption and auditability.
 
 🔗 Code: [analysis.py](https://github.com/Seyyed-Reza-Mashhadi/OLIST_Project/blob/master/python/src/analysis.py)
 
 ## <img src="https://github.com/user-attachments/assets/a460faaa-642a-4523-a51b-92ef63d1a1d1" height="24" /> LLM-safe context construction — `context_builder.py`
-- This module does not call any LLMs. Its responsibility is to:
-  - Merge validated JSON outputs (QC, anomalies, KPI summaries)
-  - Normalize metrics and labels
-  - Construct a controlled, grounded analytical context for AI consumption
 
+- This module **does not call LLMs**: a text file containing structured business summaries and a fully specified LLM prompt.
+
+**Responsibilities**
+- Merge validated JSON outputs (QC, anomalies, KPIs), focusing on **summary-level insights** rather than full analytical outputs.
+- Normalize metrics, units, labels, and temporal granularity.
+- Resolve cross-source inconsistencies (e.g., naming conflicts, units, categorical labels).
+- Produce a **deterministic, structured prompt** specifying:
+  - The dataset description and available metrics
+  - The exact report sections the LLM should generate
+  - Formatting rules for outputs (tables, summaries, highlights)
+  - Instructions prohibiting hallucination or assumptions beyond the data
+
+**Design principles**
+- **Deterministic:** repeated runs produce the same structured prompt.
+- **Fully constrained:** ensures LLM output follows explicit instructions.
+- **Safe:** prevents unexpected or inconsistent responses from downstream AI modules.
+ 
 🔗 Code: [context_builder.py](https://github.com/Seyyed-Reza-Mashhadi/OLIST_Project/blob/master/python/src/context_builder.py)
 
 ## <img src="https://github.com/user-attachments/assets/2debcca9-4190-41e1-91b6-32643550af44" height="24" /> AI / LLM narrative generation — `ai_generator.py`  
-- This module consumes the context produced by `context_builder.py` and generates business-facing narrative reports using **OpenAI** <img src="https://github.com/user-attachments/assets/d41cb35d-a1d5-40c5-b731-40274850d27d" height="18" /> and **Google Gemini** <img src="https://github.com/user-attachments/assets/3e8b6bb5-38a3-4b20-86d6-e25fc7e30b72" height="18" />.
+- This module consumes the context produced by `context_builder.py` and generates business-facing narrative reports using 
 
-- Responsible AI / LLM practices by:
-  - Grounded inputs: LLMs receive only validated JSON summaries and constructed context — never raw tables.
-  - Strict prompt constraints: Prompts explicitly prohibit assumptions or hallucinations (e.g., “Do NOT hallucinate or assume data that is not present. Draw careful, logical interpretations grounded strictly in the provided data”
-  - Determinism: Low temperature and structured prompts minimize randomness.
-  - Auditability: All prompts, contexts, and AI outputs are saved to /outputs for traceability.
-  - Outputs from OpenAI and Gemini are provided for coherence and factual consistency.
+- **Orchestrates LLM API calls** using context from `context_builder.py`.  
+- Submit prompts to **OpenAI** <img src="https://github.com/user-attachments/assets/d41cb35d-a1d5-40c5-b731-40274850d27d" height="18" /> and **Google Gemini** <img src="https://github.com/user-attachments/assets/3e8b6bb5-38a3-4b20-86d6-e25fc7e30b72" height="18" />
+- Retrieves outputs and saves them as text files in the output directory
 
+**Safety**
+- LLMs receive only the **pre-constructed, deterministic prompts** with data analytical summaries — never raw tables or data.
+- Prompts explicitly **forbid hallucination** and require **reasoning strictly within the provided context**.
+- Structured prompts ensure **consistent report sections and output format**, reducing variability across runs.
+ 
 🔗 Code: [ai_generator.py](https://github.com/Seyyed-Reza-Mashhadi/OLIST_Project/blob/master/python/src/ai_generator.py)
 
 ## <img src="https://github.com/user-attachments/assets/171fd51d-b677-4946-83ae-0baf826b2dac" height="24" /> Pipeline orchestration — `run_all.py`
@@ -412,6 +427,7 @@ Complete analytic summaries (JSON files) and AI-augmented reports with business 
 <p align="center">
   <img src="https://github.com/user-attachments/assets/5456d22e-e1b8-4575-a434-2843d274b32d" width="800">
 </p>
+
 
 
 
