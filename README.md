@@ -31,7 +31,7 @@ OLIST/
 └─ ...
 ```
  
-# <img src="https://github.com/user-attachments/assets/b056cba3-26ac-4e20-bfef-64d7ab787d16" height="22" /> dbt: Data Testing & Transformation
+# <img src="https://github.com/user-attachments/assets/b056cba3-26ac-4e20-bfef-64d7ab787d16" height="26" /> dbt: Data Testing & Transformation
 
 The dbt component of this project was initially developed locally using **dbt-core** in **VS Code**, connected to **BigQuery** through a **service account key**. After completing the development, the **GitHub repository** was linked to **dbt Cloud** to execute transformations and explore the **dbt Catalog**. 
 
@@ -387,7 +387,7 @@ OLIST/
 ## <img src="https://github.com/user-attachments/assets/171fd51d-b677-4946-83ae-0baf826b2dac" height="22" /> Pipeline orchestration — `run_all.py`
 
 - This script orchestrates the entire analytics and AI pipeline, and enables one-click regeneration of insights.
-- A companion batch file (Run_Pipeline.bat) allows execution via double-click on Windows.
+- A companion batch file ([Run_Pipeline.bat](https://github.com/Seyyed-Reza-Mashhadi/dbt_project_OLIST/blob/master/Run_Pipeline.bat)) allows execution via double-click on Windows.
 
 🔗 Code: [run_all.py](https://github.com/Seyyed-Reza-Mashhadi/dbt_project_OLIST/blob/master/python/scripts/run_all.py)
 
@@ -440,6 +440,7 @@ Complete analytic summaries (JSON files) and AI-augmented reports with business 
 <p align="center">
   <img src="https://github.com/user-attachments/assets/5456d22e-e1b8-4575-a434-2843d274b32d" width="800">
 </p>
+
 
 
 
