@@ -70,11 +70,6 @@ SELECT * FROM `olist-ecommerce-1234321.mart.FACT_order_items`
 
 ### ADDITIONAL ANALYTICS QUERIES
 
-# total revenue vs. time (monthly), percent change ?
-# average monthly revenue, AOV, ABS 
-
-
-
 # Completed Orders - Daily Sales and Orders
 ## note that the accepted values in the Where caluse depends on the business definition of 'completed'
 GET_completed_daily_orders = """
