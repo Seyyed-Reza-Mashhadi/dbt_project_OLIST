@@ -313,7 +313,7 @@ OLIST/
 │  ├─ src/
 │  │  ├─ __init__.py
 │  │  ├─ utils.py                   # BigQuery connectivity & shared helpers
-│  │  ├─ queries.py                 # SQL queries referencing dbt marts
+│  │  ├─ sql_queries.py                 # SQL queries referencing dbt marts
 │  │  ├─ raw_data_qc.py             # High-level raw data QC (reporting only)
 │  │  ├─ anomaly_detection.py       # Statistical anomaly detection
 │  │  ├─ analysis.py                # KPI computation & analytical summaries
@@ -333,10 +333,10 @@ OLIST/
 
 🔗 Code: [utils.py](https://github.com/Seyyed-Reza-Mashhadi/OLIST_Project/blob/master/python/src/utils.py)
 
-## <img src="https://github.com/user-attachments/assets/5a40fcd3-a093-4cc3-911e-9704ab711bef" height="22" /> Analytics queries — `queries.py`
+## <img src="https://github.com/user-attachments/assets/5a40fcd3-a093-4cc3-911e-9704ab711bef" height="22" /> Analytics SQL queries — `sql_queries.py`
 - This is where all SQL queires (used in the python scripts for analytics) live.
 
-🔗 Code: [queries.py](https://github.com/Seyyed-Reza-Mashhadi/OLIST_Project/blob/master/python/src/queries.py)
+🔗 Code: [sql_queries.py](https://github.com/Seyyed-Reza-Mashhadi/OLIST_Project/blob/master/python/src/sql_queries.py)
 
 ## <img src="https://github.com/user-attachments/assets/ede013cf-7784-4668-97c6-c53b69009438" height="22" /> High-level QC summaries — `raw_data_qc.py`
 
@@ -439,6 +439,7 @@ Complete analytic summaries (JSON files) and AI-augmented reports with business 
 <p align="center">
   <img src="https://github.com/user-attachments/assets/5456d22e-e1b8-4575-a434-2843d274b32d" width="800">
 </p>
+
 
 
 
