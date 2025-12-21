@@ -2,7 +2,7 @@
   <img src="https://github.com/user-attachments/assets/a2dd997e-ad75-46b7-a76e-018b6e9e5bde" width="2000">
 </p>
 
-# 🧩 Project Summary  
+# 🧩 Introduction  
 
 This project demonstrates a **fully automated, end-to-end analytics and reporting platform** built on the Olist Brazilian E-commerce dataset:
 - Raw CSV files are loaded into **Google BigQuery**, where **dbt (Data Build Tool)** manages a **modular, tested, and version-controlled transformation** layer of the ELT workflow — including **data modeling**, **testing**, **documentation**, and **analytics readiness**.
@@ -24,9 +24,9 @@ OLIST/
 │  ├─ src/
 │  ├─ outputs/
 │  └─ ...
-├─ README.md                      # project documentation 
-├─ .env                           # service account & API keys (excluded from GitHub)
-├─ Run_Pipeline.bat               # one-click pipeline execution
+├─ README.md                      
+├─ .env                           # BigQuery service account + API keys (excluded from GitHub)
+├─ Run_Pipeline.bat               # Batch for pipeline execution
 └─ ...
 ```
  
@@ -95,8 +95,8 @@ In dbt, data transformation, testing, and documentation are tightly integrated r
 </p>
 
 
-### 🧱 Model Layers
-#### Overview
+## 🧱 Model Layers
+### Overview
 - **Staging Layer** – Renaming column names, standardize datatypes, etc. 
 - **Intermediate Layer** – Performs joins, aggregations, and logic transformations between staging and marts.
 - **Marts Layer** – Produces analytics-ready tables for reporting and BI, including both **star schema** models and **standalone analytical models** such as RFM segmentation, seller performance, and delivery reliability.
@@ -115,7 +115,7 @@ A **seed** CSV enriches the models with full province names (linked by province 
     {%- endif -%}
 {%- endmacro %}
 ```
-#### A Look Into the Mart Layer
+### A Look Into the Mart Layer
 The marts layer contains both dimensional and analytical models:
 - **Fact and Dimension Tables** – Form the basis of a star schema, including a `date` dimension table 
 - **standalone BI specific models:** Designed to answer concrete business questions and support dashboards (e.g., RFM segmentation, cohort retention, seller reliability).
@@ -195,7 +195,7 @@ The `not_negative` test ensures that numeric columns (e.g., `price`, `payment_va
 
 We implemented domain-specific singular tests to ensure business logic and data consistency. These tests highlight how **dbt enables rule-based data validation** beyond basic null checks. 
 
-#### Example 1: Coordinates validation
+**_Example: Coordinates validation_**
 
 - **Logic:** longitude and latitude ranges should be logical  
 - **Purpose:** Ensures data reliability for future BI illustrations in maps 
@@ -209,34 +209,6 @@ We implemented domain-specific singular tests to ensure business logic and data 
 SELECT latitude, longitude
 FROM {{ ref('STG_geolocation') }}
 WHERE latitude < -90 OR latitude > 90 OR longitude < -180 OR longitude > 180
-LIMIT 1000  -- Cap the materialization to avoid excessive data storing in case of widespread failures
-```
-
-#### Example 2: Payment consistency
-
-- **Logic:** For delivered/shipped/invoiced orders, aggregated payments = item price + freight  
-- **Purpose:** Ensures financial completeness & accuracy  
-- **Tolerance:** ±0.05 (to avoid rounding noise)  
-- **Severity:** ⚠️ `warn`
-- **Result:** ~258 mismatches were detected. Logically, this test should have an `error` severity to fail the run, but due to known data quirks (e.g., installment interest, taxes, etc.), it was set to `warn` to allow the pipeline to continue while still flagging potential issues.
-
-<p align="center"><i>`payment_test_1.sql`</i></p>
-
-```sql 
-{{ config(severity='warn', store_failures = true) }}  
-
-SELECT 
-    p.order_id,
-    p.payment_value,
-    (o.total_price + o.total_freight_value) AS expected_payment
-FROM {{ ref('INT_order_payments_agg') }} as p
-INNER JOIN {{ ref('INT_order_items_agg') }} as o 
-    ON p.order_id = o.order_id
-INNER JOIN {{ ref('STG_orders') }} as s
-    ON p.order_id = s.order_id
-WHERE 
-    s.order_status IN ('delivered', 'shipped', 'invoiced')
-    AND ABS(p.payment_value - (o.total_price + o.total_freight_value)) > 0.10 -- considering a small tolerance of 10 cents
 LIMIT 1000  -- Cap the materialization to avoid excessive data storing in case of widespread failures
 ```
 
@@ -274,7 +246,7 @@ seeds:
     brazil_states:
       file: seeds/brazil_states.csv
 ```
-**Key Features in dbt Cloud:**
+### Key Features in dbt Cloud
 - **Scheduled Jobs:** Automate builds (e.g., dbt build, dbt test) on a defined cadence or trigger via CI/CD.
 
 <p align="center">
@@ -313,7 +285,7 @@ OLIST/
 │  ├─ src/
 │  │  ├─ __init__.py
 │  │  ├─ utils.py                   # BigQuery connectivity & shared helpers
-│  │  ├─ sql_queries.py                 # SQL queries referencing dbt marts
+│  │  ├─ sql_queries.py             # SQL queries referencing dbt marts
 │  │  ├─ raw_data_qc.py             # High-level raw data QC (reporting only)
 │  │  ├─ anomaly_detection.py       # Statistical anomaly detection
 │  │  ├─ analysis.py                # KPI computation & analytical summaries
@@ -326,19 +298,19 @@ OLIST/
 │  └─ ...
 ```
 
-## <img src="https://github.com/user-attachments/assets/6be46acc-a1c3-4b56-b0fd-f414da68f416" height="22" /> BigQuery connectivity & helpers — `utils.py` 
+## <img src="https://github.com/user-attachments/assets/6be46acc-a1c3-4b56-b0fd-f414da68f416" height="24" /> BigQuery connectivity & helpers — `utils.py` 
 
 - This module centralizes authentication, client initialization, and query execution for BigQuery.
 - It ensures consistent configuration and reuse across all analytics modules.
 
 🔗 Code: [utils.py](https://github.com/Seyyed-Reza-Mashhadi/OLIST_Project/blob/master/python/src/utils.py)
 
-## <img src="https://github.com/user-attachments/assets/5a40fcd3-a093-4cc3-911e-9704ab711bef" height="22" /> Analytics SQL queries — `sql_queries.py`
+## <img src="https://github.com/user-attachments/assets/5a40fcd3-a093-4cc3-911e-9704ab711bef" height="24" /> Analytics SQL queries — `sql_queries.py`
 - This is where all SQL queires (used in the python scripts for analytics) live.
 
 🔗 Code: [sql_queries.py](https://github.com/Seyyed-Reza-Mashhadi/OLIST_Project/blob/master/python/src/sql_queries.py)
 
-## <img src="https://github.com/user-attachments/assets/ede013cf-7784-4668-97c6-c53b69009438" height="22" /> High-level QC summaries — `raw_data_qc.py`
+## <img src="https://github.com/user-attachments/assets/ede013cf-7784-4668-97c6-c53b69009438" height="24" /> High-level QC summaries — `raw_data_qc.py`
 
 - This module performs **lightweight, descriptive quality checks** on raw tables (null counts, duplicates, basic distributions) and exports the results as JSON summaries.
 - **Important Notes:**
@@ -347,7 +319,7 @@ OLIST/
 
 🔗 Code: [raw_data_qc.py](https://github.com/Seyyed-Reza-Mashhadi/OLIST_Project/blob/master/python/src/raw_data_qc.py)
 
-## <img src="https://github.com/user-attachments/assets/c1c6b48c-83ab-4290-b6db-5825d4e01826" height="22" /> Detection of High/Low Anomalies In Data — `anomaly_detection.py` 
+## <img src="https://github.com/user-attachments/assets/db342015-9fc8-447b-906b-0199f125f159" height="24" /> Detection of High/Low Anomalies In Data — `anomaly_detection.py` 
 
 - This module detects unusual behavior in key metrics (e.g. revenue spikes, sudden drops in order volume) using statistical techniques.
 - Two complementary methods are used:
@@ -357,13 +329,13 @@ OLIST/
 
 🔗 Code: [anomaly_detection.py](https://github.com/Seyyed-Reza-Mashhadi/OLIST_Project/blob/master/python/src/anomaly_detection.py)
 
-## <img src="https://github.com/user-attachments/assets/b1c1f27b-14e7-444f-a612-7b3a24a47c42" height="22" /> KPI & analytical summaries — `analysis.py`
+## <img src="https://github.com/user-attachments/assets/b1c1f27b-14e7-444f-a612-7b3a24a47c42" height="24" /> KPI & analytical summaries — `analysis.py`
 - This module computes core business KPIs and analytical aggregates derived from dbt marts, such as revenue and order trends, Average Order Value (AOV), seller performance and so on.
 - The output is a machine-readable JSON summary, designed specifically for downstream AI consumption and auditability.
 
 🔗 Code: [analysis.py](https://github.com/Seyyed-Reza-Mashhadi/OLIST_Project/blob/master/python/src/analysis.py)
 
-## <img src="https://github.com/user-attachments/assets/a460faaa-642a-4523-a51b-92ef63d1a1d1" height="22" /> LLM-safe context construction — `context_builder.py`
+## <img src="https://github.com/user-attachments/assets/a460faaa-642a-4523-a51b-92ef63d1a1d1" height="24" /> LLM-safe context construction — `context_builder.py`
 - This module does not call any LLMs. Its responsibility is to:
   - Merge validated JSON outputs (QC, anomalies, KPI summaries)
   - Normalize metrics and labels
@@ -371,7 +343,7 @@ OLIST/
 
 🔗 Code: [context_builder.py](https://github.com/Seyyed-Reza-Mashhadi/OLIST_Project/blob/master/python/src/context_builder.py)
 
-## <img src="https://github.com/user-attachments/assets/2debcca9-4190-41e1-91b6-32643550af44" height="22" /> AI / LLM narrative generation — `ai_generator.py`  
+## <img src="https://github.com/user-attachments/assets/2debcca9-4190-41e1-91b6-32643550af44" height="24" /> AI / LLM narrative generation — `ai_generator.py`  
 - This module consumes the context produced by `context_builder.py` and generates business-facing narrative reports using **OpenAI** <img src="https://github.com/user-attachments/assets/d41cb35d-a1d5-40c5-b731-40274850d27d" height="18" /> and **Google Gemini** <img src="https://github.com/user-attachments/assets/3e8b6bb5-38a3-4b20-86d6-e25fc7e30b72" height="18" />.
 
 - Responsible AI / LLM practices by:
@@ -383,7 +355,7 @@ OLIST/
 
 🔗 Code: [ai_generator.py](https://github.com/Seyyed-Reza-Mashhadi/OLIST_Project/blob/master/python/src/ai_generator.py)
 
-## <img src="https://github.com/user-attachments/assets/171fd51d-b677-4946-83ae-0baf826b2dac" height="22" /> Pipeline orchestration — `run_all.py`
+## <img src="https://github.com/user-attachments/assets/171fd51d-b677-4946-83ae-0baf826b2dac" height="24" /> Pipeline orchestration — `run_all.py`
 
 - This script orchestrates the entire analytics and AI pipeline, and enables one-click regeneration of insights.
 - A companion batch file ([Run_Pipeline.bat](https://github.com/Seyyed-Reza-Mashhadi/OLIST_Project/blob/master/Run_Pipeline.bat)) allows execution via double-click on Windows.
@@ -399,6 +371,7 @@ OLIST/
 
 - Import AI-augmented report to Power BI to the AI narrative page in Power BI.
 
+<p align="center"><i>AI-generated report in Power BI</i></p>
 <p align="center">
   <img src="https://github.com/user-attachments/assets/455dbded-296f-4bf1-b66f-2427a50bf217" width="700">
 </p>
@@ -439,6 +412,7 @@ Complete analytic summaries (JSON files) and AI-augmented reports with business 
 <p align="center">
   <img src="https://github.com/user-attachments/assets/5456d22e-e1b8-4575-a434-2843d274b32d" width="800">
 </p>
+
 
 
 
